@@ -66,15 +66,15 @@ class Bird:
                 self.tilt -= self.ROT_VEL
 
     def update(self, pipes):
-        self.move()
-        self.ge.fitness += 0.1
-
         for pipe in pipes:
-            if pipe.x > self.x:
-                self.pipe_x = pipe.x
+            if pipe.x + pipe.PIPE_TOP.get_width() > self.x:
+                self.pipe_x = pipe.x + (pipe.PIPE_TOP.get_width() / 2)
                 self.pipe_height = pipe.height
                 self.pipe_bottom = pipe.bottom
                 break
+
+        self.move()
+        self.ge.fitness += 0.1
 
         dist_to_top_pipe = abs(self.y - self.pipe_height)
         dist_to_bottom_pipe = abs(self.y - self.pipe_bottom)
@@ -105,15 +105,18 @@ class Bird:
         rotated_image = pygame.transform.rotate(self.img, self.tilt)
         new_rect = rotated_image.get_rect(center=self.img.get_rect(topleft=(self.x, self.y)).center)
         win.blit(rotated_image, new_rect.topleft)
-        pygame.draw.line(win, (255, 0, 0), (self.x, self.y), (self.pipe_x, self.pipe_height), 5)
-        pygame.draw.line(win, (255, 0, 0), (self.x, self.y), (self.pipe_x, self.pipe_bottom), 5)
+
+        face_x = self.x + self.img.get_width()
+        face_y = self.y + (self.img.get_height() / 2)
+        pygame.draw.line(win, (255, 0, 0), (face_x, face_y), (self.pipe_x, self.pipe_height), 5)
+        pygame.draw.line(win, (255, 0, 0), (face_x, face_y), (self.pipe_x, self.pipe_bottom), 5)
 
     def get_mask(self):
         return pygame.mask.from_surface(self.img)
 
 
 class Pipe:
-    GAP = 200
+    GAP = 250
     VEL = 5
 
     def __init__(self, x):

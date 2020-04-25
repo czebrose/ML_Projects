@@ -9,6 +9,7 @@ from flappygame import Bird, Pipe, Base
 
 
 def main(genomes, config):
+    show_win = False
     birds = []
 
     for _, g in genomes:
@@ -18,19 +19,23 @@ def main(genomes, config):
 
     base = Base(730)
     pipes = [Pipe(700)]
-    win = pygame.display.set_mode((flappygame.WIN_WIDTH, flappygame.WIN_HEIGHT))
-    clock = pygame.time.Clock()
+    win = None
+    clock = None
+    if show_win:
+        win = pygame.display.set_mode((flappygame.WIN_WIDTH, flappygame.WIN_HEIGHT))
+        clock = pygame.time.Clock()
     run = True
 
     score = 0
 
     while run:
-        clock.tick(60)
-        for event in pygame.event.get():
-            if event.type == pygame.QUIT:
-                run = False
-                pygame.quit()
-                quit()
+        if show_win:
+            clock.tick(30)
+            for event in pygame.event.get():
+                if event.type == pygame.QUIT:
+                    run = False
+                    pygame.quit()
+                    quit()
 
         if len(birds) <= 0:
             run = False
@@ -51,7 +56,8 @@ def main(genomes, config):
             break
 
         base.move()
-        flappygame.draw_window(win, birds, pipes, base, score)
+        if show_win:
+            flappygame.draw_window(win, birds, pipes, base, score)
 
 
 def run(config_path):
