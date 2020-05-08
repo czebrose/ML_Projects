@@ -10,12 +10,15 @@ class Direction(Enum):
 
 
 class Location:
-    neighbors = {
-        Direction.NORTH: None,
-        Direction.SOUTH: None,
-        Direction.EAST: None,
-        Direction.WEST: None
-    }
+    def __init__(self, x, y):
+        self.x = x
+        self.y = y
+        self.neighbors = {
+            Direction.NORTH: None,
+            Direction.SOUTH: None,
+            Direction.EAST: None,
+            Direction.WEST: None
+        }
 
     def add_neighbor(self, direction, neighbor, set_neighbor=True):
         self.neighbors[direction] = neighbor
