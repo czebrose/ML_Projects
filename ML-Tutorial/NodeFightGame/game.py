@@ -20,6 +20,10 @@ def check_input():
 
 
 def collect_gold(global_map, player_gold):
+    for col in global_map:
+        for location in col:
+            if isinstance(location, Node):
+                player_gold = location.collect_gold(player_gold)
     return player_gold
 
 

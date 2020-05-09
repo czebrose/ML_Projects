@@ -1,4 +1,5 @@
 from enum import Enum
+from node import Unit
 
 
 class Direction(Enum):
@@ -19,6 +20,7 @@ class Location:
             Direction.EAST: None,
             Direction.WEST: None
         }
+        self.unit_in_node = None
 
     def add_neighbor(self, direction, neighbor, set_neighbor=True):
         self.neighbors[direction] = neighbor
