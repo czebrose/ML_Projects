@@ -76,8 +76,9 @@ class Node(Location):
         else:
             win.blit(NEUTRAL_NODE_IMG, (pixel_x, pixel_y))
         if self.building == Building.HOME:
-            print(self.building)
             win.blit(HOME_BUILDING_IMG, (pixel_x, pixel_y))
         if self.unit_in_node == Unit.PIKEMAN:
-            print(self.unit_in_node)
-            win.blit(PIKEMAN_UNIT_IMG, (pixel_x, pixel_y))
+            if self.owner == Player.RED:
+                win.blit(RED_PIKEMAN_UNIT_IMG, (pixel_x, pixel_y))
+            if self.owner == Player.BLUE:
+                win.blit(BLUE_PIKEMAN_UNIT_IMG, (pixel_x, pixel_y))
