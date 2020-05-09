@@ -3,8 +3,8 @@ import util
 from location import Location, Direction
 
 
-NORTH_SOUTH_ROAD_EMPTY_IMG = util.load_img("northsouth_road_empty.png")
-EAST_WEST_ROAD_EMPTY_IMG = util.load_img("eastwest_road_empty.png")
+NORTH_SOUTH_ROAD_EMPTY_IMG = util.load_img("road_northsouth.png")
+EAST_WEST_ROAD_EMPTY_IMG = util.load_img("road_eastwest.png")
 
 
 class Road(Location):

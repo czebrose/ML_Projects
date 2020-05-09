@@ -1,6 +1,7 @@
 import pygame
 import io
-from node import Node
+import util
+from node import Node, Player, Building
 from road import Road
 from location import Direction
 
@@ -22,19 +23,23 @@ def collect_gold(global_map, player_gold):
     return player_gold
 
 
-def fight():
-    pass
+def fight(global_map):
+    return global_map
 
 
-def spawn_units():
-    pass
+def spawn_units(global_map, player_gold):
+    for col in global_map:
+        for location in col:
+            if isinstance(location, Node):
+                player_gold = location.attempt_spawn(player_gold)
+    return global_map, player_gold
 
 
-def move_units():
-    pass
+def move_units(global_map):
+    return global_map
 
 
-def draw(global_map, win):
+def draw(global_map, win, player_gold):
     for map_row in global_map:
         for location in map_row:
             if location:
@@ -49,8 +54,8 @@ def build_map():
     x_index = 0
     y_index = 0
     for c in map_file_contents:
-        if c == 'N':
-            node = Node(x_index, y_index)
+        if c == 'N' or c == 'B' or c == 'R':
+            node = Node(x_index, y_index, c)
             new_map[x_index].append(node)
             y_index += 1
         elif c == '+':
@@ -78,16 +83,20 @@ def build_map():
     return new_map
 
 
-global_map = build_map()
-player_gold = [0, 0]
-win = pygame.display.set_mode((WIN_WIDTH, WIN_HEIGHT))
-clock = pygame.time.Clock()
-run = True
-while run:
-    clock.tick(60)
-    run = check_input()
-    player_gold = collect_gold(global_map, player_gold)
-    fight()
-    spawn_units()
-    move_units()
-    draw(global_map, win)
+def main():
+    global_map = build_map()
+    player_gold = {Player.NEUTRAL: 0, Player.BLUE: 10, Player.RED: 10}
+    win = pygame.display.set_mode((WIN_WIDTH, WIN_HEIGHT))
+    clock = pygame.time.Clock()
+    run = True
+    while run:
+        clock.tick(60)
+        run = check_input()
+        player_gold = collect_gold(global_map, player_gold)
+        global_map = fight(global_map)
+        global_map, player_gold = spawn_units(global_map, player_gold)
+        global_map = move_units(global_map)
+        draw(global_map, win, player_gold)
+
+
+main()
