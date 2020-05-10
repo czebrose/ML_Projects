@@ -53,6 +53,10 @@ def move_units(global_map):
     for col in global_map:
         for location in col:
             if location is not None:
+                location.resolve_passing_conflicts()
+    for col in global_map:
+        for location in col:
+            if location is not None:
                 location.accept_unit()
     return global_map
 
@@ -109,12 +113,12 @@ def main():
     clock = pygame.time.Clock()
     run = True
     while run:
-        clock.tick(60)
+        clock.tick(2)
         run = check_input()
         player_gold = collect_gold(global_map, player_gold)
         global_map = fight(global_map)
-        global_map, player_gold = spawn_units(global_map, player_gold)
         global_map = move_units(global_map)
+        global_map, player_gold = spawn_units(global_map, player_gold)
         draw(global_map, win, player_gold)
 
 

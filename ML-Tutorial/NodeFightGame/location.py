@@ -22,7 +22,6 @@ class Location:
             Direction.WEST: None
         }
         self.unit_in_loc = None
-        self.unit_expected_to_move = False
         self.expected_units = []
 
     def add_neighbor(self, direction, neighbor, set_neighbor=True):
@@ -59,7 +58,6 @@ class Location:
         if neighbor is None:
             return
         neighbor.expected_units.append((self.unit_in_loc, self))
-        self.unit_expected_to_move = True
 
     def resolve_move_conflicts(self):
         if len(self.expected_units) > 1:
@@ -69,7 +67,7 @@ class Location:
                 if index is not accept_index:
                     unit, loc = self.expected_units[index]
                     blocked_locations.append(loc)
-            self.expected_units = [self.expected_units[index]]
+            self.expected_units = [self.expected_units[accept_index]]
             self.resolve_blocked_locations(blocked_locations)
 
     @staticmethod
@@ -81,7 +79,21 @@ class Location:
                     blocked_locations.append(blocked_loc)
                 popped_loc.expected_units = []
 
+    def resolve_passing_conflicts(self):
+        if len(self.expected_units) >= 1 and self.unit_in_loc is not None:
+            exp_unit_a, exp_loc_a = self.expected_units[0]
+            if len(exp_loc_a.expected_units) >= 1:
+                exp_unit_b, exp_loc_b = exp_loc_a.expected_units[0]
+                if self.unit_in_loc is exp_unit_b and self is exp_loc_b:
+                    exp_loc_a.expected_units = []
+                    self.expected_units = []
+
     def accept_unit(self):
         if len(self.expected_units) >= 1:
-            self.unit_in_loc = self.expected_units[0][0]
+            unit, loc = self.expected_units[0]
+            for direction in loc.neighbors:
+                if self is loc.neighbors[direction]:
+                    unit.direction = direction
+            self.unit_in_loc = unit
+            loc.unit_in_loc = None
             self.expected_units = []
