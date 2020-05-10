@@ -1,8 +1,9 @@
 import pygame
 from enum import Enum
 import util
+from util import Direction
 from unit import Unit, UnitType
-from location import Location, Direction
+from location import Location
 from player import PlayerColor
 
 

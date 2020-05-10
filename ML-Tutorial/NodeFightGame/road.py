@@ -1,6 +1,7 @@
 import pygame
 import util
-from location import Location, Direction
+from util import Direction
+from location import Location
 from node import Node
 
 

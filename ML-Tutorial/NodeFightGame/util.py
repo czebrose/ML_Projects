@@ -1,5 +1,6 @@
 import pygame
 import os
+from enum import Enum
 
 
 SPAWN_DELAY = 5
@@ -11,6 +12,14 @@ HOME_GOLD_PRODUCTION = 50
 MIND_GOLD_PRODUCTION = 30
 
 NODE_WIDTH = 50
+
+
+class Direction(Enum):
+    ERROR = -1
+    NORTH = 0
+    SOUTH = 1
+    EAST = 2
+    WEST = 3
 
 
 def load_img(img_name):

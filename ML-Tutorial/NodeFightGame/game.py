@@ -1,10 +1,10 @@
 import pygame
 import io
 import util
+from util import Direction
 from player import PlayerColor, PlayerInput
 from node import Node, Building
 from road import Road
-from location import Direction
 
 
 WIN_WIDTH = 500

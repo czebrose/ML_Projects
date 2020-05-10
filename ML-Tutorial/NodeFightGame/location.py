@@ -1,14 +1,5 @@
 import random
-from enum import Enum
-from node import Unit
-
-
-class Direction(Enum):
-    ERROR = -1
-    NORTH = 0
-    SOUTH = 1
-    EAST = 2
-    WEST = 3
+from util import Direction
 
 
 class Location:
@@ -61,26 +52,32 @@ class Location:
         if neighbor is None:
             return
         neighbor.expected_units.append((self.unit_in_loc, self))
+        self.unit_in_loc = None
 
     def resolve_move_conflicts(self):
-        if len(self.expected_units) > 1:
-            accept_index = random.randint(0, len(self.expected_units)-1)
-            blocked_locations = []
-            for index in range(0, len(self.expected_units)):
-                if index is not accept_index:
-                    unit, loc = self.expected_units[index]
-                    blocked_locations.append(loc)
-            self.expected_units = [self.expected_units[accept_index]]
-            self.resolve_blocked_locations(blocked_locations)
+        accept_index = -1
+        accepted_unit = None
+        if self.unit_in_loc is None and len(self.expected_units) > 0:
+            accept_index = random.randint(0, len(self.expected_units) - 1)
+            accepted_unit = self.expected_units[accept_index]
+        blocked_units = []
+        for index in range(0, len(self.expected_units)):
+            if index is not accept_index:
+                blocked_units.append(self.expected_units[index])
+        self.expected_units = []
+        if accepted_unit:
+            self.expected_units.append(accepted_unit)
+        self.resolve_blocked_locations(blocked_units)
 
     @staticmethod
-    def resolve_blocked_locations(blocked_locations):
-        while len(blocked_locations) > 0:
-            popped_loc = blocked_locations.pop(0)
-            if len(popped_loc.expected_units) > 0:
-                for blocked_unit, blocked_loc in popped_loc.expected_units:
-                    blocked_locations.append(blocked_loc)
-                popped_loc.expected_units = []
+    def resolve_blocked_locations(blocked_units):
+        while len(blocked_units) > 0:
+            unit, loc = blocked_units.pop(0)
+            if len(loc.expected_units) > 0:
+                for blocked_unit in loc.expected_units:
+                    blocked_units.append(blocked_unit)
+            loc.unit_in_loc = unit
+            loc.expected_units = []
 
     def resolve_passing_conflicts(self):
         if len(self.expected_units) >= 1 and self.unit_in_loc is not None:
@@ -98,5 +95,4 @@ class Location:
                 if self is loc.neighbors[direction]:
                     unit.direction = direction
             self.unit_in_loc = unit
-            loc.unit_in_loc = None
             self.expected_units = []
