@@ -1,7 +1,7 @@
 import pygame
 import util
 from enum import Enum
-from player import Player
+from player import PlayerColor
 
 
 BLUE_PIKEMAN_UNIT_IMG = util.load_img("unit_pikeman_blue.png")
@@ -28,7 +28,7 @@ class Unit:
 
     def draw(self, win, pos):
         if self.unit_type == UnitType.PIKEMAN:
-            if self.owner == Player.RED:
+            if self.owner == PlayerColor.RED:
                 win.blit(RED_PIKEMAN_UNIT_IMG, pos)
-            if self.owner == Player.BLUE:
+            if self.owner == PlayerColor.BLUE:
                 win.blit(BLUE_PIKEMAN_UNIT_IMG, pos)

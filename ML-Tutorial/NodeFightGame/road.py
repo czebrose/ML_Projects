@@ -9,12 +9,12 @@ EAST_WEST_ROAD_EMPTY_IMG = util.load_img("road_eastwest.png")
 
 
 class Road(Location):
-    def get_direction(self):
+    def get_direction(self, owner):
         if self.unit_in_loc is None:
             return None
         unit_direction = self.unit_in_loc.direction
-        start_node_direction = self.get_node_direction(unit_direction)
-        end_node_direction = self.get_node_direction(Location.reverse_direction(unit_direction))
+        start_node_direction = self.get_node_direction(unit_direction, owner)
+        end_node_direction = self.get_node_direction(Location.reverse_direction(unit_direction), owner)
 
         dir_options = []
         if unit_direction is not None:
@@ -42,15 +42,15 @@ class Road(Location):
             else:
                 return start_node_direction
 
-    def get_node_direction(self, direction):
+    def get_node_direction(self, direction, owner):
         n = self.neighbors[direction]
         if n is None:
             return None
         if isinstance(n, Road):
-            return n.get_node_direction(direction)
+            return n.get_node_direction(direction, owner)
         if isinstance(n, Node):
             rev_direction = Location.reverse_direction(direction)
-            if n.exit_direction == rev_direction:
+            if n.exit_direction[owner] == rev_direction:
                 return rev_direction
             else:
                 return direction

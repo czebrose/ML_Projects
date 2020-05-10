@@ -1,7 +1,8 @@
 import pygame
 import io
 import util
-from node import Node, Player, Building
+from player import PlayerColor, PlayerInput
+from node import Node, Building
 from road import Road
 from location import Direction
 
@@ -12,33 +13,35 @@ WIN_HEIGHT = 500
 BACKGROUND_IMG = util.load_img("background.png")
 
 
-def check_input():
+def check_input(global_map, players):
     for event in pygame.event.get():
         if event.type == pygame.QUIT:
             pygame.quit()
             quit()
-            return False
-    return True
+            return False, global_map, players
+    for p in players:
+        global_map = players[p].check_input(global_map)
+    return True, global_map, players
 
 
-def collect_gold(global_map, player_gold):
+def collect_gold(global_map, players):
     for col in global_map:
         for location in col:
             if isinstance(location, Node):
-                player_gold = location.collect_gold(player_gold)
-    return player_gold
+                players = location.collect_gold(players)
+    return players
 
 
 def fight(global_map):
     return global_map
 
 
-def spawn_units(global_map, player_gold):
+def spawn_units(global_map, players):
     for col in global_map:
         for location in col:
             if isinstance(location, Node):
-                player_gold = location.attempt_spawn(player_gold)
-    return global_map, player_gold
+                player_gold = location.attempt_spawn(players)
+    return global_map, players
 
 
 def move_units(global_map):
@@ -61,12 +64,14 @@ def move_units(global_map):
     return global_map
 
 
-def draw(global_map, win, player_gold):
+def draw(global_map, win, players):
     win.blit(BACKGROUND_IMG, (0,0))
     for map_row in global_map:
         for location in map_row:
             if location:
                 location.draw(win)
+    for p in players:
+        players[p].draw(win)
     pygame.display.update()
 
 
@@ -108,18 +113,22 @@ def build_map():
 
 def main():
     global_map = build_map()
-    player_gold = {Player.NEUTRAL: 0, Player.BLUE: 10, Player.RED: 10}
+    players = {
+        PlayerColor.NEUTRAL: PlayerInput(PlayerColor.NEUTRAL),
+        PlayerColor.BLUE: PlayerInput(PlayerColor.BLUE),
+        PlayerColor.RED: PlayerInput(PlayerColor.RED)
+    }
     win = pygame.display.set_mode((WIN_WIDTH, WIN_HEIGHT))
     clock = pygame.time.Clock()
     run = True
     while run:
         clock.tick(2)
-        run = check_input()
-        player_gold = collect_gold(global_map, player_gold)
+        run, global_map, players = check_input(global_map, players)
+        players = collect_gold(global_map, players)
         global_map = fight(global_map)
         global_map = move_units(global_map)
-        global_map, player_gold = spawn_units(global_map, player_gold)
-        draw(global_map, win, player_gold)
+        global_map, players = spawn_units(global_map, players)
+        draw(global_map, win, players)
 
 
 main()

@@ -48,10 +48,13 @@ class Location:
     def get_direction(self):
         return Direction.ERROR
 
+    def check_click(self, x, y):
+        return False
+
     def notify_move_target(self):
         if self.unit_in_loc is None:
             return
-        direction = self.get_direction()
+        direction = self.get_direction(self.unit_in_loc.owner)
         if direction is None:
             return
         neighbor = self.neighbors[direction]
