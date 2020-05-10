@@ -9,6 +9,8 @@ from location import Direction
 WIN_WIDTH = 500
 WIN_HEIGHT = 500
 
+BACKGROUND_IMG = util.load_img("background.png")
+
 
 def check_input():
     for event in pygame.event.get():
@@ -40,10 +42,23 @@ def spawn_units(global_map, player_gold):
 
 
 def move_units(global_map):
+    for col in global_map:
+        for location in col:
+            if location is not None:
+                location.notify_move_target()
+    for col in global_map:
+        for location in col:
+            if location is not None:
+                location.resolve_move_conflicts()
+    for col in global_map:
+        for location in col:
+            if location is not None:
+                location.accept_unit()
     return global_map
 
 
 def draw(global_map, win, player_gold):
+    win.blit(BACKGROUND_IMG, (0,0))
     for map_row in global_map:
         for location in map_row:
             if location:

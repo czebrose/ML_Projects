@@ -3,6 +3,7 @@ from enum import Enum
 import util
 from unit import Unit, UnitType
 from location import Location, Direction
+from player import Player
 
 
 RED_NODE_IMG = util.load_img("node_red.png")
@@ -15,20 +16,6 @@ NODE_EXIT_WEST_IMG = util.load_img("node_exit_west.png")
 NODE_EXIT_EAST_IMG = util.load_img("node_exit_east.png")
 
 HOME_BUILDING_IMG = util.load_img("building_home.png")
-
-BLUE_PIKEMAN_UNIT_IMG = util.load_img("unit_pikeman_blue.png")
-RED_PIKEMAN_UNIT_IMG = util.load_img("unit_pikeman_red.png")
-BLUE_ARCHER_UNIT_IMG = util.load_img("unit_archer_blue.png")
-RED_ARCHER_UNIT_IMG = util.load_img("unit_archer_red.png")
-BLUE_KNIGHT_UNIT_IMG = util.load_img("unit_knight_blue.png")
-RED_KNIGHT_UNIT_IMG = util.load_img("unit_knight_red.png")
-
-
-class Player(Enum):
-    ERROR = -1
-    NEUTRAL = 0
-    BLUE = 1
-    RED = 2
 
 
 class Building(Enum):
@@ -69,11 +56,19 @@ class Node(Location):
     def attempt_spawn(self, player_gold):
         if self.spawn_timer > 0:
             self.spawn_timer -= 1
-        elif self.unit_in_node is None and player_gold[self.owner] >= util.UNIT_COST:
-            self.unit_in_node = Unit(self.spawn_type, self.owner)
+        elif self.unit_in_loc is None and player_gold[self.owner] >= util.UNIT_COST:
+            self.unit_in_loc = Unit(self.spawn_type, self.owner, self.exit_direction)
             self.spawn_timer = util.SPAWN_DELAY
             player_gold[self.owner] -= util.UNIT_COST
         return player_gold
+
+    def get_direction(self):
+        return self.exit_direction
+
+    def accept_unit(self):
+        Location.accept_unit(self)
+        if self.unit_in_loc is not None:
+            self.unit_in_loc.direction = self.exit_direction
 
     def draw_node(self, win, pos):
         if self.owner == Player.RED:
@@ -98,11 +93,8 @@ class Node(Location):
             win.blit(HOME_BUILDING_IMG, pos)
 
     def draw_unit(self, win, pos):
-        if self.unit_in_node is not None and self.unit_in_node.unit_type == UnitType.PIKEMAN:
-            if self.owner == Player.RED:
-                win.blit(RED_PIKEMAN_UNIT_IMG, pos)
-            if self.owner == Player.BLUE:
-                win.blit(BLUE_PIKEMAN_UNIT_IMG, pos)
+        if self.unit_in_loc is not None:
+            self.unit_in_loc.draw(win, pos)
 
     def draw(self, win):
         pixel_x = self.x * 50

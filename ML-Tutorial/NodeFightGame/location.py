@@ -1,3 +1,4 @@
+import random
 from enum import Enum
 from node import Unit
 
@@ -20,7 +21,9 @@ class Location:
             Direction.EAST: None,
             Direction.WEST: None
         }
-        self.unit_in_node = None
+        self.unit_in_loc = None
+        self.unit_expected_to_move = False
+        self.expected_units = []
 
     def add_neighbor(self, direction, neighbor, set_neighbor=True):
         self.neighbors[direction] = neighbor
@@ -42,3 +45,43 @@ class Location:
         if direction == Direction.WEST:
             return Direction.EAST
         return Direction.ERROR
+
+    def get_direction(self):
+        return Direction.ERROR
+
+    def notify_move_target(self):
+        if self.unit_in_loc is None:
+            return
+        direction = self.get_direction()
+        if direction is None:
+            return
+        neighbor = self.neighbors[direction]
+        if neighbor is None:
+            return
+        neighbor.expected_units.append((self.unit_in_loc, self))
+        self.unit_expected_to_move = True
+
+    def resolve_move_conflicts(self):
+        if len(self.expected_units) > 1:
+            accept_index = random.randint(0, len(self.expected_units)-1)
+            blocked_locations = []
+            for index in range(0, len(self.expected_units)):
+                if index is not accept_index:
+                    unit, loc = self.expected_units[index]
+                    blocked_locations.append(loc)
+            self.expected_units = [self.expected_units[index]]
+            self.resolve_blocked_locations(blocked_locations)
+
+    @staticmethod
+    def resolve_blocked_locations(blocked_locations):
+        while len(blocked_locations) > 0:
+            popped_loc = blocked_locations.pop(0)
+            if len(popped_loc.expected_units) > 0:
+                for blocked_unit, blocked_loc in popped_loc.expected_units:
+                    blocked_locations.append(blocked_loc)
+                popped_loc.expected_units = []
+
+    def accept_unit(self):
+        if len(self.expected_units) >= 1:
+            self.unit_in_loc = self.expected_units[0][0]
+            self.expected_units = []
