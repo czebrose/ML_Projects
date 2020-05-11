@@ -4,11 +4,6 @@
     <list default="true" id="99563883-c084-4d4d-9a8d-8d9cfba71ea7" name="Default Changelist" comment="">
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/NodeFightGame/game.py" beforeDir="false" afterPath="$PROJECT_DIR$/NodeFightGame/game.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/NodeFightGame/location.py" beforeDir="false" afterPath="$PROJECT_DIR$/NodeFightGame/location.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/NodeFightGame/node.py" beforeDir="false" afterPath="$PROJECT_DIR$/NodeFightGame/node.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/NodeFightGame/player.py" beforeDir="false" afterPath="$PROJECT_DIR$/NodeFightGame/player.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/NodeFightGame/road.py" beforeDir="false" afterPath="$PROJECT_DIR$/NodeFightGame/road.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/NodeFightGame/util.py" beforeDir="false" afterPath="$PROJECT_DIR$/NodeFightGame/util.py" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -185,38 +180,38 @@
       <screen x="0" y="0" width="1920" height="1040" />
     </state>
     <state width="687" height="466" key="DebuggerActiveHint/1920.-68.1920.1040/0.0.1920.1040@0.0.1920.1040" timestamp="1589154496564" />
-    <state width="1899" height="443" key="GridCell.Tab.0.bottom" timestamp="1589154572140">
+    <state width="1899" height="443" key="GridCell.Tab.0.bottom" timestamp="1589155238203">
       <screen x="0" y="0" width="1920" height="1040" />
     </state>
-    <state width="1899" height="443" key="GridCell.Tab.0.bottom/1920.-68.1920.1040/0.0.1920.1040@0.0.1920.1040" timestamp="1589154572140" />
-    <state width="1899" height="443" key="GridCell.Tab.0.center" timestamp="1589154572140">
+    <state width="1899" height="443" key="GridCell.Tab.0.bottom/1920.-68.1920.1040/0.0.1920.1040@0.0.1920.1040" timestamp="1589155238203" />
+    <state width="1899" height="443" key="GridCell.Tab.0.center" timestamp="1589155238203">
       <screen x="0" y="0" width="1920" height="1040" />
     </state>
-    <state width="1899" height="443" key="GridCell.Tab.0.center/1920.-68.1920.1040/0.0.1920.1040@0.0.1920.1040" timestamp="1589154572140" />
-    <state width="1899" height="443" key="GridCell.Tab.0.left" timestamp="1589154572140">
+    <state width="1899" height="443" key="GridCell.Tab.0.center/1920.-68.1920.1040/0.0.1920.1040@0.0.1920.1040" timestamp="1589155238203" />
+    <state width="1899" height="443" key="GridCell.Tab.0.left" timestamp="1589155238203">
       <screen x="0" y="0" width="1920" height="1040" />
     </state>
-    <state width="1899" height="443" key="GridCell.Tab.0.left/1920.-68.1920.1040/0.0.1920.1040@0.0.1920.1040" timestamp="1589154572140" />
-    <state width="1899" height="443" key="GridCell.Tab.0.right" timestamp="1589154572140">
+    <state width="1899" height="443" key="GridCell.Tab.0.left/1920.-68.1920.1040/0.0.1920.1040@0.0.1920.1040" timestamp="1589155238203" />
+    <state width="1899" height="443" key="GridCell.Tab.0.right" timestamp="1589155238203">
       <screen x="0" y="0" width="1920" height="1040" />
     </state>
-    <state width="1899" height="443" key="GridCell.Tab.0.right/1920.-68.1920.1040/0.0.1920.1040@0.0.1920.1040" timestamp="1589154572140" />
-    <state width="1899" height="443" key="GridCell.Tab.1.bottom" timestamp="1589154573534">
+    <state width="1899" height="443" key="GridCell.Tab.0.right/1920.-68.1920.1040/0.0.1920.1040@0.0.1920.1040" timestamp="1589155238203" />
+    <state width="1899" height="443" key="GridCell.Tab.1.bottom" timestamp="1589155238203">
       <screen x="0" y="0" width="1920" height="1040" />
     </state>
-    <state width="1899" height="443" key="GridCell.Tab.1.bottom/1920.-68.1920.1040/0.0.1920.1040@0.0.1920.1040" timestamp="1589154573534" />
-    <state width="1899" height="443" key="GridCell.Tab.1.center" timestamp="1589154573534">
+    <state width="1899" height="443" key="GridCell.Tab.1.bottom/1920.-68.1920.1040/0.0.1920.1040@0.0.1920.1040" timestamp="1589155238203" />
+    <state width="1899" height="443" key="GridCell.Tab.1.center" timestamp="1589155238203">
       <screen x="0" y="0" width="1920" height="1040" />
     </state>
-    <state width="1899" height="443" key="GridCell.Tab.1.center/1920.-68.1920.1040/0.0.1920.1040@0.0.1920.1040" timestamp="1589154573534" />
-    <state width="1899" height="443" key="GridCell.Tab.1.left" timestamp="1589154573534">
+    <state width="1899" height="443" key="GridCell.Tab.1.center/1920.-68.1920.1040/0.0.1920.1040@0.0.1920.1040" timestamp="1589155238203" />
+    <state width="1899" height="443" key="GridCell.Tab.1.left" timestamp="1589155238203">
       <screen x="0" y="0" width="1920" height="1040" />
     </state>
-    <state width="1899" height="443" key="GridCell.Tab.1.left/1920.-68.1920.1040/0.0.1920.1040@0.0.1920.1040" timestamp="1589154573534" />
-    <state width="1899" height="443" key="GridCell.Tab.1.right" timestamp="1589154573534">
+    <state width="1899" height="443" key="GridCell.Tab.1.left/1920.-68.1920.1040/0.0.1920.1040@0.0.1920.1040" timestamp="1589155238203" />
+    <state width="1899" height="443" key="GridCell.Tab.1.right" timestamp="1589155238203">
       <screen x="0" y="0" width="1920" height="1040" />
     </state>
-    <state width="1899" height="443" key="GridCell.Tab.1.right/1920.-68.1920.1040/0.0.1920.1040@0.0.1920.1040" timestamp="1589154573534" />
+    <state width="1899" height="443" key="GridCell.Tab.1.right/1920.-68.1920.1040/0.0.1920.1040@0.0.1920.1040" timestamp="1589155238203" />
     <state x="656" y="344" key="com.intellij.ide.util.TipDialog" timestamp="1587912820182">
       <screen x="0" y="0" width="1920" height="1040" />
     </state>
@@ -227,35 +222,6 @@
     <state x="623" y="225" width="672" height="678" key="search.everywhere.popup/1920.-68.1920.1040/0.0.1920.1040@0.0.1920.1040" timestamp="1587610927837" />
   </component>
   <component name="XDebuggerManager">
-    <breakpoint-manager>
-      <breakpoints>
-        <line-breakpoint enabled="true" suspend="THREAD" type="python-line">
-          <url>file://$PROJECT_DIR$/NodeFightGame/location.py</url>
-          <line>60</line>
-          <option name="timeStamp" value="56" />
-        </line-breakpoint>
-        <line-breakpoint enabled="true" suspend="THREAD" type="python-line">
-          <url>file://$PROJECT_DIR$/NodeFightGame/location.py</url>
-          <line>82</line>
-          <option name="timeStamp" value="58" />
-        </line-breakpoint>
-        <line-breakpoint enabled="true" suspend="THREAD" type="python-line">
-          <url>file://$PROJECT_DIR$/NodeFightGame/location.py</url>
-          <line>74</line>
-          <option name="timeStamp" value="60" />
-        </line-breakpoint>
-        <line-breakpoint enabled="true" suspend="THREAD" type="python-line">
-          <url>file://$PROJECT_DIR$/NodeFightGame/game.py</url>
-          <line>63</line>
-          <option name="timeStamp" value="61" />
-        </line-breakpoint>
-        <line-breakpoint enabled="true" suspend="THREAD" type="python-line">
-          <url>file://$PROJECT_DIR$/NodeFightGame/game.py</url>
-          <line>125</line>
-          <option name="timeStamp" value="62" />
-        </line-breakpoint>
-      </breakpoints>
-    </breakpoint-manager>
     <watches-manager>
       <configuration name="PythonConfigurationType">
         <watch expression="blocked_locations[0].neighbors[Direction.NORTH].expected_units[0].__len__()" />

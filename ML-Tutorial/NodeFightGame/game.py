@@ -121,13 +121,17 @@ def main():
     win = pygame.display.set_mode((WIN_WIDTH, WIN_HEIGHT))
     clock = pygame.time.Clock()
     run = True
+    tick_counter = 0
     while run:
-        clock.tick(2)
+        clock.tick(60)
         run, global_map, players = check_input(global_map, players)
-        players = collect_gold(global_map, players)
-        global_map = fight(global_map)
-        global_map = move_units(global_map)
-        global_map, players = spawn_units(global_map, players)
+        tick_counter += clock.get_time()
+        if tick_counter > 500:
+            tick_counter = 0
+            players = collect_gold(global_map, players)
+            global_map = fight(global_map)
+            global_map = move_units(global_map)
+            global_map, players = spawn_units(global_map, players)
         draw(global_map, win, players)
 
 
