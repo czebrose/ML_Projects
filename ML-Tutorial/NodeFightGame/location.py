@@ -1,5 +1,7 @@
 import random
+import util
 from util import Direction
+import unit
 
 
 class Location:
@@ -41,6 +43,37 @@ class Location:
 
     def check_click(self, x, y):
         return False
+
+    def fight(self):
+        fighting_locations = {}
+        fighting_locations = self.add_fighting_neighbor(fighting_locations, Direction.EAST)
+        fighting_locations = self.add_fighting_neighbor(fighting_locations, Direction.WEST)
+        fighting_locations = self.add_fighting_neighbor(fighting_locations, Direction.SOUTH)
+        fighting_locations = self.add_fighting_neighbor(fighting_locations, Direction.NORTH)
+        if self.unit_in_loc:
+            fighting_locations = util.add_loc_to_fight_queue(fighting_locations, self.unit_in_loc.owner, self)
+
+        while len(fighting_locations.keys()) > 1:
+            round_fighters = {}
+            for color in fighting_locations.keys():
+                round_fighters[color] = fighting_locations[color].pop()
+            while len(round_fighters) > 1:
+                fight_results = unit.resolve_fight_round(round_fighters)
+                for color in fight_results:
+                    if fight_results[color]:
+                        round_fighters[color].unit_in_loc = None
+                        round_fighters.pop(color)
+                        if len(fighting_locations[color]) == 0:
+                            fighting_locations.pop(color)
+                    else:
+                        fighting_locations[color].append(round_fighters[color])
+
+    def add_fighting_neighbor(self, fighting_locations, neighbor_dir):
+        if self.neighbors[neighbor_dir] and self.neighbors[neighbor_dir].unit_in_loc:
+            neighbor_owner = self.neighbors[neighbor_dir].unit_in_loc.owner
+            fighting_locations\
+                = util.add_loc_to_fight_queue(fighting_locations, neighbor_owner, self.neighbors[neighbor_dir])
+        return fighting_locations
 
     def notify_move_target(self):
         if self.unit_in_loc is None:

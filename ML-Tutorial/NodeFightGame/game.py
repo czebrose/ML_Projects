@@ -25,36 +25,44 @@ def check_input(global_map, players):
 
 
 def collect_gold(global_map, players):
-    for col in global_map:
-        for location in col:
+    for row in global_map:
+        for location in row:
             if isinstance(location, Node):
                 players = location.collect_gold(players)
     return players
 
 
 def fight(global_map):
+    for row in global_map:
+        for location in row:
+            if isinstance(location, Node):
+                location.fight()
+    for row in global_map:
+        for location in row:
+            if location:
+                location.fight()
     return global_map
 
 
 def spawn_units(global_map, players):
-    for col in global_map:
-        for location in col:
+    for row in global_map:
+        for location in row:
             if isinstance(location, Node):
                 player_gold = location.attempt_spawn(players)
     return global_map, players
 
 
 def move_units(global_map):
-    for col in global_map:
-        for location in col:
+    for row in global_map:
+        for location in row:
             if location is not None:
                 location.notify_move_target()
-    for col in global_map:
-        for location in col:
+    for row in global_map:
+        for location in row:
             if location is not None:
                 location.resolve_move_conflicts()
-    for col in global_map:
-        for location in col:
+    for row in global_map:
+        for location in row:
             if location is not None:
                 location.accept_unit()
     return global_map

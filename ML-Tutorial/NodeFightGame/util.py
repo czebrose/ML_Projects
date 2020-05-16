@@ -24,3 +24,10 @@ class Direction(Enum):
 
 def load_img(img_name):
     return pygame.transform.scale2x(pygame.image.load(os.path.join("imgs", img_name)))
+
+
+def add_loc_to_fight_queue(fight_queue, owner, location):
+    if not fight_queue.keys().__contains__(owner):
+        fight_queue[owner] = []
+    fight_queue[owner].append(location)
+    return fight_queue
