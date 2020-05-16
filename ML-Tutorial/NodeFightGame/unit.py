@@ -1,7 +1,7 @@
 import pygame
 import util
+from util import PlayerColor, UnitType
 from enum import Enum
-from player import PlayerColor
 
 
 BLUE_PIKEMAN_UNIT_IMG = util.load_img("unit_pikeman_blue.png")
@@ -10,14 +10,6 @@ BLUE_ARCHER_UNIT_IMG = util.load_img("unit_archer_blue.png")
 RED_ARCHER_UNIT_IMG = util.load_img("unit_archer_red.png")
 BLUE_KNIGHT_UNIT_IMG = util.load_img("unit_knight_blue.png")
 RED_KNIGHT_UNIT_IMG = util.load_img("unit_knight_red.png")
-
-
-class UnitType(Enum):
-    ERROR = -1
-    EMPTY = 0
-    PIKEMAN = 1
-    ARCHER = 2
-    KNIGHT = 3
 
 
 class Unit:
@@ -39,10 +31,17 @@ class Unit:
 
     def draw(self, win, pos):
         if self.unit_type == UnitType.PIKEMAN:
-            if self.owner == PlayerColor.RED:
-                win.blit(RED_PIKEMAN_UNIT_IMG, pos)
-            if self.owner == PlayerColor.BLUE:
-                win.blit(BLUE_PIKEMAN_UNIT_IMG, pos)
+            self.draw_unit(win, pos, RED_PIKEMAN_UNIT_IMG, BLUE_PIKEMAN_UNIT_IMG)
+        if self.unit_type == UnitType.ARCHER:
+            self.draw_unit(win, pos, RED_ARCHER_UNIT_IMG, BLUE_ARCHER_UNIT_IMG)
+        if self.unit_type == UnitType.KNIGHT:
+            self.draw_unit(win, pos, RED_KNIGHT_UNIT_IMG, BLUE_KNIGHT_UNIT_IMG)
+
+    def draw_unit(self, win, pos, red_img, blue_img):
+        if self.owner == PlayerColor.RED:
+            win.blit(red_img, pos)
+        if self.owner == PlayerColor.BLUE:
+            win.blit(blue_img, pos)
 
 
 def resolve_fight_round(round_fighters):

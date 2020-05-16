@@ -1,5 +1,6 @@
 import pygame
-from player import PlayerInput, PlayerColor, PlayerCommands
+from player import PlayerInput
+from util import PlayerColor, PlayerCommands
 
 
 class HumanPlayerInput(PlayerInput):
@@ -24,10 +25,16 @@ class HumanPlayerInput(PlayerInput):
             command = PlayerCommands.DIRECTION_NORTH
         elif keys[pygame.K_s]:
             command = PlayerCommands.DIRECTION_SOUTH
-        elif keys[pygame.K_x]:
+        elif keys[pygame.K_r]:
             command = PlayerCommands.CLEAR_DIRECTION
-        elif keys[pygame.K_m]:
+        elif keys[pygame.K_q]:
             command = PlayerCommands.BUILD_MINE
-        elif keys[pygame.K_b]:
+        elif keys[pygame.K_e]:
             command = PlayerCommands.BUILD_BARRACKS
+        elif keys[pygame.K_z]:
+            command = PlayerCommands.UNIT_PIKEMAN
+        elif keys[pygame.K_x]:
+            command = PlayerCommands.UNIT_ARCHER
+        elif keys[pygame.K_c]:
+            command = PlayerCommands.UNIT_KNIGHT
         return command

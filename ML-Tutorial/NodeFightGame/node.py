@@ -1,11 +1,10 @@
 import pygame
 from enum import Enum
 import util
-from util import Direction
-from unit import Unit, UnitType
+from util import Direction, UnitType, PlayerColor, BuildingType
+from unit import Unit
 from location import Location
-from player import PlayerColor
-from building import BuildingType, Building
+from building import Building
 
 
 RED_NODE_IMG = util.load_img("node_red.png")
@@ -34,7 +33,6 @@ class Node(Location):
         elif node_type == 'R':
             self.owner = PlayerColor.RED
             self.building = Building(BuildingType.HOME)
-        self.spawn_type = UnitType.PIKEMAN
         self.spawn_timer = 0
         self.exit_direction = {PlayerColor.RED: None, PlayerColor.BLUE: None}
 
@@ -52,7 +50,7 @@ class Node(Location):
         if self.spawn_timer > 0:
             self.spawn_timer -= 1
         elif self.unit_in_loc is None and player_gold[self.owner].gold >= util.UNIT_COST:
-            self.unit_in_loc = Unit(self.spawn_type, self.owner, self.exit_direction)
+            self.unit_in_loc = Unit(self.building.unit_type, self.owner, self.exit_direction)
             self.spawn_timer = util.SPAWN_DELAY
             player_gold[self.owner].gold -= util.UNIT_COST
         return player_gold

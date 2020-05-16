@@ -1,8 +1,8 @@
 import pygame
 import io
 import util
-from util import Direction
-from player import PlayerColor, PlayerInput
+from util import Direction, PlayerColor
+from player import PlayerInput
 from humanplayer import HumanPlayerInput
 from simpleplayer import SimplePlayer
 from node import Node, Building

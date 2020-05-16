@@ -1,10 +1,10 @@
 import util
-from util import Direction
+from util import Direction, BuildingType, PlayerCommands, PlayerColor, UnitType
 import pygame
 from enum import Enum
 import abc
 from abc import ABC
-from building import BuildingType, Building
+from building import Building
 pygame.font.init()
 
 
@@ -14,32 +14,11 @@ NODE_HIGHLIGHT_BLUE_IMG = util.load_img("node_highlight_blue.png")
 STAT_FONT = pygame.font.SysFont("comicsans", 50)
 
 
-class PlayerColor(Enum):
-    ERROR = -1
-    NEUTRAL = 0
-    BLUE = 1
-    RED = 2
-
-
-class PlayerCommands(Enum):
-    ERROR = -1
-    CLEAR_DIRECTION = 0
-    DIRECTION_NORTH = 1
-    DIRECTION_SOUTH = 2
-    DIRECTION_EAST = 3
-    DIRECTION_WEST = 4
-    BUILD_MINE = 5
-    BUILD_BARRACKS = 6
-    UNIT_PIKEMAN = 7
-    UNIT_ARCHER = 8
-    UNIT_KNIGHT = 9
-
-
 class PlayerInput(ABC):
     def __init__(self, color):
         self.color = color
         self.highlight_node = None
-        self.gold = 0
+        self.gold = 2000
 
     def check_input(self, global_map):
         self.highlight_node = self.get_highlight_node(global_map)
@@ -71,6 +50,12 @@ class PlayerInput(ABC):
             self.execute_build_building(node, BuildingType.BARRACKS)
         elif command is PlayerCommands.BUILD_MINE:
             self.execute_build_building(node, BuildingType.MINE)
+        elif command is PlayerCommands.UNIT_ARCHER:
+            self.execute_unit_change(node, UnitType.ARCHER)
+        elif command is PlayerCommands.UNIT_KNIGHT:
+            self.execute_unit_change(node, UnitType.KNIGHT)
+        elif command is PlayerCommands.UNIT_PIKEMAN:
+            self.execute_unit_change(node, UnitType.PIKEMAN)
 
     def execute_direction_change(self, node, direction):
         if node and node.exit_direction[self.color] is not direction and self.gold >= util.DIRECTION_CHANGE_COST:
@@ -84,6 +69,12 @@ class PlayerInput(ABC):
             if self.gold >= util.BUILDING_COST:
                 node.building = Building(building_type)
                 self.gold -= util.BUILDING_COST
+
+    def execute_unit_change(self, node, unit_type):
+        if node and node.owner is self.color:
+            if node.building and node.building.unit_type is not unit_type and self.gold >= util.UNIT_TYPE_CHANGE_COST:
+                node.building.unit_type = unit_type
+                self.gold -= util.UNIT_TYPE_CHANGE_COST
 
     def draw(self, win):
         if self.highlight_node:

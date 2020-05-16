@@ -1,13 +1,28 @@
-from util import Direction
-from player import PlayerInput, PlayerCommands
+from util import Direction, PlayerCommands
+from player import PlayerInput
 from node import Node
 import random
 
 
-DIRECTION_THRESHOLD = 100
+DIRECTION_THRESHOLD = 500
+
+
+def get_random_valid_direction(node):
+    choices = []
+    if node.neighbors[Direction.NORTH]:
+        choices.append(PlayerCommands.DIRECTION_NORTH)
+    elif node.neighbors[Direction.WEST]:
+        choices.append(PlayerCommands.DIRECTION_WEST)
+    if len(choices) > 0:
+        return random.choice(choices)
+    return None
 
 
 class SimplePlayer(PlayerInput):
+    def __init__(self, color):
+        PlayerInput.__init__(self, color)
+        self.target_command = None
+
     def get_highlight_node(self, global_map) -> object:
         owned_nodes = []
         for row in global_map:
@@ -16,20 +31,22 @@ class SimplePlayer(PlayerInput):
                     owned_nodes.append(loc)
         if len(owned_nodes) <= 0:
             return None
-        return owned_nodes[random.randrange(0, len(owned_nodes))]
+        for node in owned_nodes:
+            if not node.exit_direction[self.color]:
+                self.target_command = get_random_valid_direction(node)
+                if self.target_command:
+                    return node
+        for node in owned_nodes:
+            if not node.building:
+                choices = [PlayerCommands.BUILD_MINE, PlayerCommands.BUILD_BARRACKS]
+                self.target_command = random.choice(choices)
+                return node
+        self.target_command = None
+        return random.choice(owned_nodes)
 
     def get_command(self, global_map) -> object:
-        if not self.highlight_node:
-            return None
-        if self.gold > DIRECTION_THRESHOLD:
-            choices = []
-            if self.highlight_node.neighbors[Direction.NORTH]:
-                choices.append(PlayerCommands.DIRECTION_NORTH)
-            if self.highlight_node.neighbors[Direction.WEST]:
-                choices.append(PlayerCommands.DIRECTION_WEST)
-            if not self.highlight_node.building:
-                choices.append(PlayerCommands.BUILD_BARRACKS)
-                choices.append(PlayerCommands.BUILD_MINE)
-            if len(choices) > 0:
-                return random.choice(choices)
+        if self.target_command:
+            return self.target_command
+        if self.gold > DIRECTION_THRESHOLD and self.highlight_node:
+            return get_random_valid_direction(self.highlight_node)
         return None

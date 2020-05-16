@@ -1,5 +1,6 @@
 from enum import Enum
 import util
+from util import UnitType, BuildingType
 import pygame
 
 
@@ -7,18 +8,15 @@ HOME_BUILDING_IMG = util.load_img("building_home.png")
 MINE_BUILDING_IMG = util.load_img("building_mine.png")
 BARRACKS_BUILDING_IMG = util.load_img("building_barracks.png")
 
-
-class BuildingType(Enum):
-    ERROR = -1
-    EMPTY = 0
-    HOME = 1
-    MINE = 2
-    BARRACKS = 3
+ARCHER_IMG = util.load_img("building_unit_archer.png")
+KNIGHT_IMG = util.load_img("building_unit_knight.png")
+PIKEMAN_IMG = util.load_img("building_unit_pikeman.png")
 
 
 class Building:
     def __init__(self, type):
         self.type = type
+        self.unit_type = UnitType.KNIGHT
 
     def can_spawn_unit(self):
         return self.type is BuildingType.HOME or self.type is BuildingType.BARRACKS
@@ -38,3 +36,11 @@ class Building:
             win.blit(MINE_BUILDING_IMG, pos)
         elif self.type == BuildingType.BARRACKS:
             win.blit(BARRACKS_BUILDING_IMG, pos)
+
+        if self.can_spawn_unit():
+            if self.unit_type == UnitType.PIKEMAN:
+                win.blit(PIKEMAN_IMG, pos)
+            elif self.unit_type == UnitType.ARCHER:
+                win.blit(ARCHER_IMG, pos)
+            elif self.unit_type == UnitType.KNIGHT:
+                win.blit(KNIGHT_IMG, pos)
