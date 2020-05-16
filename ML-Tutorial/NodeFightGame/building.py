@@ -4,6 +4,8 @@ import pygame
 
 
 HOME_BUILDING_IMG = util.load_img("building_home.png")
+MINE_BUILDING_IMG = util.load_img("building_mine.png")
+BARRACKS_BUILDING_IMG = util.load_img("building_barracks.png")
 
 
 class BuildingType(Enum):
@@ -32,3 +34,7 @@ class Building:
     def draw(self, win, pos):
         if self.type == BuildingType.HOME:
             win.blit(HOME_BUILDING_IMG, pos)
+        elif self.type == BuildingType.MINE:
+            win.blit(MINE_BUILDING_IMG, pos)
+        elif self.type == BuildingType.BARRACKS:
+            win.blit(BARRACKS_BUILDING_IMG, pos)

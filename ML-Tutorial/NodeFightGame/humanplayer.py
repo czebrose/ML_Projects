@@ -16,26 +16,18 @@ class HumanPlayerInput(PlayerInput):
     def get_command(self, global_map):
         keys = pygame.key.get_pressed()
         command = None
-        if self.color == PlayerColor.BLUE:
-            if keys[pygame.K_LEFT]:
-                command = PlayerCommands.DIRECTION_WEST
-            elif keys[pygame.K_RIGHT]:
-                command = PlayerCommands.DIRECTION_EAST
-            elif keys[pygame.K_UP]:
-                command = PlayerCommands.DIRECTION_NORTH
-            elif keys[pygame.K_DOWN]:
-                command = PlayerCommands.DIRECTION_SOUTH
-            elif keys[pygame.K_KP0]:
-                command = PlayerCommands.CLEAR_DIRECTION
-        elif self.color == PlayerColor.RED:
-            if keys[pygame.K_a]:
-                command = PlayerCommands.DIRECTION_WEST
-            elif keys[pygame.K_d]:
-                command = PlayerCommands.DIRECTION_EAST
-            elif keys[pygame.K_w]:
-                command = PlayerCommands.DIRECTION_NORTH
-            elif keys[pygame.K_s]:
-                command = PlayerCommands.DIRECTION_SOUTH
-            elif keys[pygame.K_x]:
-                command = PlayerCommands.CLEAR_DIRECTION
+        if keys[pygame.K_a]:
+            command = PlayerCommands.DIRECTION_WEST
+        elif keys[pygame.K_d]:
+            command = PlayerCommands.DIRECTION_EAST
+        elif keys[pygame.K_w]:
+            command = PlayerCommands.DIRECTION_NORTH
+        elif keys[pygame.K_s]:
+            command = PlayerCommands.DIRECTION_SOUTH
+        elif keys[pygame.K_x]:
+            command = PlayerCommands.CLEAR_DIRECTION
+        elif keys[pygame.K_m]:
+            command = PlayerCommands.BUILD_MINE
+        elif keys[pygame.K_b]:
+            command = PlayerCommands.BUILD_BARRACKS
         return command

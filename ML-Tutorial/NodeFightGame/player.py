@@ -4,6 +4,7 @@ import pygame
 from enum import Enum
 import abc
 from abc import ABC
+from building import BuildingType, Building
 pygame.font.init()
 
 
@@ -55,22 +56,34 @@ class PlayerInput(ABC):
         return None
 
     def execute_command(self, command):
-        loc = self.highlight_node
+        node = self.highlight_node
         if command is PlayerCommands.DIRECTION_EAST:
-            self.execute_direction_change(loc, Direction.EAST)
+            self.execute_direction_change(node, Direction.EAST)
         elif command is PlayerCommands.DIRECTION_WEST:
-            self.execute_direction_change(loc, Direction.WEST)
+            self.execute_direction_change(node, Direction.WEST)
         elif command is PlayerCommands.DIRECTION_NORTH:
-            self.execute_direction_change(loc, Direction.NORTH)
+            self.execute_direction_change(node, Direction.NORTH)
         elif command is PlayerCommands.DIRECTION_SOUTH:
-            self.execute_direction_change(loc, Direction.SOUTH)
+            self.execute_direction_change(node, Direction.SOUTH)
         elif command is PlayerCommands.CLEAR_DIRECTION:
-            self.execute_direction_change(loc, None)
+            self.execute_direction_change(node, None)
+        elif command is PlayerCommands.BUILD_BARRACKS:
+            self.execute_build_building(node, BuildingType.BARRACKS)
+        elif command is PlayerCommands.BUILD_MINE:
+            self.execute_build_building(node, BuildingType.MINE)
 
-    def execute_direction_change(self, loc, direction):
-        if loc and loc.exit_direction[self.color] is not direction and self.gold >= util.DIRECTION_CHANGE_COST:
-            loc.exit_direction[self.color] = direction
+    def execute_direction_change(self, node, direction):
+        if node and node.exit_direction[self.color] is not direction and self.gold >= util.DIRECTION_CHANGE_COST:
+            node.exit_direction[self.color] = direction
             self.gold -= util.DIRECTION_CHANGE_COST
+
+    def execute_build_building(self, node, building_type):
+        if node and node.owner is self.color:
+            if node.building and node.building.type is building_type:
+                return
+            if self.gold >= util.BUILDING_COST:
+                node.building = Building(building_type)
+                self.gold -= util.BUILDING_COST
 
     def draw(self, win):
         if self.highlight_node:

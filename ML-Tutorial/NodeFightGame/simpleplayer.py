@@ -6,6 +6,7 @@ import random
 
 DIRECTION_THRESHOLD = 100
 
+
 class SimplePlayer(PlayerInput):
     def get_highlight_node(self, global_map) -> object:
         owned_nodes = []
@@ -13,6 +14,8 @@ class SimplePlayer(PlayerInput):
             for loc in row:
                 if isinstance(loc, Node) and loc.owner is self.color:
                     owned_nodes.append(loc)
+        if len(owned_nodes) <= 0:
+            return None
         return owned_nodes[random.randrange(0, len(owned_nodes))]
 
     def get_command(self, global_map) -> object:
@@ -24,6 +27,9 @@ class SimplePlayer(PlayerInput):
                 choices.append(PlayerCommands.DIRECTION_NORTH)
             if self.highlight_node.neighbors[Direction.WEST]:
                 choices.append(PlayerCommands.DIRECTION_WEST)
+            if not self.highlight_node.building:
+                choices.append(PlayerCommands.BUILD_BARRACKS)
+                choices.append(PlayerCommands.BUILD_MINE)
             if len(choices) > 0:
                 return random.choice(choices)
         return None
