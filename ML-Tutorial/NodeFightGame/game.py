@@ -3,6 +3,7 @@ import io
 import util
 from util import Direction
 from player import PlayerColor, PlayerInput
+from humanplayer import HumanPlayerInput
 from node import Node, Building
 from road import Road
 
@@ -118,9 +119,8 @@ def build_map():
 def main():
     global_map = build_map()
     players = {
-        PlayerColor.NEUTRAL: PlayerInput(PlayerColor.NEUTRAL),
-        PlayerColor.BLUE: PlayerInput(PlayerColor.BLUE),
-        PlayerColor.RED: PlayerInput(PlayerColor.RED)
+        PlayerColor.BLUE: HumanPlayerInput(PlayerColor.BLUE),
+        PlayerColor.RED: HumanPlayerInput(PlayerColor.RED)
     }
     win = pygame.display.set_mode((WIN_WIDTH, WIN_HEIGHT))
     clock = pygame.time.Clock()

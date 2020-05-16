@@ -42,7 +42,7 @@ class Node(Location):
         Location.add_neighbor(self, direction, neighbor, set_neighbor)
 
     def collect_gold(self, players):
-        if self.building:
+        if self.building and players.keys().__contains__(self.owner):
             players[self.owner].gold += self.building.generate_gold()
         return players
 
