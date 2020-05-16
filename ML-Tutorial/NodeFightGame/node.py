@@ -5,6 +5,7 @@ from util import Direction
 from unit import Unit, UnitType
 from location import Location
 from player import PlayerColor
+from building import BuildingType, Building
 
 
 RED_NODE_IMG = util.load_img("node_red.png")
@@ -20,29 +21,19 @@ NODE_EXIT_BLUE_SOUTH_IMG = util.load_img("node_exit_blue_south.png")
 NODE_EXIT_BLUE_WEST_IMG = util.load_img("node_exit_blue_west.png")
 NODE_EXIT_BLUE_EAST_IMG = util.load_img("node_exit_blue_east.png")
 
-HOME_BUILDING_IMG = util.load_img("building_home.png")
-
-
-class Building(Enum):
-    ERROR = -1
-    EMPTY = 0
-    HOME = 1
-    MINE = 2
-    BARRACKS = 3
-
 
 class Node(Location):
     def __init__(self, x, y, node_type):
         Location.__init__(self, x, y)
         if node_type == 'N':
             self.owner = PlayerColor.NEUTRAL
-            self.building = Building.EMPTY
+            self.building = Building(BuildingType.EMPTY)
         elif node_type == 'B':
             self.owner = PlayerColor.BLUE
-            self.building = Building.HOME
+            self.building = Building(BuildingType.HOME)
         elif node_type == 'R':
             self.owner = PlayerColor.RED
-            self.building = Building.HOME
+            self.building = Building(BuildingType.HOME)
         self.spawn_type = UnitType.PIKEMAN
         self.spawn_timer = 0
         self.exit_direction = {PlayerColor.RED: None, PlayerColor.BLUE: None}
@@ -51,13 +42,13 @@ class Node(Location):
         Location.add_neighbor(self, direction, neighbor, set_neighbor)
 
     def collect_gold(self, players):
-        if self.building == Building.HOME:
-            players[self.owner].gold += util.HOME_GOLD_PRODUCTION
-        elif self.building == Building.MINE:
-            players[self.owner].gold += util.MINE_GOLD_PRODUCTION
+        if self.building:
+            players[self.owner].gold += self.building.generate_gold()
         return players
 
     def attempt_spawn(self, player_gold):
+        if self.building is None or not self.building.can_spawn_unit():
+            return player_gold
         if self.spawn_timer > 0:
             self.spawn_timer -= 1
         elif self.unit_in_loc is None and player_gold[self.owner].gold >= util.UNIT_COST:
@@ -75,6 +66,9 @@ class Node(Location):
         Location.accept_unit(self)
         if self.unit_in_loc is not None:
             self.unit_in_loc.direction = self.exit_direction
+            if self.owner is not self.unit_in_loc.owner:
+                self.owner = self.unit_in_loc.owner
+                self.building = None
 
     def check_click(self, x, y):
         top = self.y * util.NODE_WIDTH
@@ -109,10 +103,6 @@ class Node(Location):
         elif self.exit_direction[PlayerColor.BLUE] == Direction.WEST:
             win.blit(NODE_EXIT_BLUE_WEST_IMG, pos)
 
-    def draw_building(self, win, pos):
-        if self.building == Building.HOME:
-            win.blit(HOME_BUILDING_IMG, pos)
-
     def draw_unit(self, win, pos):
         if self.unit_in_loc is not None:
             self.unit_in_loc.draw(win, pos)
@@ -123,5 +113,6 @@ class Node(Location):
         pos = (pixel_x, pixel_y)
         self.draw_node(win, pos)
         self.draw_node_exit(win, pos)
-        self.draw_building(win, pos)
+        if self.building:
+            self.building.draw(win, pos)
         self.draw_unit(win, pos)

@@ -7,8 +7,8 @@ from node import Node, Building
 from road import Road
 
 
-WIN_WIDTH = 500
-WIN_HEIGHT = 500
+WIN_WIDTH = 1000
+WIN_HEIGHT = 1000
 
 BACKGROUND_IMG = util.load_img("background.png")
 
@@ -56,10 +56,6 @@ def move_units(global_map):
     for col in global_map:
         for location in col:
             if location is not None:
-                location.resolve_passing_conflicts()
-    for col in global_map:
-        for location in col:
-            if location is not None:
                 location.accept_unit()
     return global_map
 
@@ -84,30 +80,30 @@ def build_map():
     for c in map_file_contents:
         if c == 'N' or c == 'B' or c == 'R':
             node = Node(x_index, y_index, c)
-            new_map[x_index].append(node)
-            y_index += 1
+            new_map[y_index].append(node)
+            x_index += 1
         elif c == '+':
             road = Road(x_index, y_index)
-            new_map[x_index].append(road)
-            y_index += 1
-        elif c == '\n':
-            y_index = 0
+            new_map[y_index].append(road)
             x_index += 1
+        elif c == '\n':
+            x_index = 0
+            y_index += 1
             new_map.append([])
         else:
-            new_map[x_index].append(None)
-            y_index += 1
-    for x, col in enumerate(new_map):
-        for y, location in enumerate(col):
+            new_map[y_index].append(None)
+            x_index += 1
+    for y, row in enumerate(new_map):
+        for x, location in enumerate(row):
             if location:
-                if y < len(col) - 1:
-                    south_loc = new_map[x][y+1]
-                    if south_loc:
-                        location.add_neighbor(Direction.SOUTH, south_loc)
-                if x < len(new_map) - 1:
-                    east_loc = new_map[x+1][y]
+                if x < len(row) - 1:
+                    east_loc = new_map[y][x+1]
                     if east_loc:
                         location.add_neighbor(Direction.EAST, east_loc)
+                if y < len(new_map) - 1:
+                    south_loc = new_map[y+1][x]
+                    if south_loc:
+                        location.add_neighbor(Direction.SOUTH, south_loc)
     return new_map
 
 

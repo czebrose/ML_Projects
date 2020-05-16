@@ -45,7 +45,16 @@ class PlayerInput:
                 elif keys[pygame.K_KP0]:
                     self.highlight_node.exit_direction[self.color] = None
             elif self.color == PlayerColor.RED:
-                pass
+                if keys[pygame.K_a]:
+                    self.highlight_node.exit_direction[self.color] = Direction.WEST
+                elif keys[pygame.K_d]:
+                    self.highlight_node.exit_direction[self.color] = Direction.EAST
+                elif keys[pygame.K_w]:
+                    self.highlight_node.exit_direction[self.color] = Direction.NORTH
+                elif keys[pygame.K_s]:
+                    self.highlight_node.exit_direction[self.color] = Direction.SOUTH
+                elif keys[pygame.K_x]:
+                    self.highlight_node.exit_direction[self.color] = None
 
         return global_map
 

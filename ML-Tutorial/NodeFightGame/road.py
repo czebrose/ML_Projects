@@ -57,8 +57,8 @@ class Road(Location):
                 return direction
 
     def draw(self, win):
-        pixel_x = self.x * 50
-        pixel_y = self.y * 50
+        pixel_x = self.x * util.NODE_WIDTH
+        pixel_y = self.y * util.NODE_WIDTH
         if self.neighbors[Direction.NORTH] is not None:
             win.blit(NORTH_SOUTH_ROAD_EMPTY_IMG, (pixel_x, pixel_y))
         else:

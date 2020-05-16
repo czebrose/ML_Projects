@@ -79,15 +79,6 @@ class Location:
             loc.unit_in_loc = unit
             loc.expected_units = []
 
-    def resolve_passing_conflicts(self):
-        if len(self.expected_units) >= 1 and self.unit_in_loc is not None:
-            exp_unit_a, exp_loc_a = self.expected_units[0]
-            if len(exp_loc_a.expected_units) >= 1:
-                exp_unit_b, exp_loc_b = exp_loc_a.expected_units[0]
-                if self.unit_in_loc is exp_unit_b and self is exp_loc_b:
-                    exp_loc_a.expected_units = []
-                    self.expected_units = []
-
     def accept_unit(self):
         if len(self.expected_units) >= 1:
             unit, loc = self.expected_units[0]
