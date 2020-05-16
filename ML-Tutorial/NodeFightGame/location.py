@@ -1,4 +1,3 @@
-import random
 import util
 from util import Direction
 import unit
@@ -84,28 +83,30 @@ class Location:
         neighbor = self.neighbors[direction]
         if neighbor is None:
             return
-        neighbor.expected_units.append((self.unit_in_loc, self))
+        neighbor.expected_units.append((self.unit_in_loc, self, direction))
         self.unit_in_loc = None
 
     def resolve_move_conflicts(self):
-        accept_index = -1
         accepted_unit = None
         if self.unit_in_loc is None and len(self.expected_units) > 0:
-            accept_index = random.randint(0, len(self.expected_units) - 1)
-            accepted_unit = self.expected_units[accept_index]
+            accepted_unit = self.pick_expected_unit()
         blocked_units = []
-        for index in range(0, len(self.expected_units)):
-            if index is not accept_index:
-                blocked_units.append(self.expected_units[index])
+        for unit in self.expected_units:
+            if unit is not accepted_unit:
+                blocked_units.append(unit)
         self.expected_units = []
         if accepted_unit:
             self.expected_units.append(accepted_unit)
         self.resolve_blocked_locations(blocked_units)
 
+    def pick_expected_unit(self):
+        self.expected_units.sort(key=lambda x: x[2])
+        return self.expected_units[0]
+
     @staticmethod
     def resolve_blocked_locations(blocked_units):
         while len(blocked_units) > 0:
-            unit, loc = blocked_units.pop(0)
+            unit, loc, dir = blocked_units.pop(0)
             if len(loc.expected_units) > 0:
                 for blocked_unit in loc.expected_units:
                     blocked_units.append(blocked_unit)
@@ -114,9 +115,7 @@ class Location:
 
     def accept_unit(self):
         if len(self.expected_units) >= 1:
-            unit, loc = self.expected_units[0]
-            for direction in loc.neighbors:
-                if self is loc.neighbors[direction]:
-                    unit.direction = direction
+            unit, loc, direction = self.expected_units[0]
+            unit.direction = direction
             self.unit_in_loc = unit
             self.expected_units = []

@@ -68,7 +68,7 @@ class PlayerInput(ABC):
             self.execute_direction_change(loc, None)
 
     def execute_direction_change(self, loc, direction):
-        if loc:
+        if loc and loc.exit_direction[self.color] is not direction and self.gold >= util.DIRECTION_CHANGE_COST:
             loc.exit_direction[self.color] = direction
             self.gold -= util.DIRECTION_CHANGE_COST
 

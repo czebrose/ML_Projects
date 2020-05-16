@@ -14,12 +14,35 @@ MIND_GOLD_PRODUCTION = 30
 NODE_WIDTH = 50
 
 
-class Direction(Enum):
+class OrderedEnum(Enum):
+    def __ge__(self, other):
+        if self.__class__ is other.__class__:
+            return self.value >= other.value
+        return NotImplemented
+
+    def __gt__(self, other):
+        if self.__class__ is other.__class__:
+            return self.value > other.value
+        return NotImplemented
+
+    def __le__(self, other):
+        if self.__class__ is other.__class__:
+            return self.value <= other.value
+        return NotImplemented
+
+    def __lt__(self, other):
+        if self.__class__ is other.__class__:
+            return self.value < other.value
+        return NotImplemented
+
+
+class Direction(OrderedEnum):
     ERROR = -1
     NORTH = 0
     SOUTH = 1
-    EAST = 2
-    WEST = 3
+    WEST = 2
+    EAST = 3
+    MAX = 10
 
 
 def load_img(img_name):
