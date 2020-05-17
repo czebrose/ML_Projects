@@ -14,9 +14,9 @@ PIKEMAN_IMG = util.load_img("building_unit_pikeman.png")
 
 
 class Building:
-    def __init__(self, type):
-        self.type = type
-        self.unit_type = UnitType.KNIGHT
+    def __init__(self, b_type, unit_type):
+        self.type = b_type
+        self.unit_type = unit_type
 
     def can_spawn_unit(self):
         return self.type is BuildingType.HOME or self.type is BuildingType.BARRACKS

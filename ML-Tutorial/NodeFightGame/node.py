@@ -26,13 +26,13 @@ class Node(Location):
         Location.__init__(self, x, y)
         if node_type == 'N':
             self.owner = PlayerColor.NEUTRAL
-            self.building = Building(BuildingType.EMPTY)
+            self.building = Building(BuildingType.EMPTY, UnitType.EMPTY)
         elif node_type == 'B':
             self.owner = PlayerColor.BLUE
-            self.building = Building(BuildingType.HOME)
+            self.building = Building(BuildingType.HOME, UnitType.PIKEMAN)
         elif node_type == 'R':
             self.owner = PlayerColor.RED
-            self.building = Building(BuildingType.HOME)
+            self.building = Building(BuildingType.HOME, UnitType.PIKEMAN)
         self.spawn_timer = 0
         self.exit_direction = {PlayerColor.RED: None, PlayerColor.BLUE: None}
 

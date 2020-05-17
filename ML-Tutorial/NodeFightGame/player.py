@@ -19,6 +19,7 @@ class PlayerInput(ABC):
         self.color = color
         self.highlight_node = None
         self.gold = 2000
+        self.unit_pref = UnitType.PIKEMAN
 
     def check_input(self, global_map):
         self.highlight_node = self.get_highlight_node(global_map)
@@ -67,8 +68,9 @@ class PlayerInput(ABC):
             if node.building and node.building.type is building_type:
                 return
             if self.gold >= util.BUILDING_COST:
-                node.building = Building(building_type)
+                node.building = Building(building_type, self.unit_pref)
                 self.gold -= util.BUILDING_COST
+                self.unit_pref = UnitType.get_next(self.unit_pref)
 
     def execute_unit_change(self, node, unit_type):
         if node and node.owner is self.color:

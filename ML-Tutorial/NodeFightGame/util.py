@@ -60,6 +60,16 @@ class UnitType(Enum):
     ARCHER = 2
     KNIGHT = 3
 
+    @classmethod
+    def get_next(cls, unit_type):
+        if unit_type is UnitType.PIKEMAN:
+            return UnitType.ARCHER
+        if unit_type is UnitType.ARCHER:
+            return UnitType.KNIGHT
+        if unit_type is UnitType.KNIGHT:
+            return UnitType.PIKEMAN
+        return unit_type
+
 
 class PlayerColor(Enum):
     ERROR = -1
