@@ -1,7 +1,5 @@
-import pygame
 import util
 from util import PlayerColor, UnitType
-from enum import Enum
 
 
 BLUE_PIKEMAN_UNIT_IMG = util.load_img("unit_pikeman_blue.png")

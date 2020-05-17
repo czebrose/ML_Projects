@@ -120,7 +120,7 @@ def build_map():
 def main():
     global_map = build_map()
     players = {
-        PlayerColor.BLUE: HumanPlayerInput(PlayerColor.BLUE),
+        PlayerColor.BLUE: SimplePlayer(PlayerColor.BLUE),
         PlayerColor.RED: SimplePlayer(PlayerColor.RED)
     }
     win = pygame.display.set_mode((WIN_WIDTH, WIN_HEIGHT))

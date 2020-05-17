@@ -1,8 +1,6 @@
-import pygame
 import util
 from util import Direction
 from location import Location
-from node import Node
 
 
 NORTH_SOUTH_ROAD_EMPTY_IMG = util.load_img("road_northsouth.png")
@@ -44,17 +42,14 @@ class Road(Location):
                 return start_node_direction
 
     def get_node_direction(self, direction, owner):
-        n = self.neighbors[direction]
+        n = self.get_next_node(direction)
         if n is None:
             return None
-        if isinstance(n, Road):
-            return n.get_node_direction(direction, owner)
-        if isinstance(n, Node):
-            rev_direction = Location.reverse_direction(direction)
-            if n.exit_direction[owner] == rev_direction:
-                return rev_direction
-            else:
-                return direction
+        rev_direction = Location.reverse_direction(direction)
+        if n.exit_direction[owner] == rev_direction:
+            return rev_direction
+        else:
+            return direction
 
     def draw(self, win):
         pixel_x = self.x * util.NODE_WIDTH

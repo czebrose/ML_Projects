@@ -1,9 +1,11 @@
 import util
 from util import Direction
 import unit
+import abc
+from abc import ABC
 
 
-class Location:
+class Location(ABC):
     def __init__(self, x, y):
         self.x = x
         self.y = y
@@ -37,8 +39,16 @@ class Location:
             return Direction.EAST
         return Direction.ERROR
 
+    @abc.abstractmethod
     def get_direction(self):
         return Direction.ERROR
+
+    def get_next_node(self, direction):
+        n = self.neighbors[direction]
+        if n:
+            return n.get_next_node(direction)
+        else:
+            return None
 
     def check_click(self, x, y):
         return False
@@ -119,3 +129,7 @@ class Location:
             unit.direction = direction
             self.unit_in_loc = unit
             self.expected_units = []
+
+    @abc.abstractmethod
+    def draw(self, win):
+        pass

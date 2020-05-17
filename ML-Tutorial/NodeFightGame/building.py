@@ -1,7 +1,5 @@
-from enum import Enum
 import util
 from util import UnitType, BuildingType
-import pygame
 
 
 HOME_BUILDING_IMG = util.load_img("building_home.png")

@@ -1,7 +1,6 @@
 import util
 from util import Direction, BuildingType, PlayerCommands, PlayerColor, UnitType
 import pygame
-from enum import Enum
 import abc
 from abc import ABC
 from building import Building

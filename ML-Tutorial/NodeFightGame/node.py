@@ -1,5 +1,3 @@
-import pygame
-from enum import Enum
 import util
 from util import Direction, UnitType, PlayerColor, BuildingType
 from unit import Unit
@@ -59,6 +57,9 @@ class Node(Location):
         if self.exit_direction.keys().__contains__(owner):
             return self.exit_direction[owner]
         return None
+
+    def get_next_node(self, direction):
+        return self
 
     def accept_unit(self):
         Location.accept_unit(self)

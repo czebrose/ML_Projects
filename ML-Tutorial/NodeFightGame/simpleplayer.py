@@ -1,21 +1,11 @@
-from util import Direction, PlayerCommands
+from util import Direction, PlayerCommands, PlayerColor
 from player import PlayerInput
 from node import Node
 import random
 
 
 DIRECTION_THRESHOLD = 500
-
-
-def get_random_valid_direction(node):
-    choices = []
-    if node.neighbors[Direction.NORTH]:
-        choices.append(PlayerCommands.DIRECTION_NORTH)
-    elif node.neighbors[Direction.WEST]:
-        choices.append(PlayerCommands.DIRECTION_WEST)
-    if len(choices) > 0:
-        return random.choice(choices)
-    return None
+BARRACKS_THRESHOLD = 500
 
 
 class SimplePlayer(PlayerInput):
@@ -32,15 +22,17 @@ class SimplePlayer(PlayerInput):
         if len(owned_nodes) <= 0:
             return None
         for node in owned_nodes:
+            if not node.building and random.random() < 0.5:
+                if self.gold > BARRACKS_THRESHOLD:
+                    self.target_command = PlayerCommands.BUILD_BARRACKS
+                else:
+                    self.target_command = PlayerCommands.BUILD_MINE
+                return node
+        for node in owned_nodes:
             if not node.exit_direction[self.color]:
-                self.target_command = get_random_valid_direction(node)
+                self.target_command = self.get_random_valid_direction(node)
                 if self.target_command:
                     return node
-        for node in owned_nodes:
-            if not node.building:
-                choices = [PlayerCommands.BUILD_MINE, PlayerCommands.BUILD_BARRACKS]
-                self.target_command = random.choice(choices)
-                return node
         self.target_command = None
         return random.choice(owned_nodes)
 
@@ -48,5 +40,27 @@ class SimplePlayer(PlayerInput):
         if self.target_command:
             return self.target_command
         if self.gold > DIRECTION_THRESHOLD and self.highlight_node:
-            return get_random_valid_direction(self.highlight_node)
+            return self.get_random_valid_direction(self.highlight_node)
         return None
+
+    def get_random_valid_direction(self, node):
+        choices = []
+        if self.add_direction_command(node, Direction.NORTH):
+            choices.append(PlayerCommands.DIRECTION_NORTH)
+        if self.add_direction_command(node, Direction.WEST):
+            choices.append(PlayerCommands.DIRECTION_WEST)
+        if self.add_direction_command(node, Direction.EAST):
+            choices.append(PlayerCommands.DIRECTION_EAST)
+        if self.add_direction_command(node, Direction.SOUTH):
+            choices.append(PlayerCommands.DIRECTION_SOUTH)
+        if len(choices) > 0:
+            return random.choice(choices)
+        return None
+
+    def add_direction_command(self, node, direction):
+        n = node.neighbors[direction]
+        if n:
+            n = n.get_next_node(direction)
+            return n and self.color is not n.owner
+        else:
+            return None
