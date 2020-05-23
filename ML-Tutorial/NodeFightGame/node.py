@@ -111,15 +111,8 @@ class Node(Location):
         elif self.exit_direction[PlayerColor.BLUE] == Direction.WEST:
             win.blit(NODE_EXIT_BLUE_WEST_IMG, pos)
 
-    def draw_unit(self, win, pos):
-        if self.unit_in_loc is not None:
-            self.unit_in_loc.draw(win, pos)
-
     def draw(self, win):
-        pixel_x = self.x * util.NODE_WIDTH
-        pixel_y = self.y * util.NODE_WIDTH
-        pos = (pixel_x, pixel_y)
+        pos = self.get_pixel_pos()
         self.draw_node(win, pos)
         self.draw_node_exit(win, pos)
         self.building.draw(win, pos)
-        self.draw_unit(win, pos)

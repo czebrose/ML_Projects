@@ -52,11 +52,8 @@ class Road(Location):
             return direction
 
     def draw(self, win):
-        pixel_x = self.x * util.NODE_WIDTH
-        pixel_y = self.y * util.NODE_WIDTH
+        pos = self.get_pixel_pos()
         if self.neighbors[Direction.NORTH] is not None:
-            win.blit(NORTH_SOUTH_ROAD_EMPTY_IMG, (pixel_x, pixel_y))
+            win.blit(NORTH_SOUTH_ROAD_EMPTY_IMG, pos)
         else:
-            win.blit(EAST_WEST_ROAD_EMPTY_IMG, (pixel_x, pixel_y))
-        if self.unit_in_loc is not None:
-            self.unit_in_loc.draw(win, (pixel_x, pixel_y))
+            win.blit(EAST_WEST_ROAD_EMPTY_IMG, pos)

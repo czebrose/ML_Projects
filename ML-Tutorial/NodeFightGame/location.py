@@ -139,6 +139,16 @@ class Location(ABC):
             self.unit_in_loc = unit
             self.expected_units = []
 
+    def get_pixel_pos(self):
+        pixel_x = self.x * util.NODE_WIDTH
+        pixel_y = self.y * util.NODE_WIDTH
+        return pixel_x, pixel_y
+
     @abc.abstractmethod
     def draw(self, win):
         pass
+
+    def draw_unit(self, win):
+        pixel_x, pixel_y = self.get_pixel_pos()
+        if self.unit_in_loc is not None:
+            self.unit_in_loc.draw(win, (pixel_x, pixel_y))

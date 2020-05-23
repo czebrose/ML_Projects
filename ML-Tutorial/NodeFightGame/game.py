@@ -110,6 +110,10 @@ def draw(global_map, win, players, fights, update=True):
         for location in map_row:
             if location:
                 location.draw(win)
+    for map_row in global_map:
+        for location in map_row:
+            if location:
+                location.draw_unit(win)
     for p in players:
         players[p].draw(win)
     for f in fights:
