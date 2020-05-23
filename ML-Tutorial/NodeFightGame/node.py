@@ -59,6 +59,11 @@ class Node(Location):
             return self.exit_direction[owner]
         return None
 
+    def set_exit_direction(self, owner, direction):
+        self.exit_direction[owner] = direction
+        if self.unit_in_loc:
+            self.unit_in_loc.set_direction(self.exit_direction[self.owner])
+
     def get_next_node(self, direction):
         return self
 

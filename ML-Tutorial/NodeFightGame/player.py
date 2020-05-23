@@ -58,8 +58,8 @@ class PlayerInput(ABC):
             self.execute_unit_change(node, UnitType.PIKEMAN)
 
     def execute_direction_change(self, node, direction):
-        if node and node.exit_direction[self.color] is not direction and self.gold >= util.DIRECTION_CHANGE_COST:
-            node.exit_direction[self.color] = direction
+        if node and node.get_direction(self.color) is not direction and self.gold >= util.DIRECTION_CHANGE_COST:
+            node.set_exit_direction(self.color, direction)
             self.gold -= util.DIRECTION_CHANGE_COST
 
     def execute_build_building(self, node, building_type):

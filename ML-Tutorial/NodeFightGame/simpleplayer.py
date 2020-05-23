@@ -45,7 +45,7 @@ class SimplePlayer(PlayerInput):
                         self.target_command = PlayerCommands.BUILD_MINE
                     return node
         for node in owned_nodes:
-            if not node.exit_direction[self.color] or (is_rich and random.random() < CHANGE_DIRECTION_CHANCE):
+            if not node.get_direction(self.color) or (is_rich and random.random() < CHANGE_DIRECTION_CHANCE):
                 self.target_command = self.get_random_valid_direction(node)
                 if self.target_command:
                     return node

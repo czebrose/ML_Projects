@@ -46,7 +46,7 @@ class Road(Location):
         if n is None:
             return None
         rev_direction = Location.reverse_direction(direction)
-        if n.exit_direction[owner] == rev_direction:
+        if n.get_direction(owner) == rev_direction:
             return rev_direction
         else:
             return direction
