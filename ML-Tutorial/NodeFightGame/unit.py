@@ -1,5 +1,5 @@
 import util
-from util import PlayerColor, UnitType
+from util import PlayerColor, UnitType, Direction
 
 
 BLUE_PIKEMAN_UNIT_IMG = util.load_img("unit_pikeman_blue.png")
@@ -14,7 +14,9 @@ class Unit:
     def __init__(self, unit_type, owner, direction):
         self.unit_type = unit_type
         self.owner = owner
-        self.direction = direction
+        self.next_direction = direction
+        self.anim_direction = direction
+        self.time_to_loc = 0
 
     # Returns true if the given enemy type would kill this unit.
     def get_fight_result(self, enemy_type):
@@ -27,13 +29,48 @@ class Unit:
         else:
             return True
 
+    def set_direction(self, direction):
+        if self.next_direction:
+            self.anim_direction = self.next_direction
+        else:
+            self.anim_direction = direction
+        self.next_direction = direction
+
+    def get_direction(self):
+        return self.next_direction
+
+    def loc_changed(self):
+        self.time_to_loc = 10
+
+    def adjust_pos(self, pos):
+        if self.time_to_loc <= 0:
+            self.time_to_loc = 0
+            return pos
+        x = 0
+        y = 0
+        if self.anim_direction == Direction.NORTH:
+            y = 1
+        elif self.anim_direction == Direction.SOUTH:
+            y = -1
+        elif self.anim_direction == Direction.EAST:
+            x = -1
+        elif self.anim_direction == Direction.WEST:
+            x = 1
+        pos_x, pos_y = pos
+        pos_x = pos_x + (x * self.time_to_loc * (util.NODE_WIDTH / 10))
+        pos_y = pos_y + (y * self.time_to_loc * (util.NODE_WIDTH / 10))
+        self.time_to_loc = self.time_to_loc - 1
+        return pos_x, pos_y
+
     def draw(self, win, pos):
+        adjust_pos = self.adjust_pos(pos)
+
         if self.unit_type == UnitType.PIKEMAN:
-            self.draw_unit(win, pos, RED_PIKEMAN_UNIT_IMG, BLUE_PIKEMAN_UNIT_IMG)
+            self.draw_unit(win, adjust_pos, RED_PIKEMAN_UNIT_IMG, BLUE_PIKEMAN_UNIT_IMG)
         if self.unit_type == UnitType.ARCHER:
-            self.draw_unit(win, pos, RED_ARCHER_UNIT_IMG, BLUE_ARCHER_UNIT_IMG)
+            self.draw_unit(win, adjust_pos, RED_ARCHER_UNIT_IMG, BLUE_ARCHER_UNIT_IMG)
         if self.unit_type == UnitType.KNIGHT:
-            self.draw_unit(win, pos, RED_KNIGHT_UNIT_IMG, BLUE_KNIGHT_UNIT_IMG)
+            self.draw_unit(win, adjust_pos, RED_KNIGHT_UNIT_IMG, BLUE_KNIGHT_UNIT_IMG)
 
     def draw_unit(self, win, pos, red_img, blue_img):
         if self.owner == PlayerColor.RED:

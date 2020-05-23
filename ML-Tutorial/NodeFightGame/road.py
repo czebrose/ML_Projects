@@ -11,7 +11,7 @@ class Road(Location):
     def get_direction(self, owner):
         if self.unit_in_loc is None:
             return None
-        unit_direction = self.unit_in_loc.direction
+        unit_direction = self.unit_in_loc.get_direction()
         start_node_direction = self.get_node_direction(unit_direction, owner)
         end_node_direction = self.get_node_direction(Location.reverse_direction(unit_direction), owner)
 

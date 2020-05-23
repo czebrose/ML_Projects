@@ -129,7 +129,8 @@ class Location(ABC):
     def accept_unit(self):
         if len(self.expected_units) >= 1:
             unit, loc, direction = self.expected_units[0]
-            unit.direction = direction
+            unit.set_direction(direction)
+            unit.loc_changed()
             self.unit_in_loc = unit
             self.expected_units = []
 

@@ -33,6 +33,7 @@ class Node(Location):
             self.building = Building(BuildingType.HOME, UnitType.PIKEMAN)
         self.spawn_timer = 0
         self.exit_direction = {PlayerColor.RED: None, PlayerColor.BLUE: None}
+        self.unit_in_loc = self.unit_in_loc
 
     def add_neighbor(self, direction, neighbor, set_neighbor=True):
         Location.add_neighbor(self, direction, neighbor, set_neighbor)
@@ -48,7 +49,7 @@ class Node(Location):
         if self.spawn_timer > 0:
             self.spawn_timer -= 1
         elif self.unit_in_loc is None and player_gold[self.owner].gold >= util.UNIT_COST:
-            self.unit_in_loc = Unit(self.building.unit_type, self.owner, self.exit_direction)
+            self.unit_in_loc = Unit(self.building.unit_type, self.owner, self.exit_direction[self.owner])
             self.spawn_timer = util.SPAWN_DELAY
             player_gold[self.owner].gold -= util.UNIT_COST
         return player_gold
@@ -64,10 +65,10 @@ class Node(Location):
     def accept_unit(self):
         Location.accept_unit(self)
         if self.unit_in_loc is not None:
-            self.unit_in_loc.direction = self.exit_direction
             if self.owner is not self.unit_in_loc.owner:
                 self.owner = self.unit_in_loc.owner
                 self.building.type = BuildingType.EMPTY
+            self.unit_in_loc.set_direction(self.exit_direction[self.owner])
 
     def check_click(self, x, y):
         top = self.y * util.NODE_WIDTH
