@@ -41,16 +41,16 @@ def collect_gold(global_map, players):
     return players
 
 
-def fight(global_map):
+def fight(global_map, fights):
     for row in global_map:
         for location in row:
             if isinstance(location, Node):
-                location.fight()
+                fights.extend(location.fight())
     for row in global_map:
         for location in row:
             if location:
-                location.fight()
-    return global_map
+                fights.extend(location.fight())
+    return global_map, fights
 
 
 def spawn_units(global_map, players):
@@ -77,6 +77,17 @@ def move_units(global_map):
     return global_map
 
 
+def update_fights(fights):
+    index = 0
+    while index < len(fights):
+        fights[index].update()
+        if fights[index].should_remove():
+            fights.pop(index)
+        else:
+            index = index + 1
+    return fights
+
+
 def get_existing_homes(global_map, players):
     home_exists = {}
     for p in players:
@@ -93,7 +104,7 @@ def get_existing_homes(global_map, players):
     return home_exists
 
 
-def draw(global_map, win, players, update=True):
+def draw(global_map, win, players, fights, update=True):
     win.blit(BACKGROUND_IMG, (0,0))
     for map_row in global_map:
         for location in map_row:
@@ -101,6 +112,8 @@ def draw(global_map, win, players, update=True):
                 location.draw(win)
     for p in players:
         players[p].draw(win)
+    for f in fights:
+        f.draw(win)
     if update:
         pygame.display.update()
 
@@ -160,6 +173,7 @@ def main():
         PlayerColor.BLUE: SimplePlayer(PlayerColor.BLUE),
         PlayerColor.RED: HumanPlayerInput(PlayerColor.RED)
     }
+    fights = []
     win = pygame.display.set_mode((WIN_WIDTH, WIN_HEIGHT))
     clock = pygame.time.Clock()
     tick_counter = 0
@@ -171,7 +185,8 @@ def main():
         if tick_counter > GAME_UPDATE_TIME:
             tick_counter = 0
             players = collect_gold(global_map, players)
-            global_map = fight(global_map)
+            fights = update_fights(fights)
+            global_map, fights = fight(global_map, fights)
             global_map = move_units(global_map)
             global_map, players = spawn_units(global_map, players)
             home_exists = get_existing_homes(global_map, players)
@@ -179,12 +194,12 @@ def main():
                 winning_player, _ = home_exists.popitem()
             elif len(home_exists) <= 0:
                 winning_player = PlayerColor.NEUTRAL
-        draw(global_map, win, players)
+        draw(global_map, win, players, fights)
 
     while True:
         clock.tick(FPS)
         run, global_map, players = check_input(global_map, players)
-        draw(global_map, win, players, False)
+        draw(global_map, win, players, fights, False)
         draw_victory(winning_player, win)
 
 

@@ -1,5 +1,6 @@
 import util
 from util import Direction
+from fight import Fight
 import unit
 import abc
 from abc import ABC
@@ -57,6 +58,7 @@ class Location(ABC):
         return False
 
     def fight(self):
+        fights = []
         fighting_locations = {}
         fighting_locations = self.add_fighting_neighbor(fighting_locations, Direction.EAST)
         fighting_locations = self.add_fighting_neighbor(fighting_locations, Direction.WEST)
@@ -74,11 +76,14 @@ class Location(ABC):
                 for color in fight_results:
                     if fight_results[color]:
                         round_fighters[color].unit_in_loc = None
-                        round_fighters.pop(color)
+                        dead_loc = round_fighters.pop(color)
+                        fights.append(Fight((dead_loc.x, dead_loc.y)))
                         if len(fighting_locations[color]) == 0:
+                            # If this was the last unit for this player, remove that player from the fight.
                             fighting_locations.pop(color)
                     else:
                         fighting_locations[color].append(round_fighters[color])
+        return fights
 
     def add_fighting_neighbor(self, fighting_locations, neighbor_dir):
         if self.neighbors[neighbor_dir] and self.neighbors[neighbor_dir].unit_in_loc:
