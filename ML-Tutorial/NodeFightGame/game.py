@@ -7,12 +7,19 @@ from humanplayer import HumanPlayerInput
 from simpleplayer import SimplePlayer
 from node import Node, Building
 from road import Road
+pygame.font.init()
 
 
 WIN_WIDTH = 1000
 WIN_HEIGHT = 1000
 
+FPS = 60
+# The time between game updates in milliseconds.
+GAME_UPDATE_TIME = 500
+
 BACKGROUND_IMG = util.load_img("background.png")
+
+VICTORY_FONT = pygame.font.SysFont("comicsans", 50)
 
 
 def check_input(global_map, players):
@@ -70,7 +77,23 @@ def move_units(global_map):
     return global_map
 
 
-def draw(global_map, win, players):
+def get_existing_homes(global_map, players):
+    home_exists = {}
+    for p in players:
+        home_exists[p] = False
+
+    for map_row in global_map:
+        for location in map_row:
+            if location:
+                for p in players:
+                    home_exists[p] = home_exists[p] or location.is_home_node(p)
+    for p in players:
+        if not home_exists[p]:
+            home_exists.pop(p)
+    return home_exists
+
+
+def draw(global_map, win, players, update=True):
     win.blit(BACKGROUND_IMG, (0,0))
     for map_row in global_map:
         for location in map_row:
@@ -78,6 +101,20 @@ def draw(global_map, win, players):
                 location.draw(win)
     for p in players:
         players[p].draw(win)
+    if update:
+        pygame.display.update()
+
+
+def draw_victory(winning_player, win):
+    color = (255, 255, 255)
+    if winning_player == PlayerColor.BLUE:
+        color = (0, 0, 255)
+    elif winning_player == PlayerColor.RED:
+        color = (255, 0, 0)
+    text = VICTORY_FONT.render("Winner: " + str(winning_player), 1, color)
+    x = (WIN_WIDTH / 2) - (text.get_width() / 2)
+    y = (WIN_HEIGHT / 2) - (text.get_height() / 2)
+    win.blit(text, (x, y))
     pygame.display.update()
 
 
@@ -121,23 +158,34 @@ def main():
     global_map = build_map()
     players = {
         PlayerColor.BLUE: SimplePlayer(PlayerColor.BLUE),
-        PlayerColor.RED: SimplePlayer(PlayerColor.RED)
+        PlayerColor.RED: HumanPlayerInput(PlayerColor.RED)
     }
     win = pygame.display.set_mode((WIN_WIDTH, WIN_HEIGHT))
     clock = pygame.time.Clock()
-    run = True
     tick_counter = 0
-    while run:
-        clock.tick(60)
+    winning_player = None
+    while not winning_player:
+        clock.tick(FPS)
         run, global_map, players = check_input(global_map, players)
         tick_counter += clock.get_time()
-        if tick_counter > 500:
+        if tick_counter > GAME_UPDATE_TIME:
             tick_counter = 0
             players = collect_gold(global_map, players)
             global_map = fight(global_map)
             global_map = move_units(global_map)
             global_map, players = spawn_units(global_map, players)
+            home_exists = get_existing_homes(global_map, players)
+            if len(home_exists) == 1:
+                winning_player, _ = home_exists.popitem()
+            elif len(home_exists) <= 0:
+                winning_player = PlayerColor.NEUTRAL
         draw(global_map, win, players)
+
+    while True:
+        clock.tick(FPS)
+        run, global_map, players = check_input(global_map, players)
+        draw(global_map, win, players, False)
+        draw_victory(winning_player, win)
 
 
 main()

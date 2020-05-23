@@ -38,12 +38,12 @@ class Node(Location):
         Location.add_neighbor(self, direction, neighbor, set_neighbor)
 
     def collect_gold(self, players):
-        if self.building and players.keys().__contains__(self.owner):
+        if players.keys().__contains__(self.owner):
             players[self.owner].gold += self.building.generate_gold()
         return players
 
     def attempt_spawn(self, player_gold):
-        if self.building is None or not self.building.can_spawn_unit():
+        if not self.building.can_spawn_unit():
             return player_gold
         if self.spawn_timer > 0:
             self.spawn_timer -= 1
@@ -67,7 +67,7 @@ class Node(Location):
             self.unit_in_loc.direction = self.exit_direction
             if self.owner is not self.unit_in_loc.owner:
                 self.owner = self.unit_in_loc.owner
-                self.building = None
+                self.building.type = BuildingType.EMPTY
 
     def check_click(self, x, y):
         top = self.y * util.NODE_WIDTH
@@ -75,6 +75,9 @@ class Node(Location):
         right = left + util.NODE_WIDTH
         bottom = top + util.NODE_WIDTH
         return left <= x <= right and top <= y <= bottom
+
+    def is_home_node(self, player):
+        return self.owner == player and self.building.type == BuildingType.HOME
 
     def draw_node(self, win, pos):
         if self.owner == PlayerColor.RED:
@@ -112,6 +115,5 @@ class Node(Location):
         pos = (pixel_x, pixel_y)
         self.draw_node(win, pos)
         self.draw_node_exit(win, pos)
-        if self.building:
-            self.building.draw(win, pos)
+        self.building.draw(win, pos)
         self.draw_unit(win, pos)

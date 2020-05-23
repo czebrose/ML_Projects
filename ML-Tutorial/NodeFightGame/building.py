@@ -19,6 +19,9 @@ class Building:
     def can_spawn_unit(self):
         return self.type is BuildingType.HOME or self.type is BuildingType.BARRACKS
 
+    def is_empty(self):
+        return self.type is BuildingType.EMPTY
+
     def generate_gold(self):
         if self.type is BuildingType.HOME:
             return util.HOME_GOLD_PRODUCTION

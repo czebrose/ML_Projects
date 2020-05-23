@@ -53,6 +53,9 @@ class Location(ABC):
     def check_click(self, x, y):
         return False
 
+    def is_home_node(self, player):
+        return False
+
     def fight(self):
         fighting_locations = {}
         fighting_locations = self.add_fighting_neighbor(fighting_locations, Direction.EAST)
