@@ -30,10 +30,11 @@ class Unit:
             return True
 
     def set_direction(self, direction):
-        if self.next_direction:
-            self.anim_direction = self.next_direction
-        else:
-            self.anim_direction = direction
+        if self.time_to_loc <= 0:
+            if self.next_direction:
+                self.anim_direction = self.next_direction
+            else:
+                self.anim_direction = direction
         self.next_direction = direction
 
     def get_direction(self):
@@ -57,8 +58,8 @@ class Unit:
         elif self.anim_direction == Direction.WEST:
             x = 1
         pos_x, pos_y = pos
-        pos_x = pos_x + (x * self.time_to_loc * (util.NODE_WIDTH / 10))
-        pos_y = pos_y + (y * self.time_to_loc * (util.NODE_WIDTH / 10))
+        pos_x = pos_x + (x * self.time_to_loc * (util.NODE_SIZE / 10))
+        pos_y = pos_y + (y * self.time_to_loc * (util.NODE_SIZE / 10))
         self.time_to_loc = self.time_to_loc - 1
         return pos_x, pos_y
 

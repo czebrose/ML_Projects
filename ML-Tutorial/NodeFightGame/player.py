@@ -17,14 +17,19 @@ class PlayerInput(ABC):
     def __init__(self, color):
         self.color = color
         self.highlight_node = None
-        self.gold = 2000
+        self.gold = util.STARTING_GOLD
         self.unit_pref = UnitType.PIKEMAN
 
     def check_input(self, global_map):
         self.highlight_node = self.get_highlight_node(global_map)
         command = self.get_command(global_map)
         self.execute_command(command)
-        return global_map
+
+        target = None
+        if self.highlight_node:
+            target = (self.highlight_node.x, self.highlight_node.y)
+        thought = str(self.color) + "\t" + str(target) + "\t" + str(command) + "\t\t"
+        return global_map, thought
 
     @abc.abstractmethod
     def get_highlight_node(self, global_map) -> object:
@@ -77,23 +82,30 @@ class PlayerInput(ABC):
                 node.building.unit_type = unit_type
                 self.gold -= util.UNIT_TYPE_CHANGE_COST
 
+    # Returns the text rect for the given text.
+    # text: The text which we're getting the rect for
+    # top: The position of the top of that rect
+    def get_text_rect(self, win, text, top):
+        text_rect = text.get_rect()
+        text_rect.top = top
+        if self.color is PlayerColor.RED:
+            text_rect.right = win.get_width()
+        elif self.color is PlayerColor.BLUE:
+            text_rect.left = 0
+        return text_rect
+
     def draw(self, win):
         if self.highlight_node:
-            x = self.highlight_node.x * util.NODE_WIDTH
-            y = self.highlight_node.y * util.NODE_WIDTH
+            x = self.highlight_node.x * util.NODE_SIZE
+            y = self.highlight_node.y * util.NODE_SIZE
             if self.color == PlayerColor.BLUE:
                 win.blit(NODE_HIGHLIGHT_BLUE_IMG, (x, y))
             elif self.color == PlayerColor.RED:
                 win.blit(NODE_HIGHLIGHT_RED_IMG, (x, y))
-        if self.color is PlayerColor.RED:
-            x = util.NODE_WIDTH
-            y = 2 * util.NODE_WIDTH
-            color = (255, 0, 0)
-            text = STAT_FONT.render("Gold: " + str(self.gold), 1, color)
-            win.blit(text, (x, y))
-        if self.color is PlayerColor.BLUE:
-            x = util.NODE_WIDTH
-            y = util.NODE_WIDTH
-            color = (0, 0, 255)
-            text = STAT_FONT.render("Gold: " + str(self.gold), 1, color)
-            win.blit(text, (x, y))
+        color = util.get_color_for_player(self.color)
+        text = STAT_FONT.render("Gold: " + str(self.gold), True, color)
+        text_rect = self.get_text_rect(win, text, 0)
+        win.blit(text, text_rect)
+        text = STAT_FONT.render("Unit: " + str(self.unit_pref), True, color)
+        text_rect = self.get_text_rect(win, text, util.NODE_SIZE)
+        win.blit(text, text_rect)

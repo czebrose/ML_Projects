@@ -18,6 +18,6 @@ class Fight:
 
     def draw(self, win):
         if self.frame_count > 0:
-            pixel_x = self.x * util.NODE_WIDTH
-            pixel_y = self.y * util.NODE_WIDTH
+            pixel_x = self.x * util.NODE_SIZE
+            pixel_y = self.y * util.NODE_SIZE
             win.blit(FIGHT_IMGS[self.frame_count - 1], (pixel_x, pixel_y))

@@ -33,7 +33,7 @@ class SimplePlayer(PlayerInput):
             income = income + (node.building.generate_gold() * util.SPAWN_DELAY)
             if node.building.is_empty():
                 empty_nodes = empty_nodes + 1
-        is_rich = income > expenses * INCOME_TO_EXPENSE_RATIO
+        is_rich = income > expenses * INCOME_TO_EXPENSE_RATIO or self.gold > util.STARTING_GOLD
 
         if random.random() < BUILD_CHANCE or empty_nodes >= MAX_EMPTY_NODES:
             # We want to build a building.
@@ -57,22 +57,35 @@ class SimplePlayer(PlayerInput):
 
     def get_random_valid_direction(self, node):
         choices = []
-        if self.add_direction_command(node, Direction.NORTH):
-            choices.append(PlayerCommands.DIRECTION_NORTH)
-        if self.add_direction_command(node, Direction.WEST):
-            choices.append(PlayerCommands.DIRECTION_WEST)
-        if self.add_direction_command(node, Direction.EAST):
-            choices.append(PlayerCommands.DIRECTION_EAST)
-        if self.add_direction_command(node, Direction.SOUTH):
-            choices.append(PlayerCommands.DIRECTION_SOUTH)
+        enemy_choices = []
+        directions = [Direction.NORTH, Direction.SOUTH, Direction.WEST, Direction.EAST]
+        for d in directions:
+            is_valid_node, is_enemy_node, is_enemy_home = self.add_direction_command(node, d)
+            command = util.get_command_from_direction(d)
+            if is_enemy_home:
+                return command
+            if is_enemy_node:
+                enemy_choices.append(command)
+            if is_valid_node:
+                choices.append(command)
+        if len(enemy_choices) > 0:
+            return random.choice(enemy_choices)
         if len(choices) > 0:
             return random.choice(choices)
         return None
 
+    # Returns three booleans:
+    #    - If this is a valid direction
+    #    - If this is an enemy node
+    #    - If this is an enemy home node
     def add_direction_command(self, node, direction):
         n = node.neighbors[direction]
+        is_valid_node = False
+        is_enemy_node = False
+        is_enemy_home = False
         if n:
             n = n.get_next_node(direction)
-            return n and self.color is not n.owner
-        else:
-            return None
+            is_valid_node = self.color is not n.owner
+            is_enemy_node = is_valid_node and n.owner is not PlayerColor.NEUTRAL
+            is_enemy_home = is_valid_node and n.is_home_node(n.owner)
+        return is_valid_node, is_enemy_node, is_enemy_home

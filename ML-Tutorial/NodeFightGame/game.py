@@ -1,8 +1,7 @@
 import pygame
-import io
 import util
+import os
 from util import Direction, PlayerColor
-from player import PlayerInput
 from humanplayer import HumanPlayerInput
 from simpleplayer import SimplePlayer
 from node import Node, Building
@@ -10,7 +9,7 @@ from road import Road
 pygame.font.init()
 
 
-WIN_WIDTH = 1000
+WIN_WIDTH = 1800
 WIN_HEIGHT = 1000
 
 FPS = 60
@@ -23,13 +22,17 @@ VICTORY_FONT = pygame.font.SysFont("comicsans", 50)
 
 
 def check_input(global_map, players):
-    for event in pygame.event.get():
-        if event.type == pygame.QUIT:
-            pygame.quit()
-            quit()
-            return False, global_map, players
+    if pygame.get_init():
+        for event in pygame.event.get():
+            if event.type == pygame.QUIT:
+                pygame.quit()
+                quit()
+                return False, global_map, players
+    thoughts = ""
     for p in players:
-        global_map = players[p].check_input(global_map)
+        global_map, thought = players[p].check_input(global_map)
+        thoughts = thoughts + thought
+    print(thoughts)
     return True, global_map, players
 
 
@@ -105,7 +108,14 @@ def get_existing_homes(global_map, players):
 
 
 def draw(global_map, win, players, fights, update=True):
-    win.blit(BACKGROUND_IMG, (0,0))
+    bg_x = 0
+    bg_y = 0
+    while bg_y < WIN_HEIGHT:
+        while bg_x < WIN_WIDTH:
+            win.blit(BACKGROUND_IMG, (bg_x, bg_y))
+            bg_x = bg_x + util.BG_WIDTH
+        bg_x = 0
+        bg_y = bg_y + util.BG_HEIGHT
     for map_row in global_map:
         for location in map_row:
             if location:
@@ -142,7 +152,7 @@ def build_map():
     x_index = 0
     y_index = 0
     for c in map_file_contents:
-        if c == 'N' or c == 'B' or c == 'R':
+        if c == 'N' or c == 'M' or c == 'B' or c == 'R':
             node = Node(x_index, y_index, c)
             new_map[y_index].append(node)
             x_index += 1
@@ -164,47 +174,74 @@ def build_map():
                     east_loc = new_map[y][x+1]
                     if east_loc:
                         location.add_neighbor(Direction.EAST, east_loc)
-                if y < len(new_map) - 1:
+                if y < len(new_map) - 1 and new_map[y+1]:
                     south_loc = new_map[y+1][x]
                     if south_loc:
                         location.add_neighbor(Direction.SOUTH, south_loc)
     return new_map
 
 
-def main():
-    global_map = build_map()
-    players = {
-        PlayerColor.BLUE: SimplePlayer(PlayerColor.BLUE),
-        PlayerColor.RED: HumanPlayerInput(PlayerColor.RED)
-    }
-    fights = []
+def update_game(global_map, players, fights, winning_player):
+    players = collect_gold(global_map, players)
+    fights = update_fights(fights)
+    global_map, fights = fight(global_map, fights)
+    global_map = move_units(global_map)
+    global_map, players = spawn_units(global_map, players)
+    home_exists = get_existing_homes(global_map, players)
+    if len(home_exists) == 1:
+        winning_player, _ = home_exists.popitem()
+    elif len(home_exists) <= 0:
+        winning_player = PlayerColor.NEUTRAL
+    return global_map, players, fights, winning_player
+
+
+def run_with_window(global_map, players, fights, winning_player):
+    pygame.init()
+    os.environ['SDL_VIDEO_WINDOW_POS'] = "%d,%d" % (30, 30)
     win = pygame.display.set_mode((WIN_WIDTH, WIN_HEIGHT))
     clock = pygame.time.Clock()
     tick_counter = 0
-    winning_player = None
-    while not winning_player:
+    run = True
+    while not winning_player and run:
         clock.tick(FPS)
         run, global_map, players = check_input(global_map, players)
         tick_counter += clock.get_time()
         if tick_counter > GAME_UPDATE_TIME:
             tick_counter = 0
-            players = collect_gold(global_map, players)
-            fights = update_fights(fights)
-            global_map, fights = fight(global_map, fights)
-            global_map = move_units(global_map)
-            global_map, players = spawn_units(global_map, players)
-            home_exists = get_existing_homes(global_map, players)
-            if len(home_exists) == 1:
-                winning_player, _ = home_exists.popitem()
-            elif len(home_exists) <= 0:
-                winning_player = PlayerColor.NEUTRAL
+            global_map, players, fights, winning_player = update_game(global_map, players, fights, winning_player)
         draw(global_map, win, players, fights)
+    return win, clock, run, winning_player
 
-    while True:
+
+def show_win_screen(win, clock, run, global_map, players, fights, winning_player):
+    while run:
         clock.tick(FPS)
         run, global_map, players = check_input(global_map, players)
         draw(global_map, win, players, fights, False)
         draw_victory(winning_player, win)
 
 
-main()
+def main(show_window):
+    global_map = build_map()
+    players = {
+        PlayerColor.BLUE: SimplePlayer(PlayerColor.BLUE),
+        PlayerColor.RED: SimplePlayer(PlayerColor.RED)
+    }
+    fights = []
+    winning_player = None
+    run = True
+    if show_window:
+        win, clock, run, winning_player = run_with_window(global_map, players, fights, winning_player)
+        show_win_screen(win, clock, run, global_map, players, fights, winning_player)
+    else:
+        while not winning_player and run:
+            run, global_map, players = check_input(global_map, players)
+            global_map, players, fights, winning_player = update_game(global_map, players, fights, winning_player)
+    return winning_player
+
+
+winning_players = []
+show_window = True
+for _ in range(1):
+    winning_players.append(main(show_window))
+print(winning_players)

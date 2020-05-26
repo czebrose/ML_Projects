@@ -58,7 +58,9 @@ class Location(ABC):
         return False
 
     def fight(self):
+        # list of Fight objects
         fights = []
+        # dictionary of PlayerColor to list of locations
         fighting_locations = {}
         fighting_locations = self.add_fighting_neighbor(fighting_locations, Direction.EAST)
         fighting_locations = self.add_fighting_neighbor(fighting_locations, Direction.WEST)
@@ -68,6 +70,7 @@ class Location(ABC):
             fighting_locations = util.add_loc_to_fight_queue(fighting_locations, self.unit_in_loc.owner, self)
 
         while len(fighting_locations.keys()) > 1:
+            # Dictionary of PlayerColor to Location
             round_fighters = {}
             for color in fighting_locations.keys():
                 round_fighters[color] = fighting_locations[color].pop()
@@ -140,8 +143,8 @@ class Location(ABC):
             self.expected_units = []
 
     def get_pixel_pos(self):
-        pixel_x = self.x * util.NODE_WIDTH
-        pixel_y = self.y * util.NODE_WIDTH
+        pixel_x = self.x * util.NODE_SIZE
+        pixel_y = self.y * util.NODE_SIZE
         return pixel_x, pixel_y
 
     @abc.abstractmethod

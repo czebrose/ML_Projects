@@ -3,6 +3,7 @@ import os
 from enum import Enum
 
 
+STARTING_GOLD = 2000
 SPAWN_DELAY = 5
 UNIT_COST = 40
 BUILDING_COST = 300
@@ -11,7 +12,9 @@ DIRECTION_CHANGE_COST = 50
 HOME_GOLD_PRODUCTION = 10
 MINE_GOLD_PRODUCTION = 5
 
-NODE_WIDTH = 50
+NODE_SIZE = 50
+BG_WIDTH = 1000
+BG_HEIGHT = 1000
 
 
 class OrderedEnum(Enum):
@@ -96,8 +99,30 @@ def load_img(img_name):
     return pygame.transform.scale2x(pygame.image.load(os.path.join("imgs", img_name)))
 
 
+# Adds the given location to the fight queue and return the fight queue.
+# fight_queue: dictionary of PlayerColor to a list of Locations
 def add_loc_to_fight_queue(fight_queue, owner, location):
     if not fight_queue.keys().__contains__(owner):
         fight_queue[owner] = []
     fight_queue[owner].append(location)
     return fight_queue
+
+
+def get_command_from_direction(direction):
+    if direction == Direction.NORTH:
+        return PlayerCommands.DIRECTION_NORTH
+    if direction == Direction.SOUTH:
+        return PlayerCommands.DIRECTION_SOUTH
+    if direction == Direction.WEST:
+        return PlayerCommands.DIRECTION_WEST
+    if direction == Direction.EAST:
+        return PlayerCommands.DIRECTION_EAST
+    return PlayerCommands.ERROR
+
+
+def get_color_for_player(player_color):
+    if player_color is PlayerColor.RED:
+        return 255, 0, 0
+    if player_color is PlayerColor.BLUE:
+        return 0, 0, 255
+    return 0, 0, 0
