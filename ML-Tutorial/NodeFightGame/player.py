@@ -16,50 +16,47 @@ STAT_FONT = pygame.font.SysFont("comicsans", 50)
 class PlayerInput(ABC):
     def __init__(self, color):
         self.color = color
-        self.highlight_node = None
+        self.target_node = None
+        self.command = None
         self.gold = util.STARTING_GOLD
         self.unit_pref = UnitType.PIKEMAN
 
     def check_input(self, global_map):
-        self.highlight_node = self.get_highlight_node(global_map)
-        command = self.get_command(global_map)
-        self.execute_command(command)
+        self.update(global_map)
+        self.execute_command()
 
         target = None
-        if self.highlight_node:
-            target = (self.highlight_node.x, self.highlight_node.y)
-        thought = str(self.color) + "\t" + str(target) + "\t" + str(command) + "\t\t"
+        if self.target_node:
+            target = (self.target_node.x, self.target_node.y)
+        thought = str(self.color) + "\t" + str(target) + "\t" + str(self.command) + "\t\t"
         return global_map, thought
 
+    # Must update target_node and command
     @abc.abstractmethod
-    def get_highlight_node(self, global_map) -> object:
-        return None
+    def update(self, global_map):
+        pass
 
-    @abc.abstractmethod
-    def get_command(self, global_map) -> object:
-        return None
-
-    def execute_command(self, command):
-        node = self.highlight_node
-        if command is PlayerCommands.DIRECTION_EAST:
+    def execute_command(self):
+        node = self.target_node
+        if self.command is PlayerCommands.DIRECTION_EAST:
             self.execute_direction_change(node, Direction.EAST)
-        elif command is PlayerCommands.DIRECTION_WEST:
+        elif self.command is PlayerCommands.DIRECTION_WEST:
             self.execute_direction_change(node, Direction.WEST)
-        elif command is PlayerCommands.DIRECTION_NORTH:
+        elif self.command is PlayerCommands.DIRECTION_NORTH:
             self.execute_direction_change(node, Direction.NORTH)
-        elif command is PlayerCommands.DIRECTION_SOUTH:
+        elif self.command is PlayerCommands.DIRECTION_SOUTH:
             self.execute_direction_change(node, Direction.SOUTH)
-        elif command is PlayerCommands.CLEAR_DIRECTION:
+        elif self.command is PlayerCommands.CLEAR_DIRECTION:
             self.execute_direction_change(node, None)
-        elif command is PlayerCommands.BUILD_BARRACKS:
+        elif self.command is PlayerCommands.BUILD_BARRACKS:
             self.execute_build_building(node, BuildingType.BARRACKS)
-        elif command is PlayerCommands.BUILD_MINE:
+        elif self.command is PlayerCommands.BUILD_MINE:
             self.execute_build_building(node, BuildingType.MINE)
-        elif command is PlayerCommands.UNIT_ARCHER:
+        elif self.command is PlayerCommands.UNIT_ARCHER:
             self.execute_unit_change(node, UnitType.ARCHER)
-        elif command is PlayerCommands.UNIT_KNIGHT:
+        elif self.command is PlayerCommands.UNIT_KNIGHT:
             self.execute_unit_change(node, UnitType.KNIGHT)
-        elif command is PlayerCommands.UNIT_PIKEMAN:
+        elif self.command is PlayerCommands.UNIT_PIKEMAN:
             self.execute_unit_change(node, UnitType.PIKEMAN)
 
     def execute_direction_change(self, node, direction):
@@ -95,9 +92,9 @@ class PlayerInput(ABC):
         return text_rect
 
     def draw(self, win):
-        if self.highlight_node:
-            x = self.highlight_node.x * util.NODE_SIZE
-            y = self.highlight_node.y * util.NODE_SIZE
+        if self.target_node:
+            x = self.target_node.x * util.NODE_SIZE
+            y = self.target_node.y * util.NODE_SIZE
             if self.color == PlayerColor.BLUE:
                 win.blit(NODE_HIGHLIGHT_BLUE_IMG, (x, y))
             elif self.color == PlayerColor.RED:

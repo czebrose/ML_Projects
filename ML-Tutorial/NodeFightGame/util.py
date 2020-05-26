@@ -95,6 +95,13 @@ class PlayerCommands(Enum):
     UNIT_KNIGHT = 9
 
 
+class SmartPlayerGoal(Enum):
+    UNKNOWN = 0
+    EXPAND = 1
+    ATTACK = 2
+    DEFEND = 3
+
+
 def load_img(img_name):
     return pygame.transform.scale2x(pygame.image.load(os.path.join("imgs", img_name)))
 

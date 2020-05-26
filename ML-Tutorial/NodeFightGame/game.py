@@ -224,7 +224,7 @@ def show_win_screen(win, clock, run, global_map, players, fights, winning_player
 def main(show_window):
     global_map = build_map()
     players = {
-        PlayerColor.BLUE: SimplePlayer(PlayerColor.BLUE),
+        PlayerColor.BLUE: HumanPlayerInput(PlayerColor.BLUE),
         PlayerColor.RED: SimplePlayer(PlayerColor.RED)
     }
     fights = []
