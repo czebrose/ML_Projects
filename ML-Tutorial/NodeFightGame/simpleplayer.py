@@ -56,36 +56,44 @@ class SimplePlayer(PlayerInput):
         return self.target_command
 
     def get_random_valid_direction(self, node):
-        choices = []
+        good_choices = []
         enemy_choices = []
+        all_choices = []
         directions = [Direction.NORTH, Direction.SOUTH, Direction.WEST, Direction.EAST]
         for d in directions:
-            is_valid_node, is_enemy_node, is_enemy_home = self.add_direction_command(node, d)
+            is_valid_node, is_unfriendly_node, is_enemy_node, is_enemy_home = self.add_direction_command(node, d)
             command = util.get_command_from_direction(d)
             if is_enemy_home:
                 return command
             if is_enemy_node:
                 enemy_choices.append(command)
+            if is_unfriendly_node:
+                good_choices.append(command)
             if is_valid_node:
-                choices.append(command)
+                all_choices.append(command)
         if len(enemy_choices) > 0:
             return random.choice(enemy_choices)
-        if len(choices) > 0:
-            return random.choice(choices)
+        if len(good_choices) > 0:
+            return random.choice(good_choices)
+        if len(all_choices) > 0:
+            return random.choice(all_choices)
         return None
 
     # Returns three booleans:
     #    - If this is a valid direction
+    #    - If this is an unfriendly node
     #    - If this is an enemy node
     #    - If this is an enemy home node
     def add_direction_command(self, node, direction):
         n = node.neighbors[direction]
         is_valid_node = False
+        is_unfriendly_node = False
         is_enemy_node = False
         is_enemy_home = False
         if n:
             n = n.get_next_node(direction)
-            is_valid_node = self.color is not n.owner
-            is_enemy_node = is_valid_node and n.owner is not PlayerColor.NEUTRAL
-            is_enemy_home = is_valid_node and n.is_home_node(n.owner)
-        return is_valid_node, is_enemy_node, is_enemy_home
+            is_valid_node = True
+            is_unfriendly_node = self.color is not n.owner
+            is_enemy_node = is_unfriendly_node and n.owner is not PlayerColor.NEUTRAL
+            is_enemy_home = is_unfriendly_node and n.is_home_node(n.owner)
+        return is_valid_node, is_unfriendly_node, is_enemy_node, is_enemy_home

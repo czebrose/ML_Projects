@@ -60,6 +60,9 @@ class Location(ABC):
     def fight(self):
         # list of Fight objects
         fights = []
+        # only fight if there's a unit here
+        if not self.unit_in_loc:
+            return fights
         # dictionary of PlayerColor to list of locations
         fighting_locations = {}
         fighting_locations = self.add_fighting_neighbor(fighting_locations, Direction.EAST)
