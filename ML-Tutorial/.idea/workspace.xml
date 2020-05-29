@@ -2,11 +2,15 @@
 <project version="4">
   <component name="ChangeListManager">
     <list default="true" id="99563883-c084-4d4d-9a8d-8d9cfba71ea7" name="Default Changelist" comment="">
+      <change afterPath="$PROJECT_DIR$/Misc/tailrecursion.py" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/NodeFightGame/debug.py" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/NodeFightGame/diffusion.py" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/NodeFightGame/game.py" beforeDir="false" afterPath="$PROJECT_DIR$/NodeFightGame/game.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/NodeFightGame/humanplayer.py" beforeDir="false" afterPath="$PROJECT_DIR$/NodeFightGame/humanplayer.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/NodeFightGame/location.py" beforeDir="false" afterPath="$PROJECT_DIR$/NodeFightGame/location.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/NodeFightGame/node.py" beforeDir="false" afterPath="$PROJECT_DIR$/NodeFightGame/node.py" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/NodeFightGame/player.py" beforeDir="false" afterPath="$PROJECT_DIR$/NodeFightGame/player.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/NodeFightGame/simpleplayer.py" beforeDir="false" afterPath="$PROJECT_DIR$/NodeFightGame/simpleplayer.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/NodeFightGame/road.py" beforeDir="false" afterPath="$PROJECT_DIR$/NodeFightGame/road.py" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/NodeFightGame/smartplayer.py" beforeDir="false" afterPath="$PROJECT_DIR$/NodeFightGame/smartplayer.py" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/NodeFightGame/util.py" beforeDir="false" afterPath="$PROJECT_DIR$/NodeFightGame/util.py" afterDir="false" />
     </list>
@@ -37,9 +41,11 @@
     <property name="SHARE_PROJECT_CONFIGURATION_FILES" value="true" />
     <property name="ignore.virus.scanning.warn.message" value="true" />
     <property name="last_opened_file_path" value="$PROJECT_DIR$" />
+    <property name="settings.editor.selected.configurable" value="preferences.keymap" />
   </component>
   <component name="RecentsManager">
     <key name="MoveFile.RECENT_KEYS">
+      <recent name="D:\Work\ML Projects\ML-Tutorial\Misc" />
       <recent name="D:\Work\ML Projects\ML-Tutorial\AlgoTutorials" />
     </key>
   </component>
@@ -107,7 +113,7 @@
       <option name="INPUT_FILE" value="" />
       <method v="2" />
     </configuration>
-    <configuration name="tut-2" type="PythonConfigurationType" factoryName="Python" temporary="true" nameIsGenerated="true">
+    <configuration name="tailrecursion" type="PythonConfigurationType" factoryName="Python" temporary="true" nameIsGenerated="true">
       <module name="ML" />
       <option name="INTERPRETER_OPTIONS" value="" />
       <option name="PARENT_ENVS" value="true" />
@@ -115,11 +121,11 @@
         <env name="PYTHONUNBUFFERED" value="1" />
       </envs>
       <option name="SDK_HOME" value="" />
-      <option name="WORKING_DIRECTORY" value="$PROJECT_DIR$/NNTutorial" />
+      <option name="WORKING_DIRECTORY" value="$PROJECT_DIR$" />
       <option name="IS_MODULE_SDK" value="true" />
       <option name="ADD_CONTENT_ROOTS" value="true" />
       <option name="ADD_SOURCE_ROOTS" value="true" />
-      <option name="SCRIPT_NAME" value="$PROJECT_DIR$/NNTutorial/tut-2.py" />
+      <option name="SCRIPT_NAME" value="D:\Work\ML Projects\ML-Tutorial\Misc\tailrecursion.py" />
       <option name="PARAMETERS" value="" />
       <option name="SHOW_COMMAND_LINE" value="false" />
       <option name="EMULATE_TERMINAL" value="false" />
@@ -152,10 +158,10 @@
     <recent_temporary>
       <list>
         <item itemvalue="Python.game" />
+        <item itemvalue="Python.tailrecursion" />
         <item itemvalue="Python.flappy-display" />
         <item itemvalue="Python.flappy-trainer" />
         <item itemvalue="Python.tut-3" />
-        <item itemvalue="Python.tut-2" />
       </list>
     </recent_temporary>
   </component>
@@ -190,46 +196,50 @@
       <screen x="0" y="0" width="1920" height="1040" />
     </state>
     <state x="1098" y="239" key="FileChooserDialogImpl/1920.-68.1920.1040/0.0.1920.1040@0.0.1920.1040" timestamp="1590427252202" />
-    <state width="1899" height="422" key="GridCell.Tab.0.bottom" timestamp="1590463480219">
-      <screen x="1920" y="-68" width="1920" height="1040" />
+    <state width="1899" height="278" key="GridCell.Tab.0.bottom" timestamp="1590731528004">
+      <screen x="0" y="0" width="1920" height="1040" />
     </state>
-    <state width="1899" height="327" key="GridCell.Tab.0.bottom/1920.-68.1920.1040/0.0.1920.1040@0.0.1920.1040" timestamp="1590453597277" />
-    <state width="1899" height="422" key="GridCell.Tab.0.bottom/1920.-68.1920.1040/0.0.1920.1040@1920.-68.1920.1040" timestamp="1590463480219" />
-    <state width="1899" height="422" key="GridCell.Tab.0.center" timestamp="1590463480219">
-      <screen x="1920" y="-68" width="1920" height="1040" />
+    <state width="1899" height="278" key="GridCell.Tab.0.bottom/1920.-68.1920.1040/0.0.1920.1040@0.0.1920.1040" timestamp="1590731528004" />
+    <state width="1899" height="278" key="GridCell.Tab.0.bottom/1920.-68.1920.1040/0.0.1920.1040@1920.-68.1920.1040" timestamp="1590464140799" />
+    <state width="1899" height="278" key="GridCell.Tab.0.center" timestamp="1590731528004">
+      <screen x="0" y="0" width="1920" height="1040" />
     </state>
-    <state width="1899" height="327" key="GridCell.Tab.0.center/1920.-68.1920.1040/0.0.1920.1040@0.0.1920.1040" timestamp="1590453597277" />
-    <state width="1899" height="422" key="GridCell.Tab.0.center/1920.-68.1920.1040/0.0.1920.1040@1920.-68.1920.1040" timestamp="1590463480219" />
-    <state width="1899" height="422" key="GridCell.Tab.0.left" timestamp="1590463480219">
-      <screen x="1920" y="-68" width="1920" height="1040" />
+    <state width="1899" height="278" key="GridCell.Tab.0.center/1920.-68.1920.1040/0.0.1920.1040@0.0.1920.1040" timestamp="1590731528004" />
+    <state width="1899" height="278" key="GridCell.Tab.0.center/1920.-68.1920.1040/0.0.1920.1040@1920.-68.1920.1040" timestamp="1590464140799" />
+    <state width="1899" height="278" key="GridCell.Tab.0.left" timestamp="1590731528004">
+      <screen x="0" y="0" width="1920" height="1040" />
     </state>
-    <state width="1899" height="327" key="GridCell.Tab.0.left/1920.-68.1920.1040/0.0.1920.1040@0.0.1920.1040" timestamp="1590453597277" />
-    <state width="1899" height="422" key="GridCell.Tab.0.left/1920.-68.1920.1040/0.0.1920.1040@1920.-68.1920.1040" timestamp="1590463480219" />
-    <state width="1899" height="422" key="GridCell.Tab.0.right" timestamp="1590463480219">
-      <screen x="1920" y="-68" width="1920" height="1040" />
+    <state width="1899" height="278" key="GridCell.Tab.0.left/1920.-68.1920.1040/0.0.1920.1040@0.0.1920.1040" timestamp="1590731528004" />
+    <state width="1899" height="278" key="GridCell.Tab.0.left/1920.-68.1920.1040/0.0.1920.1040@1920.-68.1920.1040" timestamp="1590464140799" />
+    <state width="1899" height="278" key="GridCell.Tab.0.right" timestamp="1590731528004">
+      <screen x="0" y="0" width="1920" height="1040" />
     </state>
-    <state width="1899" height="327" key="GridCell.Tab.0.right/1920.-68.1920.1040/0.0.1920.1040@0.0.1920.1040" timestamp="1590453597277" />
-    <state width="1899" height="422" key="GridCell.Tab.0.right/1920.-68.1920.1040/0.0.1920.1040@1920.-68.1920.1040" timestamp="1590463480219" />
-    <state width="1899" height="327" key="GridCell.Tab.1.bottom" timestamp="1590453712931">
-      <screen x="1920" y="-68" width="1920" height="1040" />
+    <state width="1899" height="278" key="GridCell.Tab.0.right/1920.-68.1920.1040/0.0.1920.1040@0.0.1920.1040" timestamp="1590731528004" />
+    <state width="1899" height="278" key="GridCell.Tab.0.right/1920.-68.1920.1040/0.0.1920.1040@1920.-68.1920.1040" timestamp="1590464140799" />
+    <state width="1899" height="327" key="GridCell.Tab.1.bottom" timestamp="1590730684832">
+      <screen x="0" y="0" width="1920" height="1040" />
     </state>
-    <state width="1899" height="327" key="GridCell.Tab.1.bottom/1920.-68.1920.1040/0.0.1920.1040@0.0.1920.1040" timestamp="1590453597196" />
+    <state width="1899" height="327" key="GridCell.Tab.1.bottom/1920.-68.1920.1040/0.0.1920.1040@0.0.1920.1040" timestamp="1590730684832" />
     <state width="1899" height="327" key="GridCell.Tab.1.bottom/1920.-68.1920.1040/0.0.1920.1040@1920.-68.1920.1040" timestamp="1590453712931" />
-    <state width="1899" height="327" key="GridCell.Tab.1.center" timestamp="1590453712931">
-      <screen x="1920" y="-68" width="1920" height="1040" />
+    <state width="1899" height="327" key="GridCell.Tab.1.center" timestamp="1590730684832">
+      <screen x="0" y="0" width="1920" height="1040" />
     </state>
-    <state width="1899" height="327" key="GridCell.Tab.1.center/1920.-68.1920.1040/0.0.1920.1040@0.0.1920.1040" timestamp="1590453597196" />
+    <state width="1899" height="327" key="GridCell.Tab.1.center/1920.-68.1920.1040/0.0.1920.1040@0.0.1920.1040" timestamp="1590730684832" />
     <state width="1899" height="327" key="GridCell.Tab.1.center/1920.-68.1920.1040/0.0.1920.1040@1920.-68.1920.1040" timestamp="1590453712931" />
-    <state width="1899" height="327" key="GridCell.Tab.1.left" timestamp="1590453712931">
-      <screen x="1920" y="-68" width="1920" height="1040" />
+    <state width="1899" height="327" key="GridCell.Tab.1.left" timestamp="1590730684832">
+      <screen x="0" y="0" width="1920" height="1040" />
     </state>
-    <state width="1899" height="327" key="GridCell.Tab.1.left/1920.-68.1920.1040/0.0.1920.1040@0.0.1920.1040" timestamp="1590453597196" />
+    <state width="1899" height="327" key="GridCell.Tab.1.left/1920.-68.1920.1040/0.0.1920.1040@0.0.1920.1040" timestamp="1590730684832" />
     <state width="1899" height="327" key="GridCell.Tab.1.left/1920.-68.1920.1040/0.0.1920.1040@1920.-68.1920.1040" timestamp="1590453712931" />
-    <state width="1899" height="327" key="GridCell.Tab.1.right" timestamp="1590453712931">
-      <screen x="1920" y="-68" width="1920" height="1040" />
+    <state width="1899" height="327" key="GridCell.Tab.1.right" timestamp="1590730684832">
+      <screen x="0" y="0" width="1920" height="1040" />
     </state>
-    <state width="1899" height="327" key="GridCell.Tab.1.right/1920.-68.1920.1040/0.0.1920.1040@0.0.1920.1040" timestamp="1590453597196" />
+    <state width="1899" height="327" key="GridCell.Tab.1.right/1920.-68.1920.1040/0.0.1920.1040@0.0.1920.1040" timestamp="1590730684832" />
     <state width="1899" height="327" key="GridCell.Tab.1.right/1920.-68.1920.1040/0.0.1920.1040@1920.-68.1920.1040" timestamp="1590453712931" />
+    <state x="461" y="162" key="SettingsEditor" timestamp="1590693598346">
+      <screen x="0" y="0" width="1920" height="1040" />
+    </state>
+    <state x="461" y="162" key="SettingsEditor/1920.-68.1920.1040/0.0.1920.1040@0.0.1920.1040" timestamp="1590693598346" />
     <state x="656" y="344" key="com.intellij.ide.util.TipDialog" timestamp="1589589818203">
       <screen x="0" y="0" width="1920" height="1040" />
     </state>
@@ -243,10 +253,10 @@
       <screen x="0" y="0" width="1920" height="1040" />
     </state>
     <state x="701" y="163" key="refactoring.ChangeSignatureDialog/1920.-68.1920.1040/0.0.1920.1040@0.0.1920.1040" timestamp="1589659974342" />
-    <state x="2543" y="157" width="672" height="678" key="search.everywhere.popup" timestamp="1589594949198">
-      <screen x="1920" y="-68" width="1920" height="1040" />
+    <state x="623" y="225" width="672" height="678" key="search.everywhere.popup" timestamp="1590727027475">
+      <screen x="0" y="0" width="1920" height="1040" />
     </state>
-    <state x="623" y="225" width="672" height="678" key="search.everywhere.popup/1920.-68.1920.1040/0.0.1920.1040@0.0.1920.1040" timestamp="1587610927837" />
+    <state x="623" y="225" width="672" height="678" key="search.everywhere.popup/1920.-68.1920.1040/0.0.1920.1040@0.0.1920.1040" timestamp="1590727027475" />
     <state x="2543" y="157" width="672" height="678" key="search.everywhere.popup/1920.-68.1920.1040/0.0.1920.1040@1920.-68.1920.1040" timestamp="1589594949198" />
   </component>
   <component name="XDebuggerManager">

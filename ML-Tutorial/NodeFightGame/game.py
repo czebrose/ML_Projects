@@ -1,5 +1,6 @@
 import pygame
 import util
+import debug
 import os
 from util import Direction, PlayerColor
 from humanplayer import HumanPlayerInput
@@ -28,6 +29,7 @@ def check_input(global_map, players):
                 pygame.quit()
                 quit()
                 return False, global_map, players
+    debug.check_input()
     thoughts = ""
     for p in players:
         global_map, thought = players[p].check_input(global_map)
@@ -42,6 +44,14 @@ def collect_gold(global_map, players):
             if isinstance(location, Node):
                 players = location.collect_gold(players)
     return players
+
+
+def diffuse(global_map):
+    for row in global_map:
+        for location in row:
+            if location:
+                location.diffuse()
+    return global_map
 
 
 def fight(global_map, fights):
@@ -128,6 +138,7 @@ def draw(global_map, win, players, fights, update=True):
         players[p].draw(win)
     for f in fights:
         f.draw(win)
+    debug.draw(win, global_map)
     if update:
         pygame.display.update()
 
@@ -184,6 +195,7 @@ def build_map():
 def update_game(global_map, players, fights, winning_player):
     players = collect_gold(global_map, players)
     fights = update_fights(fights)
+    global_map = diffuse(global_map)
     global_map, fights = fight(global_map, fights)
     global_map = move_units(global_map)
     global_map, players = spawn_units(global_map, players)
@@ -224,7 +236,7 @@ def show_win_screen(win, clock, run, global_map, players, fights, winning_player
 def main(show_window):
     global_map = build_map()
     players = {
-        PlayerColor.BLUE: HumanPlayerInput(PlayerColor.BLUE),
+        PlayerColor.BLUE: SimplePlayer(PlayerColor.BLUE),
         PlayerColor.RED: SimplePlayer(PlayerColor.RED)
     }
     fights = []

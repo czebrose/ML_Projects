@@ -1,6 +1,7 @@
 import util
-from util import Direction
+from util import Direction, PlayerColor
 from fight import Fight
+from diffusion import LocDiffusion
 import unit
 import abc
 from abc import ABC
@@ -18,6 +19,7 @@ class Location(ABC):
         }
         self.unit_in_loc = None
         self.expected_units = []
+        self.diffusion = LocDiffusion()
 
     def add_neighbor(self, direction, neighbor, set_neighbor=True):
         self.neighbors[direction] = neighbor
@@ -56,6 +58,14 @@ class Location(ABC):
 
     def is_home_node(self, player):
         return False
+
+    def diffuse(self):
+        diffusion_neighbors = []
+        for direction in self.neighbors:
+            n = self.neighbors[direction]
+            if n:
+                diffusion_neighbors.append(n.diffusion)
+        self.diffusion.spread(diffusion_neighbors)
 
     def fight(self):
         # list of Fight objects

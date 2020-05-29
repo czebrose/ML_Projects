@@ -97,9 +97,12 @@ class PlayerCommands(Enum):
 
 class SmartPlayerGoal(Enum):
     UNKNOWN = 0
-    EXPAND = 1
-    ATTACK = 2
-    DEFEND = 3
+    EXPLORE = 1
+    EXPAND_MINES = 2
+    EXPAND_BARRACKS = 3
+    ATTACK_WITH_UNITS = 4
+    DEFEND_WITH_UNITS = 5
+    CHANGE_UNIT_TYPE = 6
 
 
 def load_img(img_name):

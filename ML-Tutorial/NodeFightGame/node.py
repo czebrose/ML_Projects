@@ -91,6 +91,17 @@ class Node(Location):
     def is_home_node(self, player):
         return self.owner == player and self.building.type == BuildingType.HOME
 
+    def diffuse(self):
+        diff_value = 0
+        if self.building.is_empty():
+            diff_value = 0.5
+        elif self.is_home_node(self.owner):
+            diff_value = 1.0
+        else:
+            diff_value = 0.8
+        self.diffusion.set_value(diff_value, self.owner)
+        Location.diffuse(self)
+
     def draw_node(self, win, pos):
         if self.owner == PlayerColor.RED:
             win.blit(RED_NODE_IMG, pos)
@@ -127,6 +138,7 @@ class Node(Location):
             win.blit(NODE_EXIT_BLUE_WEST_IMG, pos)
 
     def draw(self, win):
+        Location.draw(self, win)
         pos = self.get_pixel_pos()
         self.draw_node(win, pos)
         self.draw_node_exit(win, pos)

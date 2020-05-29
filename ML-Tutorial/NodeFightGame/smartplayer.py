@@ -12,13 +12,28 @@ class SmartPlayer(PlayerInput):
 
     def update(self, global_map):
         # set target_node and command
+        self.analyze_map(global_map)
+        self.determine_goal()
+        self.pick_node()
+        self.pick_command()
+
+    def analyze_map(self, global_map):
         pass
 
     def determine_goal(self):
         pass
 
     def pick_node(self):
-        pass
+        if self.goal is SmartPlayerGoal.EXPAND:
+            # find the ideal mine location
+            pass
+        elif self.goal is SmartPlayerGoal.ATTACK:
+            # this is
+            pass
+        elif self.goal is SmartPlayerGoal.DEFEND:
+            pass
+        else:
+            pass
 
     def pick_command(self):
         pass

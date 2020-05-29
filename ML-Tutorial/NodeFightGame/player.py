@@ -78,6 +78,7 @@ class PlayerInput(ABC):
             if node.building and node.building.unit_type is not unit_type and self.gold >= util.UNIT_TYPE_CHANGE_COST:
                 node.building.unit_type = unit_type
                 self.gold -= util.UNIT_TYPE_CHANGE_COST
+        self.unit_pref = unit_type
 
     # Returns the text rect for the given text.
     # text: The text which we're getting the rect for
