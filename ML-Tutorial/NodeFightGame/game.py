@@ -19,8 +19,8 @@ GAME_UPDATE_TIME = 500
 
 BACKGROUND_IMG = util.load_img("background.png")
 
-blue_player = HumanPlayerInput(PlayerColor.BLUE)
-red_player = HumanPlayerInput(PlayerColor.RED)
+blue_player = SimplePlayer(PlayerColor.BLUE)
+red_player = SimplePlayer(PlayerColor.RED)
 
 VICTORY_FONT = pygame.font.SysFont("comicsans", 50)
 
@@ -223,7 +223,7 @@ def run_with_window(global_map, players, fights, winning_player):
     tick_counter = 0
     run = True
     while not winning_player and run:
-        clock.tick(FPS)
+        clock.tick_busy_loop()
         print("FPS: ", clock.get_fps())
         run, global_map, players = check_input(global_map, players)
         tick_counter += clock.get_time()

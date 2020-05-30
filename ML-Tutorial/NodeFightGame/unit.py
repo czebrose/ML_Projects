@@ -83,6 +83,7 @@ def get_fight_result(defender_type, attacker_type):
     else:
         return True
 
+
 def resolve_fight_round(round_fighters):
     fight_results = {}
     for color in round_fighters:
