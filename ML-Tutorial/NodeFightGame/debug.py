@@ -1,4 +1,4 @@
-from util import PlayerColor
+from util import PlayerColor, UnitType
 from location import Location
 import pygame
 pygame.font.init()
@@ -32,6 +32,6 @@ def draw(win, global_map):
         for loc in row:
             if isinstance(loc, Location):
                 color = (0, 0, 0)
-                diff_value = "{:.0f}".format(loc.diffusion.get_node_value(player))
+                diff_value = "{:.0f}".format(loc.diffusion.get_unit_value(UnitType.PIKEMAN, player))
                 text = STAT_FONT.render(diff_value, True, color)
                 win.blit(text, loc.get_pixel_pos())

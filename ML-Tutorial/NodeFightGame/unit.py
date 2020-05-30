@@ -20,14 +20,7 @@ class Unit:
 
     # Returns true if the given enemy type would kill this unit.
     def get_fight_result(self, enemy_type):
-        if self.unit_type is UnitType.PIKEMAN:
-            return enemy_type is UnitType.PIKEMAN or enemy_type is UnitType.ARCHER
-        elif self.unit_type is UnitType.ARCHER:
-            return enemy_type is UnitType.ARCHER or enemy_type is UnitType.KNIGHT
-        elif self.unit_type is UnitType.KNIGHT:
-            return enemy_type is UnitType.KNIGHT or enemy_type is UnitType.PIKEMAN
-        else:
-            return True
+        return get_fight_result(self.unit_type, enemy_type)
 
     def set_direction(self, direction):
         if self.time_to_loc <= 0:
@@ -79,6 +72,16 @@ class Unit:
         if self.owner == PlayerColor.BLUE:
             win.blit(blue_img, pos)
 
+
+def get_fight_result(defender_type, attacker_type):
+    if defender_type is UnitType.PIKEMAN:
+        return attacker_type is UnitType.PIKEMAN or attacker_type is UnitType.ARCHER
+    elif defender_type is UnitType.ARCHER:
+        return attacker_type is UnitType.ARCHER or attacker_type is UnitType.KNIGHT
+    elif defender_type is UnitType.KNIGHT:
+        return attacker_type is UnitType.KNIGHT or attacker_type is UnitType.PIKEMAN
+    else:
+        return True
 
 def resolve_fight_round(round_fighters):
     fight_results = {}

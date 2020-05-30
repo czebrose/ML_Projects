@@ -61,6 +61,8 @@ class Location(ABC):
 
     def prepare_diffusion(self):
         self.diffusion.reset()
+        if self.unit_in_loc:
+            self.diffusion.set_unit_value(self.unit_in_loc.unit_type, self.unit_in_loc.owner)
 
     def diffuse(self):
         diffusion_neighbors = []
