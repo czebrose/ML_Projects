@@ -44,7 +44,7 @@ def check_input(global_map, players):
 def collect_gold(global_map, players):
     for row in global_map:
         for location in row:
-            if isinstance(location, Node):
+            if location:
                 players = location.collect_gold(players)
     return players
 
@@ -77,8 +77,8 @@ def fight(global_map, fights):
 def spawn_units(global_map, players):
     for row in global_map:
         for location in row:
-            if isinstance(location, Node):
-                player_gold = location.attempt_spawn(players)
+            if location:
+                players = location.attempt_spawn(players)
     return global_map, players
 
 

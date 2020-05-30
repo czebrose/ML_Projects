@@ -45,20 +45,22 @@ class Node(Location):
         Location.add_neighbor(self, direction, neighbor, set_neighbor)
 
     def collect_gold(self, players):
+        players = Location.collect_gold(self, players)
         if players.keys().__contains__(self.owner):
             players[self.owner].gold += self.building.generate_gold()
         return players
 
-    def attempt_spawn(self, player_gold):
+    def attempt_spawn(self, players):
+        players = Location.attempt_spawn(self, players)
         if not self.building.can_spawn_unit():
-            return player_gold
+            return players
         if self.spawn_timer > 0:
             self.spawn_timer -= 1
-        elif self.unit_in_loc is None and player_gold[self.owner].gold >= util.UNIT_COST:
+        elif self.unit_in_loc is None and players[self.owner].gold >= util.UNIT_COST:
             self.unit_in_loc = Unit(self.building.unit_type, self.owner, self.exit_direction[self.owner])
             self.spawn_timer = util.SPAWN_DELAY
-            player_gold[self.owner].gold -= util.UNIT_COST
-        return player_gold
+            players[self.owner].gold -= util.UNIT_COST
+        return players
 
     def get_direction(self, owner):
         if self.exit_direction.keys().__contains__(owner):
@@ -67,6 +69,7 @@ class Node(Location):
 
     def set_exit_direction(self, owner, direction):
         self.exit_direction[owner] = direction
+        self.diffusion.set_unit_dir_pref(direction, owner)
         if self.unit_in_loc:
             self.unit_in_loc.set_direction(self.exit_direction[self.owner])
 

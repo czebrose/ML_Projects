@@ -24,8 +24,10 @@ def check_input():
         unit_type = UnitType.PIKEMAN
     elif keys[pygame.K_o]:
         unit_type = UnitType.ARCHER
-    elif keys[pygame.K_u]:
+    elif keys[pygame.K_i]:
         unit_type = UnitType.KNIGHT
+    elif keys[pygame.K_u]:
+        unit_type = UnitType.EMPTY
     elif keys[pygame.K_MINUS]:
         show = True
     elif keys[pygame.K_EQUALS]:
@@ -39,6 +41,9 @@ def draw(win, global_map):
         for loc in row:
             if isinstance(loc, Location):
                 color = (0, 0, 0)
-                diff_value = "{:.0f}".format(loc.diffusion.get_unit_value(unit_type, player))
+                if unit_type is UnitType.EMPTY:
+                    diff_value = "{:.0f}".format(loc.diffusion.get_node_value(player))
+                else:
+                    diff_value = "{:.0f}".format(loc.diffusion.get_unit_value(unit_type, player))
                 text = STAT_FONT.render(diff_value, True, color)
                 win.blit(text, loc.get_pixel_pos())

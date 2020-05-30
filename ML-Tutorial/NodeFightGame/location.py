@@ -59,17 +59,23 @@ class Location(ABC):
     def is_home_node(self, player):
         return False
 
+    def collect_gold(self, players):
+        return players
+
+    def attempt_spawn(self, players):
+        return players
+
     def prepare_diffusion(self):
-        self.diffusion.reset()
+        #self.diffusion.reset()
         if self.unit_in_loc:
             self.diffusion.set_unit_value(self.unit_in_loc.unit_type, self.unit_in_loc.owner)
 
     def diffuse(self):
-        diffusion_neighbors = []
+        diffusion_neighbors = {}
         for direction in self.neighbors:
             n = self.neighbors[direction]
             if n:
-                diffusion_neighbors.append(n.diffusion)
+                diffusion_neighbors[direction] = n.diffusion
         self.diffusion.spread(diffusion_neighbors)
 
     def fight(self):
