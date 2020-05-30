@@ -50,7 +50,12 @@ def diffuse(global_map):
     for row in global_map:
         for location in row:
             if location:
-                location.diffuse()
+                location.prepare_diffusion()
+    for _ in range(util.DIFFUSION_CYCLES):
+        for row in global_map:
+            for location in row:
+                if location:
+                    location.diffuse()
     return global_map
 
 

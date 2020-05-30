@@ -89,18 +89,11 @@ class Node(Location):
         return left <= x <= right and top <= y <= bottom
 
     def is_home_node(self, player):
-        return self.owner == player and self.building.type == BuildingType.HOME
+        return self.owner == player and self.building.is_home()
 
-    def diffuse(self):
-        diff_value = 0
-        if self.building.is_empty():
-            diff_value = 0.5
-        elif self.is_home_node(self.owner):
-            diff_value = 1.0
-        else:
-            diff_value = 0.8
-        self.diffusion.set_value(diff_value, self.owner)
-        Location.diffuse(self)
+    def prepare_diffusion(self):
+        Location.prepare_diffusion(self)
+        self.diffusion.set_node_value(self.building, self.owner)
 
     def draw_node(self, win, pos):
         if self.owner == PlayerColor.RED:

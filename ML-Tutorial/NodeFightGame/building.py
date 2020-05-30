@@ -22,6 +22,9 @@ class Building:
     def is_empty(self):
         return self.type is BuildingType.EMPTY
 
+    def is_home(self):
+        return self.type is BuildingType.HOME
+
     def generate_gold(self):
         if self.type is BuildingType.HOME:
             return util.HOME_GOLD_PRODUCTION

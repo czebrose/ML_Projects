@@ -59,6 +59,9 @@ class Location(ABC):
     def is_home_node(self, player):
         return False
 
+    def prepare_diffusion(self):
+        self.diffusion.reset()
+
     def diffuse(self):
         diffusion_neighbors = []
         for direction in self.neighbors:

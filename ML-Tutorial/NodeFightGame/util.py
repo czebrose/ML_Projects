@@ -16,6 +16,8 @@ NODE_SIZE = 50
 BG_WIDTH = 1000
 BG_HEIGHT = 1000
 
+DIFFUSION_CYCLES = 10
+
 
 class OrderedEnum(Enum):
     def __ge__(self, other):
