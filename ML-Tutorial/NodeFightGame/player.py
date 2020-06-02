@@ -71,7 +71,8 @@ class PlayerInput(ABC):
             if self.gold >= util.BUILDING_COST:
                 node.building = Building(building_type, self.unit_pref)
                 self.gold -= util.BUILDING_COST
-                self.unit_pref = UnitType.get_next(self.unit_pref)
+                if node.building.can_spawn_unit():
+                    self.unit_pref = UnitType.get_next(self.unit_pref)
 
     def execute_unit_change(self, node, unit_type):
         if node and node.owner is self.color:

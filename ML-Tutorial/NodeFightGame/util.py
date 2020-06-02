@@ -112,6 +112,7 @@ class PlayerCommands(Enum):
 
 class SmartPlayerGoal(Enum):
     UNKNOWN = 0
+    USE_IMPROVEMENT = 1
     EXPLORE = 1
     EXPAND_MINES = 2
     EXPAND_BARRACKS = 3
@@ -143,6 +144,20 @@ def get_command_from_direction(direction):
     if direction == Direction.EAST:
         return PlayerCommands.DIRECTION_EAST
     return PlayerCommands.ERROR
+
+
+def get_direction_from_command(command):
+    if command == PlayerCommands.DIRECTION_NORTH:
+        return Direction.NORTH
+    if command == PlayerCommands.DIRECTION_EAST:
+        return Direction.EAST
+    if command == PlayerCommands.DIRECTION_WEST:
+        return Direction.WEST
+    if command == PlayerCommands.DIRECTION_SOUTH:
+        return Direction.SOUTH
+    if command == PlayerCommands.CLEAR_DIRECTION:
+        return None
+    return Direction.ERROR
 
 
 def get_color_for_player(player_color):

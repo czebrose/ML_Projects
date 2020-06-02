@@ -55,17 +55,44 @@ class LocDiffusion:
     def get_node_value(self, player):
         return self.node_value[player]
 
+    def get_max_enemy_node_value(self, player):
+        node_value = 0
+        for p in self.node_value:
+            if p is not player and self.node_value[p] > node_value:
+                node_value = self.node_value[p]
+        return node_value
+
     def get_unit_value(self, unit_type, player):
         return self.unit_value[unit_type][player]
+
+    def get_main_unit(self, player):
+        unit_type = None
+        unit_value = 0
+        for u in self.unit_value:
+            if self.unit_value[u][player] > unit_value:
+                unit_value = self.unit_value[u][player]
+                unit_type = u
+        return unit_type, unit_value
+
+    def get_max_enemy_unit_value(self, player):
+        enemy_unit_type = None
+        enemy_unit_value = 0
+        for c in PLAYER_LIST:
+            if c is not player:
+                unit_type, unit_value = self.get_main_unit(c)
+                if unit_value > enemy_unit_value:
+                    enemy_unit_type = unit_type
+                    enemy_unit_value = unit_value
+        enemy_unit_lerp = enemy_unit_value / util.UNIT_VALUE
+        return enemy_unit_type, enemy_unit_value, enemy_unit_lerp
 
     def get_unit_lambda(self, other_unit_type, other_player):
         if self.unit_owner is other_player:
             return util.NEUTRAL_L
-        self_kills_other = unit.get_fight_result(other_unit_type, self.unit_type)
-        other_kills_self = unit.get_fight_result(self.unit_type, other_unit_type)
-        if self_kills_other and other_kills_self:
+        compare_result = unit.compare_unit_types(self.unit_type, other_unit_type)
+        if compare_result == 0:
             return util.SAME_UNIT_L
-        elif self_kills_other:
+        elif compare_result > 0:
             return util.COUNTER_UNIT_L
         else:
             return util.ANTI_COUNTER_UNIT_L

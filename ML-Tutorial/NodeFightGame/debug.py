@@ -8,7 +8,7 @@ STAT_FONT = pygame.font.SysFont("comicsans", 25)
 
 player = PlayerColor.BLUE
 unit_type = UnitType.PIKEMAN
-show = True
+show = False
 
 
 def check_input():

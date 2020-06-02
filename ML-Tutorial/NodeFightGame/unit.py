@@ -84,6 +84,20 @@ def get_fight_result(defender_type, attacker_type):
         return True
 
 
+# Returns 1, if the defender counters the attacker
+# Returns 0, if they are the same unit type
+# Returns -1, if the defender is countered by the attacker
+def compare_unit_types(defender_type, attacker_type):
+    def_kills_att = get_fight_result(attacker_type, defender_type)
+    att_kills_def = get_fight_result(defender_type, attacker_type)
+    if def_kills_att and att_kills_def:
+        return 0
+    elif def_kills_att:
+        return 1
+    else:
+        return -1
+
+
 def resolve_fight_round(round_fighters):
     fight_results = {}
     for color in round_fighters:

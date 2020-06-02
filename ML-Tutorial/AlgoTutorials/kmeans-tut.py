@@ -25,5 +25,6 @@ def bench_k_means(estimator, name, data):
                                       metric='euclidean')))
 
 
+print(digits)
 clf = KMeans(n_clusters=k, init='k-means++', n_init=10)
 bench_k_means(clf, "1", data)

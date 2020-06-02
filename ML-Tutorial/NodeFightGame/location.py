@@ -66,17 +66,19 @@ class Location(ABC):
         return players
 
     def prepare_diffusion(self):
-        #self.diffusion.reset()
         if self.unit_in_loc:
             self.diffusion.set_unit_value(self.unit_in_loc.unit_type, self.unit_in_loc.owner)
 
-    def diffuse(self):
+    def get_neighbors_diffusion(self):
         diffusion_neighbors = {}
         for direction in self.neighbors:
             n = self.neighbors[direction]
             if n:
                 diffusion_neighbors[direction] = n.diffusion
-        self.diffusion.spread(diffusion_neighbors)
+        return diffusion_neighbors
+
+    def diffuse(self):
+        self.diffusion.spread(self.get_neighbors_diffusion())
 
     def fight(self):
         # list of Fight objects

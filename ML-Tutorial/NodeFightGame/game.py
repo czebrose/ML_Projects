@@ -5,6 +5,7 @@ import os
 from util import Direction, PlayerColor
 from humanplayer import HumanPlayerInput
 from simpleplayer import SimplePlayer
+from smartplayer import SmartPlayer
 from node import Node, Building
 from road import Road
 pygame.font.init()
@@ -20,7 +21,7 @@ GAME_UPDATE_TIME = 500
 BACKGROUND_IMG = util.load_img("background.png")
 
 blue_player = SimplePlayer(PlayerColor.BLUE)
-red_player = SimplePlayer(PlayerColor.RED)
+red_player = SmartPlayer(PlayerColor.RED)
 
 VICTORY_FONT = pygame.font.SysFont("comicsans", 50)
 
