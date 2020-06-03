@@ -22,7 +22,6 @@ class PlayerInput(ABC):
         self.unit_pref = UnitType.PIKEMAN
 
     def check_input(self, global_map):
-        self.update(global_map)
         self.execute_command()
 
         target = None

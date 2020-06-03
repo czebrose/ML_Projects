@@ -20,8 +20,13 @@ GAME_UPDATE_TIME = 500
 
 BACKGROUND_IMG = util.load_img("background.png")
 
-blue_player = SimplePlayer(PlayerColor.BLUE)
-red_player = SmartPlayer(PlayerColor.RED)
+blue_player = SmartPlayer(PlayerColor.BLUE)
+red_player = SimplePlayer(PlayerColor.RED)
+
+map_files = ["map_1.txt", "map_2.txt"]
+show_window = False
+run_count = 50
+wins = {PlayerColor.BLUE: 0, PlayerColor.RED: 0}
 
 VICTORY_FONT = pygame.font.SysFont("comicsans", 50)
 
@@ -33,13 +38,19 @@ def check_input(global_map, players):
                 pygame.quit()
                 quit()
                 return False, global_map, players
-    debug.check_input()
+        debug.check_input()
     thoughts = ""
     for p in players:
         global_map, thought = players[p].check_input(global_map)
         thoughts = thoughts + thought
     print(thoughts)
     return True, global_map, players
+
+
+def update_players(global_map, players):
+    for p in players:
+        players[p].update(global_map)
+    return global_map, players
 
 
 def collect_gold(global_map, players):
@@ -165,9 +176,9 @@ def draw_victory(winning_player, win):
     pygame.display.update()
 
 
-def build_map():
+def build_map(map_arg):
     new_map = [[]]
-    map_file = open("map_1.txt", "r")
+    map_file = open(map_arg, "r")
     map_file_contents = map_file.read()
     x_index = 0
     y_index = 0
@@ -202,6 +213,7 @@ def build_map():
 
 
 def update_game(global_map, players, fights, winning_player):
+    global_map, players = update_players(global_map, players)
     players = collect_gold(global_map, players)
     fights = update_fights(fights)
     global_map = diffuse(global_map)
@@ -243,8 +255,8 @@ def show_win_screen(win, clock, run, global_map, players, fights, winning_player
         draw_victory(winning_player, win)
 
 
-def main(show_window):
-    global_map = build_map()
+def main(show_window_arg, map_arg):
+    global_map = build_map(map_arg)
     players = {
         PlayerColor.BLUE: blue_player,
         PlayerColor.RED: red_player
@@ -252,7 +264,7 @@ def main(show_window):
     fights = []
     winning_player = None
     run = True
-    if show_window:
+    if show_window_arg:
         win, clock, run, winning_player = run_with_window(global_map, players, fights, winning_player)
         show_win_screen(win, clock, run, global_map, players, fights, winning_player)
     else:
@@ -263,7 +275,10 @@ def main(show_window):
 
 
 winning_players = []
-show_window = True
-for _ in range(1):
-    winning_players.append(main(show_window))
+for map_iter in map_files:
+    for _ in range(run_count):
+        winner = main(show_window, map_iter)
+        winning_players.append(winner)
+        wins[winner] += 1
+print(wins)
 print(winning_players)

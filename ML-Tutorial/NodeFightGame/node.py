@@ -27,6 +27,7 @@ NODE_EXIT_BLUE_EAST_IMG = pygame.transform.rotate(NODE_EXIT_BLUE_NORTH_IMG, 270)
 class Node(Location):
     def __init__(self, x, y, node_type):
         Location.__init__(self, x, y)
+        self.important = False
         if node_type == 'N' or node_type == 'M':
             self.owner = PlayerColor.NEUTRAL
             self.building = Building(BuildingType.EMPTY, UnitType.EMPTY)
@@ -34,9 +35,11 @@ class Node(Location):
         elif node_type == 'B':
             self.owner = PlayerColor.BLUE
             self.building = Building(BuildingType.HOME, UnitType.PIKEMAN)
+            self.important = True
         elif node_type == 'R':
             self.owner = PlayerColor.RED
             self.building = Building(BuildingType.HOME, UnitType.PIKEMAN)
+            self.important = True
         self.spawn_timer = 0
         self.exit_direction = {PlayerColor.RED: None, PlayerColor.BLUE: None}
         self.unit_in_loc = self.unit_in_loc
@@ -96,7 +99,7 @@ class Node(Location):
 
     def prepare_diffusion(self):
         Location.prepare_diffusion(self)
-        self.diffusion.set_node_value(self.building, self.owner)
+        self.diffusion.set_node_value(self.building, self.important, self.owner)
 
     def draw_node(self, win, pos):
         if self.owner == PlayerColor.RED:

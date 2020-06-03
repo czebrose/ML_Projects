@@ -160,6 +160,20 @@ def get_direction_from_command(command):
     return Direction.ERROR
 
 
+def get_command_from_unit_type(unit_type):
+    if unit_type is UnitType.PIKEMAN:
+        return PlayerCommands.UNIT_PIKEMAN
+    if unit_type is UnitType.ARCHER:
+        return PlayerCommands.UNIT_ARCHER
+    if unit_type is UnitType.KNIGHT:
+        return PlayerCommands.UNIT_KNIGHT
+    return PlayerCommands.ERROR
+
+
+def get_counter_unit_type(unit_type):
+    return UnitType.get_next(unit_type)
+
+
 def get_color_for_player(player_color):
     if player_color is PlayerColor.RED:
         return 255, 0, 0

@@ -33,10 +33,10 @@ class LocDiffusion:
                 self.unit_value[u][color] = float(0)
                 self.unit_lambda[u][color] = util.NEUTRAL_L
 
-    def set_node_value(self, building, player):
+    def set_node_value(self, building, important, player):
         if building.is_empty():
             self.node_value[player] = util.EMPTY_OWNED_NODE_VALUE
-        elif building.is_home():
+        elif building.is_home() or important:
             self.node_value[player] = util.HOME_NODE_VALUE
         else:
             self.node_value[player] = util.BUILDING_NODE_VALUE
@@ -53,14 +53,16 @@ class LocDiffusion:
         self.unit_dir_pref[player] = direction
 
     def get_node_value(self, player):
-        return self.node_value[player]
+        node_lerp = self.node_value[player] / util.HOME_NODE_VALUE
+        return self.node_value[player], node_lerp
 
     def get_max_enemy_node_value(self, player):
         node_value = 0
         for p in self.node_value:
             if p is not player and self.node_value[p] > node_value:
                 node_value = self.node_value[p]
-        return node_value
+        node_lerp = node_value / float(util.HOME_NODE_VALUE)
+        return node_value, node_lerp
 
     def get_unit_value(self, unit_type, player):
         return self.unit_value[unit_type][player]
@@ -68,22 +70,25 @@ class LocDiffusion:
     def get_main_unit(self, player):
         unit_type = None
         unit_value = 0
+        unit_lerp = 0
         for u in self.unit_value:
             if self.unit_value[u][player] > unit_value:
                 unit_value = self.unit_value[u][player]
                 unit_type = u
-        return unit_type, unit_value
+        unit_lerp = unit_value / float(util.UNIT_VALUE)
+        return unit_type, unit_value, unit_lerp
 
     def get_max_enemy_unit_value(self, player):
         enemy_unit_type = None
         enemy_unit_value = 0
+        enemy_unit_lerp = 0
         for c in PLAYER_LIST:
             if c is not player:
-                unit_type, unit_value = self.get_main_unit(c)
+                unit_type, unit_value, unit_lerp = self.get_main_unit(c)
                 if unit_value > enemy_unit_value:
                     enemy_unit_type = unit_type
                     enemy_unit_value = unit_value
-        enemy_unit_lerp = enemy_unit_value / util.UNIT_VALUE
+                    enemy_unit_lerp = unit_lerp
         return enemy_unit_type, enemy_unit_value, enemy_unit_lerp
 
     def get_unit_lambda(self, other_unit_type, other_player):

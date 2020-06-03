@@ -6,8 +6,8 @@ pygame.font.init()
 
 STAT_FONT = pygame.font.SysFont("comicsans", 25)
 
-player = PlayerColor.BLUE
-unit_type = UnitType.PIKEMAN
+player = PlayerColor.NEUTRAL
+unit_type = UnitType.EMPTY
 show = False
 
 
@@ -42,7 +42,8 @@ def draw(win, global_map):
             if isinstance(loc, Location):
                 color = (0, 0, 0)
                 if unit_type is UnitType.EMPTY:
-                    diff_value = "{:.0f}".format(loc.diffusion.get_node_value(player))
+                    node_value, node_lerp = loc.diffusion.get_node_value(player)
+                    diff_value = "{:.0f}".format(node_value)
                 else:
                     diff_value = "{:.0f}".format(loc.diffusion.get_unit_value(unit_type, player))
                 text = STAT_FONT.render(diff_value, True, color)
