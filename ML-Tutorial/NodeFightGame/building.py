@@ -1,5 +1,6 @@
 import util
 from util import UnitType, BuildingType
+from types import DynamicClassAttribute
 
 
 HOME_BUILDING_IMG = util.load_img("building_home.png")
@@ -15,6 +16,10 @@ class Building:
     def __init__(self, b_type, unit_type):
         self.type = b_type
         self.unit_type = unit_type
+
+    @DynamicClassAttribute
+    def name(self):
+        return str([self.type, self.unit_type])
 
     def can_spawn_unit(self):
         return self.type is BuildingType.HOME or self.type is BuildingType.BARRACKS

@@ -2,16 +2,18 @@
 <project version="4">
   <component name="ChangeListManager">
     <list default="true" id="99563883-c084-4d4d-9a8d-8d9cfba71ea7" name="Default Changelist" comment="">
-      <change afterPath="$PROJECT_DIR$/NodeFightGame/map_2.txt" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/NodeFightGame/MDP.py" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/NodeFightGame/config.feedforward.txt" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/NodeFightGame/nn-trainer.py" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/NodeFightGame/nnplayer.py" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/NodeFightGame/debug.py" beforeDir="false" afterPath="$PROJECT_DIR$/NodeFightGame/debug.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/NodeFightGame/diffusion.py" beforeDir="false" afterPath="$PROJECT_DIR$/NodeFightGame/diffusion.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/NodeFightGame/building.py" beforeDir="false" afterPath="$PROJECT_DIR$/NodeFightGame/building.py" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/NodeFightGame/game.py" beforeDir="false" afterPath="$PROJECT_DIR$/NodeFightGame/game.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/NodeFightGame/map_1.txt" beforeDir="false" afterPath="$PROJECT_DIR$/NodeFightGame/map_1.txt" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/NodeFightGame/location.py" beforeDir="false" afterPath="$PROJECT_DIR$/NodeFightGame/location.py" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/NodeFightGame/node.py" beforeDir="false" afterPath="$PROJECT_DIR$/NodeFightGame/node.py" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/NodeFightGame/player.py" beforeDir="false" afterPath="$PROJECT_DIR$/NodeFightGame/player.py" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/NodeFightGame/smartplayer.py" beforeDir="false" afterPath="$PROJECT_DIR$/NodeFightGame/smartplayer.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/NodeFightGame/util.py" beforeDir="false" afterPath="$PROJECT_DIR$/NodeFightGame/util.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/NodeFightGame/unit.py" beforeDir="false" afterPath="$PROJECT_DIR$/NodeFightGame/unit.py" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -51,8 +53,8 @@
       <recent name="D:\Work\ML Projects\ML-Tutorial\AlgoTutorials" />
     </key>
   </component>
-  <component name="RunManager" selected="Python.game">
-    <configuration name="flappy-display" type="PythonConfigurationType" factoryName="Python" temporary="true" nameIsGenerated="true">
+  <component name="RunManager" selected="Python.nn-trainer">
+    <configuration name="MDP" type="PythonConfigurationType" factoryName="Python" temporary="true" nameIsGenerated="true">
       <module name="ML" />
       <option name="INTERPRETER_OPTIONS" value="" />
       <option name="PARENT_ENVS" value="true" />
@@ -60,32 +62,11 @@
         <env name="PYTHONUNBUFFERED" value="1" />
       </envs>
       <option name="SDK_HOME" value="" />
-      <option name="WORKING_DIRECTORY" value="$PROJECT_DIR$/FlappyBirdTutorial" />
+      <option name="WORKING_DIRECTORY" value="$PROJECT_DIR$/NodeFightGame" />
       <option name="IS_MODULE_SDK" value="true" />
       <option name="ADD_CONTENT_ROOTS" value="true" />
       <option name="ADD_SOURCE_ROOTS" value="true" />
-      <option name="SCRIPT_NAME" value="$PROJECT_DIR$/FlappyBirdTutorial/flappy-display.py" />
-      <option name="PARAMETERS" value="" />
-      <option name="SHOW_COMMAND_LINE" value="false" />
-      <option name="EMULATE_TERMINAL" value="false" />
-      <option name="MODULE_MODE" value="false" />
-      <option name="REDIRECT_INPUT" value="false" />
-      <option name="INPUT_FILE" value="" />
-      <method v="2" />
-    </configuration>
-    <configuration name="flappy-trainer" type="PythonConfigurationType" factoryName="Python" temporary="true" nameIsGenerated="true">
-      <module name="ML" />
-      <option name="INTERPRETER_OPTIONS" value="" />
-      <option name="PARENT_ENVS" value="true" />
-      <envs>
-        <env name="PYTHONUNBUFFERED" value="1" />
-      </envs>
-      <option name="SDK_HOME" value="" />
-      <option name="WORKING_DIRECTORY" value="$PROJECT_DIR$/FlappyBirdTutorial" />
-      <option name="IS_MODULE_SDK" value="true" />
-      <option name="ADD_CONTENT_ROOTS" value="true" />
-      <option name="ADD_SOURCE_ROOTS" value="true" />
-      <option name="SCRIPT_NAME" value="D:\Work\ML Projects\ML-Tutorial\FlappyBirdTutorial\flappy-trainer.py" />
+      <option name="SCRIPT_NAME" value="$PROJECT_DIR$/NodeFightGame/MDP.py" />
       <option name="PARAMETERS" value="" />
       <option name="SHOW_COMMAND_LINE" value="false" />
       <option name="EMULATE_TERMINAL" value="false" />
@@ -136,6 +117,27 @@
       <option name="INPUT_FILE" value="" />
       <method v="2" />
     </configuration>
+    <configuration name="nn-trainer" type="PythonConfigurationType" factoryName="Python" temporary="true" nameIsGenerated="true">
+      <module name="ML" />
+      <option name="INTERPRETER_OPTIONS" value="" />
+      <option name="PARENT_ENVS" value="true" />
+      <envs>
+        <env name="PYTHONUNBUFFERED" value="1" />
+      </envs>
+      <option name="SDK_HOME" value="" />
+      <option name="WORKING_DIRECTORY" value="$PROJECT_DIR$/NodeFightGame" />
+      <option name="IS_MODULE_SDK" value="true" />
+      <option name="ADD_CONTENT_ROOTS" value="true" />
+      <option name="ADD_SOURCE_ROOTS" value="true" />
+      <option name="SCRIPT_NAME" value="$PROJECT_DIR$/NodeFightGame/nn-trainer.py" />
+      <option name="PARAMETERS" value="" />
+      <option name="SHOW_COMMAND_LINE" value="false" />
+      <option name="EMULATE_TERMINAL" value="false" />
+      <option name="MODULE_MODE" value="false" />
+      <option name="REDIRECT_INPUT" value="false" />
+      <option name="INPUT_FILE" value="" />
+      <method v="2" />
+    </configuration>
     <configuration name="tailrecursion" type="PythonConfigurationType" factoryName="Python" temporary="true" nameIsGenerated="true">
       <module name="ML" />
       <option name="INTERPRETER_OPTIONS" value="" />
@@ -158,19 +160,19 @@
       <method v="2" />
     </configuration>
     <list>
-      <item itemvalue="Python.flappy-display" />
-      <item itemvalue="Python.flappy-trainer" />
       <item itemvalue="Python.game" />
       <item itemvalue="Python.tailrecursion" />
       <item itemvalue="Python.kmeans-tut" />
+      <item itemvalue="Python.MDP" />
+      <item itemvalue="Python.nn-trainer" />
     </list>
     <recent_temporary>
       <list>
+        <item itemvalue="Python.nn-trainer" />
+        <item itemvalue="Python.MDP" />
         <item itemvalue="Python.game" />
         <item itemvalue="Python.kmeans-tut" />
         <item itemvalue="Python.tailrecursion" />
-        <item itemvalue="Python.flappy-display" />
-        <item itemvalue="Python.flappy-trainer" />
       </list>
     </recent_temporary>
   </component>
@@ -198,63 +200,68 @@
       <screen x="0" y="0" width="1920" height="1040" />
     </state>
     <state x="714" y="131" key="#com.intellij.refactoring.rename.AutomaticRenamingDialog/1920.-68.1920.1040/0.0.1920.1040@0.0.1920.1040" timestamp="1589143447466" />
-    <state width="687" height="466" key="DebuggerActiveHint" timestamp="1590857245721">
+    <state width="1501" height="466" key="DebuggerActiveHint" timestamp="1591281698844">
       <screen x="0" y="0" width="1920" height="1040" />
     </state>
+    <state width="1501" height="466" key="DebuggerActiveHint/0.0.1920.1040/1920.-61.1920.1040@0.0.1920.1040" timestamp="1591281698844" />
     <state width="687" height="466" key="DebuggerActiveHint/1920.-68.1920.1040/0.0.1920.1040@0.0.1920.1040" timestamp="1590857245721" />
     <state x="1098" y="239" key="FileChooserDialogImpl" timestamp="1590427252202">
       <screen x="0" y="0" width="1920" height="1040" />
     </state>
     <state x="1098" y="239" key="FileChooserDialogImpl/1920.-68.1920.1040/0.0.1920.1040@0.0.1920.1040" timestamp="1590427252202" />
-    <state width="1899" height="259" key="GridCell.Tab.0.bottom" timestamp="1591223202242">
-      <screen x="1920" y="-61" width="1920" height="1040" />
+    <state width="1899" height="409" key="GridCell.Tab.0.bottom" timestamp="1591299164200">
+      <screen x="0" y="0" width="1920" height="1040" />
     </state>
-    <state width="1899" height="424" key="GridCell.Tab.0.bottom/0.0.1920.1040/1920.-61.1920.1040@0.0.1920.1040" timestamp="1591214724063" />
+    <state width="1899" height="409" key="GridCell.Tab.0.bottom/0.0.1920.1040/1920.-61.1920.1040@0.0.1920.1040" timestamp="1591299164200" />
     <state width="1899" height="259" key="GridCell.Tab.0.bottom/0.0.1920.1040/1920.-61.1920.1040@1920.-61.1920.1040" timestamp="1591223202242" />
     <state width="1899" height="310" key="GridCell.Tab.0.bottom/1920.-68.1920.1040/0.0.1920.1040@0.0.1920.1040" timestamp="1590963117798" />
     <state width="1899" height="235" key="GridCell.Tab.0.bottom/1920.-68.1920.1040/0.0.1920.1040@1920.-68.1920.1040" timestamp="1590861295402" />
-    <state width="1899" height="259" key="GridCell.Tab.0.center" timestamp="1591223202242">
-      <screen x="1920" y="-61" width="1920" height="1040" />
+    <state width="1899" height="409" key="GridCell.Tab.0.center" timestamp="1591299164200">
+      <screen x="0" y="0" width="1920" height="1040" />
     </state>
-    <state width="1899" height="424" key="GridCell.Tab.0.center/0.0.1920.1040/1920.-61.1920.1040@0.0.1920.1040" timestamp="1591214724063" />
+    <state width="1899" height="409" key="GridCell.Tab.0.center/0.0.1920.1040/1920.-61.1920.1040@0.0.1920.1040" timestamp="1591299164200" />
     <state width="1899" height="259" key="GridCell.Tab.0.center/0.0.1920.1040/1920.-61.1920.1040@1920.-61.1920.1040" timestamp="1591223202242" />
     <state width="1899" height="310" key="GridCell.Tab.0.center/1920.-68.1920.1040/0.0.1920.1040@0.0.1920.1040" timestamp="1590963117798" />
     <state width="1899" height="235" key="GridCell.Tab.0.center/1920.-68.1920.1040/0.0.1920.1040@1920.-68.1920.1040" timestamp="1590861295402" />
-    <state width="1899" height="259" key="GridCell.Tab.0.left" timestamp="1591223202242">
-      <screen x="1920" y="-61" width="1920" height="1040" />
+    <state width="1899" height="409" key="GridCell.Tab.0.left" timestamp="1591299164200">
+      <screen x="0" y="0" width="1920" height="1040" />
     </state>
-    <state width="1899" height="424" key="GridCell.Tab.0.left/0.0.1920.1040/1920.-61.1920.1040@0.0.1920.1040" timestamp="1591214724063" />
+    <state width="1899" height="409" key="GridCell.Tab.0.left/0.0.1920.1040/1920.-61.1920.1040@0.0.1920.1040" timestamp="1591299164200" />
     <state width="1899" height="259" key="GridCell.Tab.0.left/0.0.1920.1040/1920.-61.1920.1040@1920.-61.1920.1040" timestamp="1591223202242" />
     <state width="1899" height="310" key="GridCell.Tab.0.left/1920.-68.1920.1040/0.0.1920.1040@0.0.1920.1040" timestamp="1590963117798" />
     <state width="1899" height="235" key="GridCell.Tab.0.left/1920.-68.1920.1040/0.0.1920.1040@1920.-68.1920.1040" timestamp="1590861295402" />
-    <state width="1899" height="259" key="GridCell.Tab.0.right" timestamp="1591223202242">
-      <screen x="1920" y="-61" width="1920" height="1040" />
+    <state width="1899" height="409" key="GridCell.Tab.0.right" timestamp="1591299164200">
+      <screen x="0" y="0" width="1920" height="1040" />
     </state>
-    <state width="1899" height="424" key="GridCell.Tab.0.right/0.0.1920.1040/1920.-61.1920.1040@0.0.1920.1040" timestamp="1591214724063" />
+    <state width="1899" height="409" key="GridCell.Tab.0.right/0.0.1920.1040/1920.-61.1920.1040@0.0.1920.1040" timestamp="1591299164200" />
     <state width="1899" height="259" key="GridCell.Tab.0.right/0.0.1920.1040/1920.-61.1920.1040@1920.-61.1920.1040" timestamp="1591223202242" />
     <state width="1899" height="310" key="GridCell.Tab.0.right/1920.-68.1920.1040/0.0.1920.1040@0.0.1920.1040" timestamp="1590963117798" />
     <state width="1899" height="235" key="GridCell.Tab.0.right/1920.-68.1920.1040/0.0.1920.1040@1920.-68.1920.1040" timestamp="1590861295402" />
-    <state width="1899" height="317" key="GridCell.Tab.1.bottom" timestamp="1591222084090">
-      <screen x="1920" y="-61" width="1920" height="1040" />
+    <state width="1899" height="185" key="GridCell.Tab.1.bottom" timestamp="1591296771538">
+      <screen x="0" y="0" width="1920" height="1040" />
     </state>
+    <state width="1899" height="185" key="GridCell.Tab.1.bottom/0.0.1920.1040/1920.-61.1920.1040@0.0.1920.1040" timestamp="1591296771538" />
     <state width="1899" height="317" key="GridCell.Tab.1.bottom/0.0.1920.1040/1920.-61.1920.1040@1920.-61.1920.1040" timestamp="1591222084090" />
     <state width="1899" height="380" key="GridCell.Tab.1.bottom/1920.-68.1920.1040/0.0.1920.1040@0.0.1920.1040" timestamp="1590957973833" />
     <state width="1899" height="464" key="GridCell.Tab.1.bottom/1920.-68.1920.1040/0.0.1920.1040@1920.-68.1920.1040" timestamp="1590859235516" />
-    <state width="1899" height="317" key="GridCell.Tab.1.center" timestamp="1591222084090">
-      <screen x="1920" y="-61" width="1920" height="1040" />
+    <state width="1899" height="185" key="GridCell.Tab.1.center" timestamp="1591296771538">
+      <screen x="0" y="0" width="1920" height="1040" />
     </state>
+    <state width="1899" height="185" key="GridCell.Tab.1.center/0.0.1920.1040/1920.-61.1920.1040@0.0.1920.1040" timestamp="1591296771538" />
     <state width="1899" height="317" key="GridCell.Tab.1.center/0.0.1920.1040/1920.-61.1920.1040@1920.-61.1920.1040" timestamp="1591222084090" />
     <state width="1899" height="380" key="GridCell.Tab.1.center/1920.-68.1920.1040/0.0.1920.1040@0.0.1920.1040" timestamp="1590957973832" />
     <state width="1899" height="464" key="GridCell.Tab.1.center/1920.-68.1920.1040/0.0.1920.1040@1920.-68.1920.1040" timestamp="1590859235516" />
-    <state width="1899" height="317" key="GridCell.Tab.1.left" timestamp="1591222084090">
-      <screen x="1920" y="-61" width="1920" height="1040" />
+    <state width="1899" height="185" key="GridCell.Tab.1.left" timestamp="1591296771538">
+      <screen x="0" y="0" width="1920" height="1040" />
     </state>
+    <state width="1899" height="185" key="GridCell.Tab.1.left/0.0.1920.1040/1920.-61.1920.1040@0.0.1920.1040" timestamp="1591296771538" />
     <state width="1899" height="317" key="GridCell.Tab.1.left/0.0.1920.1040/1920.-61.1920.1040@1920.-61.1920.1040" timestamp="1591222084090" />
     <state width="1899" height="380" key="GridCell.Tab.1.left/1920.-68.1920.1040/0.0.1920.1040@0.0.1920.1040" timestamp="1590957973832" />
     <state width="1899" height="464" key="GridCell.Tab.1.left/1920.-68.1920.1040/0.0.1920.1040@1920.-68.1920.1040" timestamp="1590859235516" />
-    <state width="1899" height="317" key="GridCell.Tab.1.right" timestamp="1591222084090">
-      <screen x="1920" y="-61" width="1920" height="1040" />
+    <state width="1899" height="185" key="GridCell.Tab.1.right" timestamp="1591296771538">
+      <screen x="0" y="0" width="1920" height="1040" />
     </state>
+    <state width="1899" height="185" key="GridCell.Tab.1.right/0.0.1920.1040/1920.-61.1920.1040@0.0.1920.1040" timestamp="1591296771538" />
     <state width="1899" height="317" key="GridCell.Tab.1.right/0.0.1920.1040/1920.-61.1920.1040@1920.-61.1920.1040" timestamp="1591222084090" />
     <state width="1899" height="380" key="GridCell.Tab.1.right/1920.-68.1920.1040/0.0.1920.1040@0.0.1920.1040" timestamp="1590957973832" />
     <state width="1899" height="464" key="GridCell.Tab.1.right/1920.-68.1920.1040/0.0.1920.1040@1920.-68.1920.1040" timestamp="1590859235516" />
@@ -274,6 +281,10 @@
       <screen x="0" y="0" width="1920" height="1040" />
     </state>
     <state x="0" y="10" width="1915" height="764" maximized="true" key="dock-window-2/1920.-68.1920.1040/0.0.1920.1040@1920.-68.1920.1040" timestamp="1590861048905" />
+    <state x="1920" y="-5" width="1643" height="740" maximized="true" key="dock-window-3" timestamp="1591276788504">
+      <screen x="1920" y="-61" width="1920" height="1040" />
+    </state>
+    <state x="1920" y="-5" width="1643" height="740" maximized="true" key="dock-window-3/0.0.1920.1040/1920.-61.1920.1040@0.0.1920.1040" timestamp="1591276788504" />
     <state x="1015" y="82" width="737" height="804" key="find.popup" timestamp="1590849400963">
       <screen x="0" y="0" width="1920" height="1040" />
     </state>
@@ -310,6 +321,7 @@
         <watch expression="diffusion_neighbors" />
         <watch expression="loc.x" language="Python" />
         <watch expression="loc.y" language="Python" />
+        <watch expression="players" />
       </configuration>
     </watches-manager>
   </component>

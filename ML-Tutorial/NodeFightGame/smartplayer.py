@@ -20,12 +20,13 @@ def check_improvement(best_improvement, best_command, current_quality, test_qual
 
 
 class SmartPlayer(PlayerInput):
+    command = ...  # type: PlayerCommands
+    target_node = ...  # type: Node
+
     def __init__(self, color):
         PlayerInput.__init__(self, color)
         self.goal = SmartPlayerGoal.EXPLORE
         self.expected_gold = self.gold
-        self.target_node = self.target_node
-        self.command = self.command
         self.owned_nodes = []
 
     def update(self, global_map):

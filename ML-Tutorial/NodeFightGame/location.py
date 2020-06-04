@@ -5,6 +5,7 @@ from diffusion import LocDiffusion
 import unit
 import abc
 from abc import ABC
+from types import DynamicClassAttribute
 
 
 class Location(ABC):
@@ -20,6 +21,16 @@ class Location(ABC):
         self.unit_in_loc = None
         self.expected_units = []
         self.diffusion = LocDiffusion()
+
+    @DynamicClassAttribute
+    def name(self):
+        neighbors_data = {}
+        for n in self.neighbors:
+            neighbors_data[n.name] = self.neighbors[n] is not None
+        unit_data = None
+        if self.unit_in_loc:
+            unit_data = self.unit_in_loc.name
+        return str([self.x, self.y, neighbors_data, unit_data])
 
     def add_neighbor(self, direction, neighbor, set_neighbor=True):
         self.neighbors[direction] = neighbor

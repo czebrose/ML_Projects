@@ -255,7 +255,7 @@ def show_win_screen(win, clock, run, global_map, players, fights, winning_player
         draw_victory(winning_player, win)
 
 
-def main(show_window_arg, map_arg):
+def init_game(map_arg):
     global_map = build_map(map_arg)
     players = {
         PlayerColor.BLUE: blue_player,
@@ -263,6 +263,10 @@ def main(show_window_arg, map_arg):
     }
     fights = []
     winning_player = None
+    return global_map, players, fights, winning_player
+
+
+def run_game(show_window_arg, global_map, players, fights, winning_player):
     run = True
     if show_window_arg:
         win, clock, run, winning_player = run_with_window(global_map, players, fights, winning_player)
@@ -274,11 +278,25 @@ def main(show_window_arg, map_arg):
     return winning_player
 
 
-winning_players = []
-for map_iter in map_files:
-    for _ in range(run_count):
-        winner = main(show_window, map_iter)
-        winning_players.append(winner)
-        wins[winner] += 1
-print(wins)
-print(winning_players)
+def train_net(net_player):
+    global_map, players, fights, winning_player = init_game("map_0.txt")
+    players[PlayerColor.BLUE] = net_player
+    net_player.color = PlayerColor.BLUE
+    players[PlayerColor.RED] = SimplePlayer(PlayerColor.RED)
+    winner = run_game(False, global_map, players, fights, winning_player)
+    if winner is PlayerColor.BLUE:
+        net_player.g.fitness = 1
+    else:
+        net_player.g.fitness = 0
+
+
+def main():
+    winning_players = []
+    for map_iter in map_files:
+        global_map, players, fights, winning_player = init_game(map_iter)
+        for _ in range(run_count):
+            winner = run_game(show_window, global_map, players, fights, winning_player)
+            winning_players.append(winner)
+            wins[winner] += 1
+    print(wins)
+    print(winning_players)

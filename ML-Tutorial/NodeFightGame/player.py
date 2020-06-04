@@ -23,7 +23,6 @@ class PlayerInput(ABC):
 
     def check_input(self, global_map):
         self.execute_command()
-
         target = None
         if self.target_node:
             target = (self.target_node.x, self.target_node.y)

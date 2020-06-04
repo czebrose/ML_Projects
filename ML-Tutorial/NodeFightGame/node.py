@@ -4,6 +4,7 @@ from util import Direction, UnitType, PlayerColor, BuildingType
 from unit import Unit
 from location import Location
 from building import Building
+from types import DynamicClassAttribute
 
 
 RED_NODE_IMG = util.load_img("node_red.png")
@@ -43,6 +44,12 @@ class Node(Location):
         self.spawn_timer = 0
         self.exit_direction = {PlayerColor.RED: None, PlayerColor.BLUE: None}
         self.unit_in_loc = self.unit_in_loc
+
+    @DynamicClassAttribute
+    def name(self):
+        name = super().name
+        node_fields = [self.owner, self.building.name, self.important, self.spawn_timer, self.exit_direction]
+        return name + str(node_fields)
 
     def add_neighbor(self, direction, neighbor, set_neighbor=True):
         Location.add_neighbor(self, direction, neighbor, set_neighbor)

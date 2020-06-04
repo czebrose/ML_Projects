@@ -1,5 +1,6 @@
 import util
 from util import PlayerColor, UnitType, Direction
+from types import DynamicClassAttribute
 
 
 BLUE_PIKEMAN_UNIT_IMG = util.load_img("unit_pikeman_blue.png")
@@ -17,6 +18,10 @@ class Unit:
         self.next_direction = direction
         self.anim_direction = direction
         self.time_to_loc = 0
+
+    @DynamicClassAttribute
+    def name(self):
+        return [self.unit_type, self.owner, self.next_direction]
 
     # Returns true if the given enemy type would kill this unit.
     def get_fight_result(self, enemy_type):
