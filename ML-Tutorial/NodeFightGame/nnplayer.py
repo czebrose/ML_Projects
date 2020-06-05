@@ -1,7 +1,11 @@
 import util
+import nnutil
 from util import PlayerColor, PlayerCommands, UnitType, BuildingType, Direction
 from player import PlayerInput
 from node import Node
+import os
+import neat
+import pickle
 
 
 def get_unit_input(unit):
@@ -29,10 +33,23 @@ class NNetPlayer(PlayerInput):
     command = ...  # type: PlayerCommands
     target_node = ...  # type: Node
 
-    def __init__(self, g, net):
-        PlayerInput.__init__(self, PlayerColor.NEUTRAL)
+    def __init__(self, g, net, color=PlayerColor.NEUTRAL):
+        PlayerInput.__init__(self, color)
         self.g = g
         self.net = net
+
+    @classmethod
+    def create_feedforward_from_pickle(cls, pickle_filename, config_filename, color=PlayerColor.NEUTRAL):
+        pickle_ge = nnutil.get_genome(pickle_filename)
+        net = neat.nn.FeedForwardNetwork.create(pickle_ge, nnutil.get_config(config_filename))
+        return cls(pickle_ge, net, color)
+
+    @classmethod
+    def create_recurrent_from_pickle(cls, pickle_filename, config_filename, color=PlayerColor.NEUTRAL):
+        pickle_ge = nnutil.get_genome(pickle_filename)
+        net = neat.nn.RecurrentNetwork.create(pickle_ge, nnutil.get_config(config_filename))
+        return cls(pickle_ge, net, color)
+
 
     def update(self, global_map):
         # update target_node and command
@@ -51,7 +68,6 @@ class NNetPlayer(PlayerInput):
                         if not loc.building.is_empty():
                             owned_buildings += 1
         self.g.fitness = owned_units + 10 * owned_nodes + 20 * owned_buildings
-        print("Fitness is ", self.g.fitness, " Genome: ", self.g.key)
 
         input_vals = [float(self.gold) / util.STARTING_GOLD]
         for n in nodes:

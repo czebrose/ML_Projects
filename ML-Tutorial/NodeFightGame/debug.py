@@ -8,11 +8,12 @@ STAT_FONT = pygame.font.SysFont("comicsans", 25)
 
 player = PlayerColor.NEUTRAL
 unit_type = UnitType.EMPTY
-show = False
+show_diffusion_values = False
+print_player_thoughts = False
 
 
 def check_input():
-    global player, show, unit_type
+    global player, show_diffusion_values, unit_type
     keys = pygame.key.get_pressed()
     if keys[pygame.K_0]:
         player = PlayerColor.RED
@@ -29,13 +30,13 @@ def check_input():
     elif keys[pygame.K_u]:
         unit_type = UnitType.EMPTY
     elif keys[pygame.K_MINUS]:
-        show = True
+        show_diffusion_values = True
     elif keys[pygame.K_EQUALS]:
-        show = False
+        show_diffusion_values = False
 
 
 def draw(win, global_map):
-    if not show:
+    if not show_diffusion_values:
         return
     for row in global_map:
         for loc in row:

@@ -2,6 +2,8 @@
   <dictionary name="corde">
     <words>
       <w>anim</w>
+      <w>feedforward</w>
+      <w>filepath</w>
       <w>imgs</w>
       <w>lerp</w>
       <w>pikeman</w>

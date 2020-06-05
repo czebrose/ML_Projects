@@ -20,31 +20,26 @@ GAME_UPDATE_TIME = 500
 
 BACKGROUND_IMG = util.load_img("background.png")
 
-blue_player = SmartPlayer(PlayerColor.BLUE)
-red_player = SimplePlayer(PlayerColor.RED)
-
-map_files = ["map_1.txt"]
-show_window = True
-run_count = 1
-wins = {PlayerColor.BLUE: 0, PlayerColor.RED: 0}
-
 VICTORY_FONT = pygame.font.SysFont("comicsans", 50)
 
 
 def check_input(global_map, players):
+    run = True
     if pygame.get_init():
         for event in pygame.event.get():
             if event.type == pygame.QUIT:
                 pygame.quit()
                 quit()
-                return False, global_map, players
+                run = False
+                return run, global_map, players
         debug.check_input()
     thoughts = ""
     for p in players:
         global_map, thought = players[p].check_input(global_map)
         thoughts = thoughts + thought
-    print(thoughts)
-    return True, global_map, players
+    if debug.print_player_thoughts:
+        print(thoughts)
+    return run, global_map, players
 
 
 def update_players(global_map, players):
@@ -255,12 +250,13 @@ def show_win_screen(win, clock, run, global_map, players, fights, winning_player
         draw_victory(winning_player, win)
 
 
-def init_game(map_arg):
+def init_game(map_arg, players=None):
+    if not players:
+        players = {
+            PlayerColor.BLUE: HumanPlayerInput,
+            PlayerColor.RED: SimplePlayer
+        }
     global_map = build_map(map_arg)
-    players = {
-        PlayerColor.BLUE: blue_player,
-        PlayerColor.RED: red_player
-    }
     fights = []
     winning_player = None
     return global_map, players, fights, winning_player
@@ -277,26 +273,4 @@ def run_game(show_window_arg, global_map, players, fights, winning_player, max_u
             update_count += 1
             run, global_map, players = check_input(global_map, players)
             global_map, players, fights, winning_player = update_game(global_map, players, fights, winning_player)
-    return winning_player
-
-
-def train_net(net_player):
-    global_map, players, fights, winning_player = init_game("map_0.txt")
-    players[PlayerColor.BLUE] = net_player
-    net_player.color = PlayerColor.BLUE
-    players[PlayerColor.RED] = SimplePlayer(PlayerColor.RED)
-    winner = run_game(False, global_map, players, fights, winning_player)
-    if winner is PlayerColor.BLUE:
-        net_player.g.fitness += 10000
-
-
-def main():
-    winning_players = []
-    for map_iter in map_files:
-        global_map, players, fights, winning_player = init_game(map_iter)
-        for _ in range(run_count):
-            winner = run_game(show_window, global_map, players, fights, winning_player)
-            winning_players.append(winner)
-            wins[winner] += 1
-    print(wins)
-    print(winning_players)
+    return winning_player, global_map
