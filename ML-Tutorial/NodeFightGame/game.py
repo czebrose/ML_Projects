@@ -23,9 +23,9 @@ BACKGROUND_IMG = util.load_img("background.png")
 blue_player = SmartPlayer(PlayerColor.BLUE)
 red_player = SimplePlayer(PlayerColor.RED)
 
-map_files = ["map_1.txt", "map_2.txt"]
-show_window = False
-run_count = 50
+map_files = ["map_1.txt"]
+show_window = True
+run_count = 1
 wins = {PlayerColor.BLUE: 0, PlayerColor.RED: 0}
 
 VICTORY_FONT = pygame.font.SysFont("comicsans", 50)
@@ -266,13 +266,15 @@ def init_game(map_arg):
     return global_map, players, fights, winning_player
 
 
-def run_game(show_window_arg, global_map, players, fights, winning_player):
+def run_game(show_window_arg, global_map, players, fights, winning_player, max_updates=10000):
     run = True
+    update_count = 0
     if show_window_arg:
         win, clock, run, winning_player = run_with_window(global_map, players, fights, winning_player)
         show_win_screen(win, clock, run, global_map, players, fights, winning_player)
     else:
-        while not winning_player and run:
+        while not winning_player and run and update_count < max_updates:
+            update_count += 1
             run, global_map, players = check_input(global_map, players)
             global_map, players, fights, winning_player = update_game(global_map, players, fights, winning_player)
     return winning_player
@@ -285,9 +287,7 @@ def train_net(net_player):
     players[PlayerColor.RED] = SimplePlayer(PlayerColor.RED)
     winner = run_game(False, global_map, players, fights, winning_player)
     if winner is PlayerColor.BLUE:
-        net_player.g.fitness = 1
-    else:
-        net_player.g.fitness = 0
+        net_player.g.fitness += 10000
 
 
 def main():

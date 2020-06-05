@@ -30,7 +30,7 @@ def run(config_path):
     stats = neat.StatisticsReporter()
     p.add_reporter(stats)
 
-    winner = p.run(main, 5)
+    winner = p.run(main, 50)
 
     with open("best-node-net.pickle", "wb") as f:
         pickle.dump(winner, f)

@@ -56,11 +56,12 @@ class OrderedEnum(Enum):
 
 class Direction(OrderedEnum):
     ERROR = -1
-    NORTH = 0
-    SOUTH = 1
-    WEST = 2
-    EAST = 3
-    MAX = 10
+    NONE = 0
+    NORTH = 1
+    SOUTH = 2
+    WEST = 3
+    EAST = 4
+    MAX = 4
 
 
 class BuildingType(Enum):
@@ -69,6 +70,7 @@ class BuildingType(Enum):
     HOME = 1
     MINE = 2
     BARRACKS = 3
+    MAX = 3
 
 
 class UnitType(Enum):
@@ -77,6 +79,7 @@ class UnitType(Enum):
     PIKEMAN = 1
     ARCHER = 2
     KNIGHT = 3
+    MAX = 3
 
     @classmethod
     def get_next(cls, unit_type):
@@ -94,6 +97,7 @@ class PlayerColor(Enum):
     NEUTRAL = 0
     BLUE = 1
     RED = 2
+    MAX = 2
 
 
 class PlayerCommands(Enum):
