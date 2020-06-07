@@ -50,24 +50,13 @@ class NNetPlayer(PlayerInput):
         net = neat.nn.RecurrentNetwork.create(pickle_ge, nnutil.get_config(config_filename))
         return cls(pickle_ge, net, color)
 
-
     def update(self, global_map):
         # update target_node and command
         nodes = []
-        owned_nodes = 0
-        owned_buildings = 0
-        owned_units = 0
         for row in global_map:
             for loc in row:
-                if loc and loc.unit_in_loc and loc.unit_in_loc.owner is self.color:
-                    owned_units += 1
                 if isinstance(loc, Node):
                     nodes.append(loc)
-                    if loc.owner is self.color:
-                        owned_nodes += 1
-                        if not loc.building.is_empty():
-                            owned_buildings += 1
-        self.g.fitness = owned_units + 10 * owned_nodes + 20 * owned_buildings
 
         input_vals = [float(self.gold) / util.STARTING_GOLD]
         for n in nodes:

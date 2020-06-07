@@ -2,17 +2,8 @@
 <project version="4">
   <component name="ChangeListManager">
     <list default="true" id="99563883-c084-4d4d-9a8d-8d9cfba71ea7" name="Default Changelist" comment="">
-      <change afterPath="$PROJECT_DIR$/NodeFightGame/config.recurrent.txt" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/NodeFightGame/nnutil.py" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/NodeFightGame/play-game.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/.idea/dictionaries/corde.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/dictionaries/corde.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/NodeFightGame/best-node-net.pickle" beforeDir="false" afterPath="$PROJECT_DIR$/NodeFightGame/best-vs-simple-feedforward.pickle" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/NodeFightGame/debug.py" beforeDir="false" afterPath="$PROJECT_DIR$/NodeFightGame/debug.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/NodeFightGame/game.py" beforeDir="false" afterPath="$PROJECT_DIR$/NodeFightGame/game.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/NodeFightGame/map_0.txt" beforeDir="false" afterPath="$PROJECT_DIR$/NodeFightGame/map_0.txt" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/NodeFightGame/nn-trainer.py" beforeDir="false" afterPath="$PROJECT_DIR$/NodeFightGame/nn-trainer.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/NodeFightGame/nnplayer.py" beforeDir="false" afterPath="$PROJECT_DIR$/NodeFightGame/nnplayer.py" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -52,7 +43,7 @@
       <recent name="D:\Work\ML Projects\ML-Tutorial\NodeFightGame" />
     </key>
   </component>
-  <component name="RunManager" selected="Python.play-game">
+  <component name="RunManager" selected="Python.nn-trainer">
     <configuration name="MDP" type="PythonConfigurationType" factoryName="Python" temporary="true" nameIsGenerated="true">
       <module name="ML" />
       <option name="INTERPRETER_OPTIONS" value="" />
@@ -167,8 +158,8 @@
     </list>
     <recent_temporary>
       <list>
-        <item itemvalue="Python.play-game" />
         <item itemvalue="Python.nn-trainer" />
+        <item itemvalue="Python.play-game" />
         <item itemvalue="Python.game" />
         <item itemvalue="Python.MDP" />
         <item itemvalue="Python.kmeans-tut" />
@@ -208,31 +199,31 @@
       <screen x="0" y="0" width="1920" height="1040" />
     </state>
     <state x="1098" y="239" key="FileChooserDialogImpl/1920.-68.1920.1040/0.0.1920.1040@0.0.1920.1040" timestamp="1590427252202" />
-    <state width="1899" height="180" key="GridCell.Tab.0.bottom" timestamp="1591393166110">
+    <state width="1899" height="180" key="GridCell.Tab.0.bottom" timestamp="1591448851640">
       <screen x="0" y="0" width="1920" height="1040" />
     </state>
-    <state width="1899" height="180" key="GridCell.Tab.0.bottom/0.0.1920.1040/1920.-61.1920.1040@0.0.1920.1040" timestamp="1591393166110" />
+    <state width="1899" height="180" key="GridCell.Tab.0.bottom/0.0.1920.1040/1920.-61.1920.1040@0.0.1920.1040" timestamp="1591448851640" />
     <state width="1899" height="259" key="GridCell.Tab.0.bottom/0.0.1920.1040/1920.-61.1920.1040@1920.-61.1920.1040" timestamp="1591223202242" />
     <state width="1899" height="310" key="GridCell.Tab.0.bottom/1920.-68.1920.1040/0.0.1920.1040@0.0.1920.1040" timestamp="1590963117798" />
     <state width="1899" height="235" key="GridCell.Tab.0.bottom/1920.-68.1920.1040/0.0.1920.1040@1920.-68.1920.1040" timestamp="1590861295402" />
-    <state width="1899" height="180" key="GridCell.Tab.0.center" timestamp="1591393166110">
+    <state width="1899" height="180" key="GridCell.Tab.0.center" timestamp="1591448851640">
       <screen x="0" y="0" width="1920" height="1040" />
     </state>
-    <state width="1899" height="180" key="GridCell.Tab.0.center/0.0.1920.1040/1920.-61.1920.1040@0.0.1920.1040" timestamp="1591393166110" />
+    <state width="1899" height="180" key="GridCell.Tab.0.center/0.0.1920.1040/1920.-61.1920.1040@0.0.1920.1040" timestamp="1591448851640" />
     <state width="1899" height="259" key="GridCell.Tab.0.center/0.0.1920.1040/1920.-61.1920.1040@1920.-61.1920.1040" timestamp="1591223202242" />
     <state width="1899" height="310" key="GridCell.Tab.0.center/1920.-68.1920.1040/0.0.1920.1040@0.0.1920.1040" timestamp="1590963117798" />
     <state width="1899" height="235" key="GridCell.Tab.0.center/1920.-68.1920.1040/0.0.1920.1040@1920.-68.1920.1040" timestamp="1590861295402" />
-    <state width="1899" height="180" key="GridCell.Tab.0.left" timestamp="1591393166110">
+    <state width="1899" height="180" key="GridCell.Tab.0.left" timestamp="1591448851640">
       <screen x="0" y="0" width="1920" height="1040" />
     </state>
-    <state width="1899" height="180" key="GridCell.Tab.0.left/0.0.1920.1040/1920.-61.1920.1040@0.0.1920.1040" timestamp="1591393166110" />
+    <state width="1899" height="180" key="GridCell.Tab.0.left/0.0.1920.1040/1920.-61.1920.1040@0.0.1920.1040" timestamp="1591448851640" />
     <state width="1899" height="259" key="GridCell.Tab.0.left/0.0.1920.1040/1920.-61.1920.1040@1920.-61.1920.1040" timestamp="1591223202242" />
     <state width="1899" height="310" key="GridCell.Tab.0.left/1920.-68.1920.1040/0.0.1920.1040@0.0.1920.1040" timestamp="1590963117798" />
     <state width="1899" height="235" key="GridCell.Tab.0.left/1920.-68.1920.1040/0.0.1920.1040@1920.-68.1920.1040" timestamp="1590861295402" />
-    <state width="1899" height="180" key="GridCell.Tab.0.right" timestamp="1591393166110">
+    <state width="1899" height="180" key="GridCell.Tab.0.right" timestamp="1591448851640">
       <screen x="0" y="0" width="1920" height="1040" />
     </state>
-    <state width="1899" height="180" key="GridCell.Tab.0.right/0.0.1920.1040/1920.-61.1920.1040@0.0.1920.1040" timestamp="1591393166110" />
+    <state width="1899" height="180" key="GridCell.Tab.0.right/0.0.1920.1040/1920.-61.1920.1040@0.0.1920.1040" timestamp="1591448851640" />
     <state width="1899" height="259" key="GridCell.Tab.0.right/0.0.1920.1040/1920.-61.1920.1040@1920.-61.1920.1040" timestamp="1591223202242" />
     <state width="1899" height="310" key="GridCell.Tab.0.right/1920.-68.1920.1040/0.0.1920.1040@0.0.1920.1040" timestamp="1590963117798" />
     <state width="1899" height="235" key="GridCell.Tab.0.right/1920.-68.1920.1040/0.0.1920.1040@1920.-68.1920.1040" timestamp="1590861295402" />

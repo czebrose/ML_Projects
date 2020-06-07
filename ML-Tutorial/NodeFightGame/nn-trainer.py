@@ -14,6 +14,7 @@ config_filename = "config.feedforward.txt"
 map_filename = "map_0.txt"
 pickle_save_file = "best-vs-self-feedforward.pickle"
 max_generations = 50
+max_game_time = 100
 
 
 def train_net_vs_simple(net_player):
@@ -51,18 +52,23 @@ def train_net_vs_other(net_player, other_net_player):
         PlayerColor.RED: other_net_player
     }
     global_map, players, fights, winning_player = game.init_game(map_filename, players)
-    winner, global_map = game.run_game(False, global_map, players, fights, winning_player, 100)
+    winner, global_map = game.run_game(False, global_map, players, fights, winning_player, max_game_time)
 
     for row in global_map:
         for loc in row:
+            if loc and loc.unit_in_loc:
+                if loc.unit_in_loc.owner is net_player.color:
+                    net_player.g.fitness += 1
+                elif loc.unit_in_loc.owner is other_net_player.color:
+                    other_net_player.g.fitness += 1
             if isinstance(loc, Node):
                 if not loc.building.is_empty():
                     if loc.owner is net_player.color:
-                        net_player.g.fitness += 1
+                        net_player.g.fitness += 100
                     elif loc.owner is other_net_player.color:
-                        other_net_player.g.fitness += 1
+                        other_net_player.g.fitness += 100
     if players.__contains__(winner):
-        players[winner].g.fitness += 100
+        players[winner].g.fitness += 1000
     print("Genome: ", net_player.g.key, " Fitness: ", net_player.g.fitness,
           "\tOther Genome: ", other_net_player.g.key, " Fitness: ", other_net_player.g.fitness)
     return winner
